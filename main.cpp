@@ -1,6 +1,7 @@
 #include "ball.h"
 #include "game.h"
 #include "bricks.h"
+#include "welcome_window.h"
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QWidget>
