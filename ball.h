@@ -4,14 +4,16 @@
 #include <QWidget>
 #include <QGraphicsRectItem>
 #include <QObject>
+#include <QPointF>
+#include <QGraphicsEllipseItem>
 
-class ball:public QObject,public QGraphicsRectItem
+
+class ball:public QObject,public QGraphicsEllipseItem
 {
     Q_OBJECT
 public:
     ball();
     void move();
-    void handle_collision_with_bricks();
 public slots:
     void update_ball();
 private:
