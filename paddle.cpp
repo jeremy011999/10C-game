@@ -1,43 +1,34 @@
 #include "paddle.h"
+#include <QGraphicsScene>
+#include <QDebug>
 
-paddle::paddle()
+paddle::paddle():brick_width(50),brick_height(20)
 {
-    setRect(0,0,50,20);
-}
-
-bool paddle::hit_wall_left()
-{
-    if (rectangle.left()==left_side)
-        return false;
-    else
-        return true;
-}
-
-bool paddle::hit_wall_right()
-{
-        if(rectangle.right()==right_side)
-            return false;
-        else
-            return true;
+    setRect(0,0,brick_width,brick_height);
+    setBrush(Qt::red);
 }
 
 void paddle::move_left()
 {
-    x-=10;
+    if (x()<=0)
+        return;
+    else
+        moveBy(-10,0);
 }
 
 void paddle::move_right()
 {
-    x+=10;
+    if(x()+brick_width>=scene()->width())
+        return;
+    else
+        moveBy(10,0);
 }
 
-void paddle::set_left_side(qreal point)
+
+void paddle::keyPressEvent(QKeyEvent *event)
 {
-    left_side=point;
+    switch(event->key()){
+    case Qt::Key_Left:{move_left();break;}
+    case Qt::Key_Right:{move_right();break;}
+    }
 }
-
-void paddle::set_right_side(qreal point)
-{
-    right_side=point;
-}
-

@@ -15,20 +15,15 @@ class paddle:public QObject,public QGraphicsRectItem
 public:
     paddle();
     void move();
-    QRectF rectangle;
-    int x,y,max_width;
-    bool hit_wall_left();
-    bool hit_wall_right();
     void move_left();
     void move_right();
-    void set_left_side(qreal point);
-    void set_right_side(qreal point);
-    qreal left_side, right_side;
-
+    void keyPressEvent(QKeyEvent* event);
+private:
+    int brick_width;
+    int brick_height;
 signals:
 
 public slots:
 };
 
 #endif // PADDLE_H
-

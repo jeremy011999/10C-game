@@ -1,5 +1,4 @@
 #include "welcome_window.h"
-#include "ui_welcome_window.h"
 #include <QWidget>
 #include <QLayout>
 #include <QPushButton>
@@ -12,11 +11,10 @@
 #include <QPaintEvent>
 
 welcome_window::welcome_window(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::welcome_window)
+    QMainWindow(parent)
 {
-    ui->setupUi(this);
-    ui->setupUi(this);
+    this->setMaximumSize(500,400);
+    this->setMinimumSize(500,400);
     QPixmap bkgnd("/Users/danyaelgebaly/Desktop/IceBreakerBackground.png");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
 
@@ -29,6 +27,9 @@ welcome_window::welcome_window(QWidget *parent) :
 
     QPushButton* GameButton = new QPushButton("Start Game");
     GameButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15 px; background-color: rgb(100, 0, 170); color: rgb(255, 255, 255);}"));
+    connect(GameButton,SIGNAL(clicked()),this,SLOT(GameButtonClicked()));
+
+
 
     QPushButton* InstructionButton = new QPushButton("Instructions");
     InstructionButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(20, 170, 255); color: rgb(255, 255, 255);}"));
@@ -45,12 +46,16 @@ welcome_window::welcome_window(QWidget *parent) :
 
 void welcome_window::paintEvent(QPaintEvent *e) {
     QPainter painter(this);
-    painter.drawPixmap(0, 0, QPixmap("/Users/danyaelgebaly/Desktop/IceBreakerBackground.png").scaled(size()));
+    painter.drawPixmap(0, 0, QPixmap(":/IceBreakerBackground.png").scaled(size()));
     QWidget::paintEvent(e);
 }
 
 
 welcome_window::~welcome_window()
 {
-    delete ui;
+}
+
+void welcome_window::GameButtonClicked()
+{
+    emit startGame();
 }

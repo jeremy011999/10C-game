@@ -9,9 +9,6 @@
 #include <QPainter>
 #include <QPaintEvent>
 
-namespace Ui {
-class welcome_window;
-}
 
 class welcome_window : public QMainWindow
 {
@@ -21,9 +18,11 @@ public:
     explicit welcome_window(QWidget *parent = nullptr);
     ~welcome_window();
     void paintEvent(QPaintEvent *e);
-
+public slots:
+    void GameButtonClicked();
+signals:
+    void startGame();
 private:
-    Ui::welcome_window *ui;
     QLabel* welcomePage = nullptr;
     QPushButton* GameButton = nullptr;
     QPushButton* InstructionButton = nullptr;
@@ -32,4 +31,3 @@ private:
 };
 
 #endif // WELCOME_WINDOW_H
-
