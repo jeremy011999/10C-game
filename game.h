@@ -10,6 +10,7 @@
 #include <QGraphicsScene>
 #include <QObject>
 
+
 #ifndef GAME_H
 #define GAME_H
 
@@ -21,9 +22,17 @@ public:
     game();
 public slots:
     void run_game();
+    void setpaddlefocus();
+    void update_score_on_brick_hit();
 private:
-    welcome_window* w = nullptr;
+    QLabel* score_label = nullptr;
+    welcome_window* welcomewindow = nullptr;
+    QWidget* gamewindow = nullptr;
+    QGraphicsScene* gamescene = nullptr;
     int points=0;
+    paddle* mypaddle = nullptr;
+    int game_level = 1;
+
 };
 
 #endif // GAME_H

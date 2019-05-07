@@ -16,6 +16,8 @@ public:
     void move();
 public slots:
     void update_ball();
+signals:
+    void hit_a_brick();
 private:
     int x_velocity;
     int y_velocity;

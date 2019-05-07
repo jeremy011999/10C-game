@@ -37,7 +37,7 @@ void ball::update_ball()
         delete(this);
     }
 
-    //Check for collisions
+    //Check for collisions with items
     QList<QGraphicsItem*> items_ball_hit = collidingItems();
     for(int i=0;i<items_ball_hit.size();i++)
     {
@@ -48,7 +48,9 @@ void ball::update_ball()
             y_velocity = abs(y_velocity);
             x_velocity *= -1;
             hitbrick->update_hit_brick();
+            emit hit_a_brick();
         }
+        //This is outside previous block so that direction switches upon collision with paddle too
         y_velocity*=-1;
     }
     move();
