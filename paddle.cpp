@@ -2,9 +2,9 @@
 #include <QGraphicsScene>
 #include <QDebug>
 
-paddle::paddle():brick_width(50),brick_height(20)
+paddle::paddle():paddle_width(50),paddle_height(20)
 {
-    setRect(0,0,brick_width,brick_height);
+    setRect(0,0,paddle_width,paddle_height);
     setBrush(Qt::red);
 }
 
@@ -18,10 +18,20 @@ void paddle::move_left()
 
 void paddle::move_right()
 {
-    if(x()+brick_width>=scene()->width())
+    if(x()+paddle_width>=scene()->width())
         return;
     else
         moveBy(10,0);
+}
+
+qreal paddle::getMiddleXCoord()
+{
+    return x()+paddle_width/2;
+}
+
+int paddle::getwidth()
+{
+    return paddle_width;
 }
 
 

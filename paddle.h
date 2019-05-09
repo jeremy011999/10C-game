@@ -17,10 +17,12 @@ public:
     void move();
     void move_left();
     void move_right();
+    qreal getMiddleXCoord();
+    int getwidth();
     void keyPressEvent(QKeyEvent* event);
 private:
-    int brick_width;
-    int brick_height;
+    int paddle_width;
+    int paddle_height;
 signals:
 
 public slots:

@@ -75,18 +75,7 @@ void game::run_game()
     focustimer->start(15);
     mypaddle->setFocus();
 
-    //add bricks to the scene
-    for(int j=0;j<4;j++)
-    {
-        for (int i=0;i<9;i++)
-        {
-            int bricklevel = (i+j)%3;
-            brick* brick_to_add = new brick(gamescene->width()/9,25,bricklevel);
-            gamescene->addItem(brick_to_add);
-            //set position of new brick in the scene
-            brick_to_add->setPos(45*i,25*j);
-        }
-    }
+    this->SetUpBricks(2);
 
     //show the scene
     gamewindow->show();
@@ -103,5 +92,38 @@ void game::update_score_on_brick_hit()
     score_label->setText("Score: " + QString::number(points));
 }
 
+void game::SetUpBricks(int game_level)
+{
+    if(game_level==1)
+    {
+        //add bricks to the scene
+        for(int j=0;j<4;j++)
+        {
+            for (int i=0;i<9;i++)
+            {
+                int bricklevel = (i+j)%3;
+                brick* brick_to_add = new brick(gamescene->width()/9,25,bricklevel);
+                gamescene->addItem(brick_to_add);
+                //set position of new brick in the scene
+                brick_to_add->setPos(45*i,25*j);
+            }
+        }
+     }
+    if(game_level==2)
+    {
+        //add bricks to the scene
+        for(int j=0;j<4;j++)
+        {
+            for (int i=0;i<12;i++)
+            {
+                int bricklevel = (i+j)%3;
+                brick* brick_to_add = new brick(gamescene->width()/12,20,bricklevel);
+                gamescene->addItem(brick_to_add);
+                //set position of new brick in the scene
+                brick_to_add->setPos(gamescene->width()/12*i,20*j);
+            }
+        }
+     }
+}
 
 

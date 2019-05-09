@@ -14,15 +14,17 @@ class ball:public QObject,public QGraphicsEllipseItem
 public:
     ball();
     void move();
+    qreal getMiddleXCoord();
 public slots:
     void update_ball();
 signals:
     void hit_a_brick();
 private:
-    int x_velocity;
-    int y_velocity;
+    double x_velocity;
+    double y_velocity;
     int ball_width;
     int ball_height;
+    double ball_speed;
 };
 
 #endif // BALL_H

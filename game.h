@@ -20,6 +20,7 @@ class game : public QObject
     Q_OBJECT
 public:
     game();
+    void SetUpBricks(int game_level);
 public slots:
     void run_game();
     void setpaddlefocus();
