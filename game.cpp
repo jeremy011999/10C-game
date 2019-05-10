@@ -7,27 +7,28 @@
 
 game::game()
 {
-    //Initialize the game class's welcome window
-    welcomewindow = new welcome_window();
-
-    /*
-     * Connect the welcome window to game class to start a game
-     * startGame() is a signal called from welcome_window when the start game button is pressed
-     * run_game() is a slot in game class that starts the game
-     */
-    connect(welcomewindow,SIGNAL(startGame()),this,SLOT(run_game()));
-
-    //Show the welcome window to the user
-    welcomewindow->show();
-
     //Make a window for the game to be played in and give it a layout
     gamewindow = new QWidget;
-    QVBoxLayout* gamelayout = new QVBoxLayout(gamewindow);
+    gamelayout = new QVBoxLayout(gamewindow);
 
+    //Add points label and view  to game layout
+    score_label = new QLabel("Score: " + QString::number(points));
+    gamelayout->addWidget(score_label);
+}
+
+
+void game::setUpGraphicsView()
+{
+    if(gamescene!=nullptr)
+    {
+        gamelayout->removeWidget(view);
+        delete view;
+        delete gamescene;
+    }
 
     //Make Scene and View for gameplay graphics
     gamescene = new QGraphicsScene();
-    QGraphicsView* view = new QGraphicsView(gamescene);
+    view = new QGraphicsView(gamescene);
 
     //Set color of view
     view->setBackgroundBrush(QBrush(QColor(219, 229, 249),Qt::Dense1Pattern));
@@ -36,30 +37,12 @@ game::game()
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-
-    //Add points label and view  to game layout
-    score_label = new QLabel("Score: " + QString::number(points));
-    gamelayout->addWidget(score_label);
-    gamelayout->addWidget(view);
-
     //Fix the size of the view and set the scene size to it
     view->setFixedSize(400,500);
     gamescene->setSceneRect(0,0,400,500);
-}
 
-
-void game::run_game()
-{
-
-
-    //Make ball and add to scene
-    ball* myball = new ball;
-    gamescene->addItem(myball);
-    connect(myball,SIGNAL(hit_a_brick()),this,SLOT(update_score_on_brick_hit()));
-
-    //set position of the ball in the scene
-    myball->setPos(gamescene->width()/2,gamescene->height()/2);
-
+    //Add view to gamelayout
+    gamelayout->addWidget(view);
 
     //make paddle and add to scene
     mypaddle = new paddle;
@@ -74,8 +57,24 @@ void game::run_game()
     connect(focustimer, SIGNAL(timeout()),this,SLOT(setpaddlefocus()));
     focustimer->start(15);
     mypaddle->setFocus();
+}
 
+
+void game::run_game()
+{
+    //Run setUpGraphicsView() to delete any graphics view that was there previously and set up a new one with a paddle
+    setUpGraphicsView();
+
+    //Set up the bricks, parameter is the level
     this->SetUpBricks(2);
+
+    //Make ball and add to scene
+    ball* myball = new ball;
+    gamescene->addItem(myball);
+    connect(myball,SIGNAL(hit_a_brick()),this,SLOT(update_score_on_brick_hit()));
+
+    //set position of the ball in the scene
+    myball->setPos(gamescene->width()/2,gamescene->height()/2);
 
     //show the scene
     gamewindow->show();
@@ -92,6 +91,17 @@ void game::update_score_on_brick_hit()
     score_label->setText("Score: " + QString::number(points));
 }
 
+
+
+
+
+
+
+/*
+ * Make bricks set up
+ *
+ * @param level
+ */
 void game::SetUpBricks(int game_level)
 {
     if(game_level==1)

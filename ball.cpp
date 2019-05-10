@@ -65,7 +65,8 @@ void ball::update_ball()
             hitbrick->update_hit_brick();
             emit hit_a_brick();
         }
-       // This is outside previous block so that direction switches upon collision with paddle too
+
+        //Check if a block isn't hit, but instead a paddle is hit
         else if(typeid(*items_ball_hit[i])==typeid(paddle))
         {
             paddle* hitpaddle = dynamic_cast<paddle*>(items_ball_hit[i]);
@@ -74,15 +75,15 @@ void ball::update_ball()
             double paddle_pos = hitpaddle->getMiddleXCoord();
             if(ball_pos < paddle_pos)
             {
-                reflection_angle = 110+(140-110)*(paddle_pos-ball_pos)/((hitpaddle->getwidth()+ball_width/2)/2);
-                x_velocity = ball_speed*qCos(qDegreesToRadians(static_cast<double>(reflection_angle)));
+                reflection_angle = 100+(140-100)*(paddle_pos-ball_pos)/((hitpaddle->getwidth()+ball_width/2)/2);
+                x_velocity = ball_speed*qCos(qDegreesToRadians((reflection_angle)));
             }
             else if(ball_pos > paddle_pos)
             {
-                reflection_angle = 70-(70-40)*(ball_pos-paddle_pos)/((hitpaddle->getwidth()+ball_width/2)/2);
-                x_velocity = ball_speed*qCos(qDegreesToRadians(static_cast<double>(reflection_angle)));
+                reflection_angle = 80-(80-40)*(ball_pos-paddle_pos)/((hitpaddle->getwidth()+ball_width/2)/2);
+                x_velocity = ball_speed*qCos(qDegreesToRadians((reflection_angle)));
             }
-            y_velocity =-ball_speed*qSin(qDegreesToRadians(static_cast<double>(reflection_angle)));
+            y_velocity = -ball_speed*qSin(qDegreesToRadians(static_cast<double>(reflection_angle)));
         }
     }
     move();

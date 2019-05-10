@@ -20,6 +20,7 @@ class game : public QObject
     Q_OBJECT
 public:
     game();
+    void setUpGraphicsView();
     void SetUpBricks(int game_level);
 public slots:
     void run_game();
@@ -30,7 +31,9 @@ private:
     welcome_window* welcomewindow = nullptr;
     QWidget* gamewindow = nullptr;
     QGraphicsScene* gamescene = nullptr;
+    QGraphicsView* view = nullptr;
     int points=0;
+    QVBoxLayout* gamelayout=nullptr;
     paddle* mypaddle = nullptr;
     int game_level = 1;
 
