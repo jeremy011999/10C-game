@@ -66,7 +66,7 @@ void game::run_game()
     gamescene->addItem(mypaddle);
 
     //set position of the paddle in the scene
-    mypaddle->setPos(gamescene->width()/2,gamescene->height()-20);
+    mypaddle->setPos(gamescene->width()/2,gamescene->height()-30);
 
     //Make paddle focusable and set a timer to make sure nothing else overrides the paddle focus throughout the program
     mypaddle->setFlag(QGraphicsItem::ItemIsFocusable);

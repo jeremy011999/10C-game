@@ -2,7 +2,7 @@
 #include <QGraphicsScene>
 #include <QDebug>
 
-paddle::paddle():paddle_width(50),paddle_height(20)
+paddle::paddle():paddle_width(100),paddle_height(10)
 {
     setRect(0,0,paddle_width,paddle_height);
     setBrush(Qt::red);

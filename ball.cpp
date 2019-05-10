@@ -74,13 +74,13 @@ void ball::update_ball()
             double paddle_pos = hitpaddle->getMiddleXCoord();
             if(ball_pos < paddle_pos)
             {
-                reflection_angle = (1-(paddle_pos-ball_pos)/((hitpaddle->getwidth()+ball_width/2)/2))*60;
-                x_velocity = -1*ball_speed*qCos(qDegreesToRadians(static_cast<double>(reflection_angle)));
+                reflection_angle = 110+(140-110)*(paddle_pos-ball_pos)/((hitpaddle->getwidth()+ball_width/2)/2);
+                x_velocity = ball_speed*qCos(qDegreesToRadians(static_cast<double>(reflection_angle)));
             }
             else if(ball_pos > paddle_pos)
             {
-                reflection_angle = (1-(paddle_pos-ball_pos)/((hitpaddle->getwidth()+ball_width/2)/2))*60;
-                x_velocity = -ball_speed*qCos(qDegreesToRadians(static_cast<double>(reflection_angle)));
+                reflection_angle = 70-(70-40)*(ball_pos-paddle_pos)/((hitpaddle->getwidth()+ball_width/2)/2);
+                x_velocity = ball_speed*qCos(qDegreesToRadians(static_cast<double>(reflection_angle)));
             }
             y_velocity =-ball_speed*qSin(qDegreesToRadians(static_cast<double>(reflection_angle)));
         }
