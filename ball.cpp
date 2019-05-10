@@ -12,7 +12,7 @@
 
 
 
-ball::ball():ball_width(30),ball_height(30),ball_speed(6)
+ball::ball():ball_width(30),ball_height(30),ball_speed(8)
 {
     x_velocity = ball_speed*qCos(qDegreesToRadians(static_cast<double>(135)));
     y_velocity= -ball_speed*qSin(qDegreesToRadians(static_cast<double>(135)));
@@ -47,6 +47,7 @@ void ball::update_ball()
     //If ball hits bottom of screen remove it and clean up its memory
     if(y()+ball_height>scene()->height()&&y_velocity>0)
     {
+        emit ball_hit_ground();
         scene()->removeItem(this);
         delete(this);
         return;
@@ -61,7 +62,6 @@ void ball::update_ball()
         {
             brick* hitbrick = dynamic_cast<brick*>(items_ball_hit[i]);
             y_velocity = abs(y_velocity);
-            x_velocity *= -1;
             hitbrick->update_hit_brick();
             emit hit_a_brick();
         }
