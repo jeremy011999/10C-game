@@ -23,13 +23,16 @@ public:
     game();
     void setUpGraphicsView();
     void SetUpBricks(int game_level);
-    void goToGamePlayWindow();
-    void goToWelcomeWindow();
+    QWidget* getGamePlayWindow();
 public slots:
     void run_game();
     void setpaddlefocus();
     void update_score_on_brick_hit();
     void died();
+    void quitGame();
+signals:
+    void time_to_exit_game_screen();
+    void time_to_enter_results_screen(int totalpoints);
 private:
     QLabel* score_label = nullptr;
     welcome_window* welcomewindow = nullptr;
@@ -40,8 +43,6 @@ private:
     QVBoxLayout* gamePlayLayout=nullptr;
     paddle* mypaddle = nullptr;
     int game_level = 1;
-    QStackedWidget* stackedWidget = nullptr;
-    welcome_window* welcomeWindow = nullptr;
 };
 
 #endif // GAME_H
