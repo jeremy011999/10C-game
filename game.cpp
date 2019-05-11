@@ -17,9 +17,28 @@ game::game()
     connect(quitButton,SIGNAL(clicked()),this,SLOT(quitGame()));
     gamePlayLayout->addWidget(quitButton);
 
-    //Add points label and view  to game layout
+    //Add points label
     score_label = new QLabel("Score: " + QString::number(points));
     gamePlayLayout->addWidget(score_label);
+
+
+    //Make Scene and View for gameplay graphics
+    gamescene = new QGraphicsScene();
+    view = new QGraphicsView(gamescene);
+
+    //Set color of view
+    view->setBackgroundBrush(QBrush(QColor(219, 229, 249),Qt::Dense1Pattern));
+
+    //Make the view unscrollable
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    //Fix the size of the view and set the scene size to it
+    view->setFixedSize(400,500);
+    gamescene->setSceneRect(0,0,400,500);
+
+    //Add view to gamelayout
+    gamePlayLayout->addWidget(view);
 }
 
 void game::run_game()
@@ -42,34 +61,6 @@ void game::run_game()
 
 void game::setUpGraphicsView()
 {
-
-    if(gamescene!=nullptr)
-    {
-        gamePlayLayout->removeWidget(view);
-        delete view;
-        view = nullptr;
-        delete gamescene;
-        gamescene = nullptr;
-    }
-
-    //Make Scene and View for gameplay graphics
-    gamescene = new QGraphicsScene();
-    view = new QGraphicsView(gamescene);
-
-    //Set color of view
-    view->setBackgroundBrush(QBrush(QColor(219, 229, 249),Qt::Dense1Pattern));
-
-    //Make the view unscrollable
-    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    //Fix the size of the view and set the scene size to it
-    view->setFixedSize(400,500);
-    gamescene->setSceneRect(0,0,400,500);
-
-    //Add view to gamelayout
-    gamePlayLayout->addWidget(view);
-
     //make paddle and add to scene
     mypaddle = new paddle;
     gamescene->addItem(mypaddle);
@@ -88,7 +79,10 @@ void game::setUpGraphicsView()
 
 void game::setpaddlefocus()
 {
-    mypaddle->setFocus();
+    if(mypaddle!=nullptr)
+    {
+       mypaddle->setFocus();
+    }
 }
 
 void game::update_score_on_brick_hit()
@@ -114,6 +108,10 @@ void game::died()
 void game::quitGame()
 {
     emit time_to_exit_game_screen();
+    gamescene->clear();
+    mypaddle=nullptr;
+    points = 0;
+    score_label->setText("Score: " + QString::number(points));
 }
 
 /*
