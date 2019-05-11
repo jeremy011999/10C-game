@@ -43,10 +43,7 @@ game::game()
 
 void game::run_game()
 {
-    //Set up the graphics view
-    setUpGraphicsView();
-
-    //Set up the bricks, parameter is the level
+     //Set up the bricks, parameter is the level
     SetUpBricks(2);
 
     //Make ball and add to scene
@@ -57,10 +54,7 @@ void game::run_game()
 
     //set position of the ball in the scene
     myball->setPos(gamescene->width()/2,gamescene->height()/2);
-}
 
-void game::setUpGraphicsView()
-{
     //make paddle and add to scene
     mypaddle = new paddle;
     gamescene->addItem(mypaddle);
@@ -70,7 +64,7 @@ void game::setUpGraphicsView()
 
     //Make paddle focusable and set a timer to make sure nothing else overrides the paddle focus throughout the program
     mypaddle->setFlag(QGraphicsItem::ItemIsFocusable);
-    QTimer* focustimer = new QTimer(this);
+    focustimer = new QTimer(this);
     connect(focustimer, SIGNAL(timeout()),this,SLOT(setpaddlefocus()));
     focustimer->start(15);
     mypaddle->setFocus();

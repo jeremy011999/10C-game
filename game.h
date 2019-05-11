@@ -21,7 +21,6 @@ class game : public QObject
     Q_OBJECT
 public:
     game();
-    void setUpGraphicsView();
     void SetUpBricks(int game_level);
     QWidget* getGamePlayWindow();
 public slots:
@@ -43,6 +42,7 @@ private:
     QVBoxLayout* gamePlayLayout=nullptr;
     paddle* mypaddle = nullptr;
     int game_level = 1;
+    QTimer* focustimer = nullptr;
 };
 
 #endif // GAME_H
