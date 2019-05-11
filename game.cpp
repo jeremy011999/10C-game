@@ -4,16 +4,30 @@
 #include <QMouseEvent>
 #include <QObject>
 #include <QTimer>
+#include <QDebug>
 
 game::game()
-{
+{   //Make a welcome window
+    welcomeWindow = new welcome_window;
+
+    //Connect welcome window to play_game() function
+    QObject::connect(welcomeWindow,SIGNAL(startGame()),this,SLOT(run_game()));
+
     //Make a window for the game to be played in and give it a layout
-    gamewindow = new QWidget;
-    gamelayout = new QVBoxLayout(gamewindow);
+    gamePlayWindow = new QWidget;
+    gamePlayLayout = new QVBoxLayout(gamePlayWindow);
+
+    //Make a stacked widget
+    stackedWidget = new QStackedWidget;
+    stackedWidget->addWidget(welcomeWindow);
+    stackedWidget->addWidget(gamePlayWindow);
+    goToWelcomeWindow();
+
 
     //Add points label and view  to game layout
     score_label = new QLabel("Score: " + QString::number(points));
-    gamelayout->addWidget(score_label);
+    gamePlayLayout->addWidget(score_label);
+    stackedWidget->show();
 }
 
 
@@ -21,7 +35,7 @@ void game::setUpGraphicsView()
 {
     if(gamescene!=nullptr)
     {
-        gamelayout->removeWidget(view);
+        gamePlayLayout->removeWidget(view);
         delete view;
         delete gamescene;
     }
@@ -42,7 +56,7 @@ void game::setUpGraphicsView()
     gamescene->setSceneRect(0,0,400,500);
 
     //Add view to gamelayout
-    gamelayout->addWidget(view);
+    gamePlayLayout->addWidget(view);
 
     //make paddle and add to scene
     mypaddle = new paddle;
@@ -62,6 +76,7 @@ void game::setUpGraphicsView()
 
 void game::run_game()
 {
+    goToGamePlayWindow();
     //Run setUpGraphicsView() to delete any graphics view that was there previously and set up a new one with a paddle
     setUpGraphicsView();
 
@@ -72,12 +87,13 @@ void game::run_game()
     ball* myball = new ball;
     gamescene->addItem(myball);
     connect(myball,SIGNAL(hit_a_brick()),this,SLOT(update_score_on_brick_hit()));
+    connect(myball,SIGNAL(ball_hit_ground()),this,SLOT(died()));
 
     //set position of the ball in the scene
     myball->setPos(gamescene->width()/2,gamescene->height()/2);
 
     //show the scene
-    gamewindow->show();
+   // gamePlayWindow->show();
 }
 
 void game::setpaddlefocus()
@@ -133,7 +149,27 @@ void game::SetUpBricks(int game_level)
                 brick_to_add->setPos(gamescene->width()/12*i,20*j);
             }
         }
-     }
+    }
 }
 
+void game::goToGamePlayWindow()
+{
+    stackedWidget->setCurrentIndex(1);
+}
+
+void game::goToWelcomeWindow()
+{
+    stackedWidget->setCurrentIndex(0);
+}
+
+void game::died()
+{
+//    delete gamewindow;
+//    gamewindow = new QWidget;
+//   // QWidget* scorewindow = new QWidget;
+//    QLabel* score_report = new QLabel("Your score is " + QString::number(points));
+//    QVBoxLayout* layout = new QVBoxLayout(gamewindow);
+//    layout->addWidget(score_report);
+ //   gamePlayWindow->hide();
+}
 
