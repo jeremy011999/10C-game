@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QPointF>
 #include <QGraphicsEllipseItem>
-#include <QtMultimedia/QMediaPlayer>
+#include <QMediaPlayer>
 #include <QUrl>
 
 
