@@ -21,6 +21,10 @@ ball::ball():ball_width(30),ball_height(30),ball_speed(8)
     QTimer* timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(update_ball()));
     timer->start(25);
+    //hopefully does sound
+    player= new QMediaPlayer();
+    player->setMedia(QUrl("qrc:/../../impact_metal_small_005.mp3"));
+    player->setVolume(50);
 }
 
 void ball::move()
@@ -64,6 +68,7 @@ void ball::update_ball()
             y_velocity = abs(y_velocity);
             hitbrick->update_hit_brick();
             emit hit_a_brick();
+            player->play();
         }
 
         //Check if a block isn't hit, but instead a paddle is hit
@@ -84,6 +89,7 @@ void ball::update_ball()
                 x_velocity = ball_speed*qCos(qDegreesToRadians((reflection_angle)));
             }
             y_velocity = -ball_speed*qSin(qDegreesToRadians(static_cast<double>(reflection_angle)));
+            player->play();
         }
     }
     move();
