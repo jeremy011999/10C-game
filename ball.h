@@ -6,6 +6,8 @@
 #include <QObject>
 #include <QPointF>
 #include <QGraphicsEllipseItem>
+#include <QtMultimedia/QMediaPlayer>
+#include <QUrl>
 
 
 class ball:public QObject,public QGraphicsEllipseItem
@@ -25,6 +27,7 @@ private:
     int ball_width;
     int ball_height;
     double ball_speed;
+    QMediaPlayer* player;
 };
 
 #endif // BALL_H
