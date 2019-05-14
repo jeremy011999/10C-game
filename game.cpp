@@ -101,7 +101,7 @@ void game::update_score_on_brick_hit(int pnts)
     points+=pnts;
     score_label->setText("Score: " + QString::number(points));
     update_powerup_meter();
-    if(powerup_meter->value()==30)
+    if(powerup_meter->value()==100)
     {
         runPowerup();
         powerup_meter->setValue(0);
