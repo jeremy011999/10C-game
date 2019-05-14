@@ -10,6 +10,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QObject>
+#include <QProgressBar>
 
 
 #ifndef GAME_H
@@ -24,6 +25,7 @@ public:
     void SetUpBricks(int game_level);
     QWidget* getGamePlayWindow();
     void runPowerup();
+    void update_powerup_meter();
 public slots:
     void run_game();
     void setpaddlefocus();
@@ -45,6 +47,7 @@ private:
     int game_level = 1;
     QTimer* focustimer = nullptr;
     int ballcount = 1;
+    QProgressBar* powerup_meter = nullptr;
 };
 
 #endif // GAME_H

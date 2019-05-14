@@ -39,8 +39,21 @@ game::game()
     view->setFixedSize(400,500);
     gamescene->setSceneRect(0,0,400,500);
 
+    //Add progress bar to gamelayout
+    powerup_meter = new QProgressBar();
+    powerup_meter->setOrientation(Qt::Vertical);
+    powerup_meter->setMinimum(0);
+    powerup_meter->setMaximum(100);
+    powerup_meter->setValue(0);
+    gamePlayLayout->addWidget(powerup_meter);
+
+    QHBoxLayout* horizontalbox = new QHBoxLayout();
+    horizontalbox->addWidget(view);
+    horizontalbox->addWidget(powerup_meter);
+
     //Add view to gamelayout
-    gamePlayLayout->addWidget(view);
+    gamePlayLayout->addLayout(horizontalbox);
+
 }
 
 void game::run_game()
@@ -87,10 +100,42 @@ void game::update_score_on_brick_hit(int pnts)
 {
     points+=pnts;
     score_label->setText("Score: " + QString::number(points));
-    if(points%100==0)
+    update_powerup_meter();
+    if(powerup_meter->value()%100==0)
     {
         runPowerup();
+        powerup_meter->setValue(0);
     }
+}
+
+
+void game::update_powerup_meter()
+{
+    bool power_up_active=false;
+    bool there_is_a_powered_ball=false;
+    bool there_are_multiple_balls=false;
+
+    QList<QGraphicsItem*> items_list = gamescene->items();
+    for(int i=0;i<items_list.size();i++)
+    {
+        if(typeid(*items_list[i])==typeid(ball))
+        {
+            if(dynamic_cast<ball*>(items_list[i])->power_up_ball_active())
+            {
+                there_is_a_powered_ball=true;
+                break;
+            }
+        }
+    }
+
+    if(ballcount>1)
+        there_are_multiple_balls=true;
+
+    if(there_are_multiple_balls||there_is_a_powered_ball)
+        power_up_active=true;
+
+    if(!power_up_active)
+        powerup_meter->setValue(powerup_meter->value()+10);
 }
 
 

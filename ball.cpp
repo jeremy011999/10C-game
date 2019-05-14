@@ -43,6 +43,11 @@ void ball::power_up_ball()
     is_powered_ball = true;
     QTimer::singleShot(10000, this, SLOT(back_to_regular_ball()));
 }
+
+bool ball::power_up_ball_active()
+{
+    return is_powered_ball;
+}
 void ball::back_to_regular_ball()
 {
     setBrush(QColor(0,150,150));

@@ -20,6 +20,7 @@ public:
     void move();
     qreal getMiddleXCoord();
     void power_up_ball();
+    bool power_up_ball_active();
 public slots:
     void update_ball();
     void back_to_regular_ball();
