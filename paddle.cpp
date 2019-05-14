@@ -2,7 +2,7 @@
 #include <QGraphicsScene>
 #include <QDebug>
 
-paddle::paddle():paddle_width(100),paddle_height(10)
+paddle::paddle():paddle_width(80),paddle_height(10)
 {
     setRect(0,0,paddle_width,paddle_height);
     setBrush(Qt::red);
@@ -13,7 +13,7 @@ void paddle::move_left()
     if (x()<=0)
         return;
     else
-        moveBy(-10,0);
+        moveBy(-20,0);
 }
 
 void paddle::move_right()
@@ -21,7 +21,7 @@ void paddle::move_right()
     if(x()+paddle_width>=scene()->width())
         return;
     else
-        moveBy(10,0);
+        moveBy(20,0);
 }
 
 qreal paddle::getMiddleXCoord()

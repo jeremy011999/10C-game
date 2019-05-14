@@ -22,9 +22,9 @@ ball::ball():ball_width(30),ball_height(30),ball_speed(8)
     connect(timer,SIGNAL(timeout()),this,SLOT(update_ball()));
     timer->start(25);
     //hopefully does sound
-    player= new QMediaPlayer();
-    player->setMedia(QUrl("qrc:/../../impact_metal_small_005.mp3"));
-    player->setVolume(50);
+        player= new QMediaPlayer();
+        player->setMedia(QUrl("qrc:/impact_metal_small_005.mp3"));
+        player->setVolume(100);
 }
 
 void ball::move()
@@ -35,6 +35,18 @@ void ball::move()
 qreal ball::getMiddleXCoord()
 {
     return x()+ball_width/2;
+}
+
+void ball::power_up_ball()
+{
+    setBrush(QColor(240,0,0));
+    is_powered_ball = true;
+    QTimer::singleShot(10000, this, SLOT(back_to_regular_ball()));
+}
+void ball::back_to_regular_ball()
+{
+    setBrush(QColor(0,150,150));
+    is_powered_ball = false;
 }
 
 
@@ -51,8 +63,8 @@ void ball::update_ball()
     //If ball hits bottom of screen remove it and clean up its memory
     if(y()+ball_height>scene()->height()&&y_velocity>0)
     {
-        emit ball_hit_ground();
         scene()->removeItem(this);
+        emit ball_hit_ground();
         delete(this);
         return;
     }
@@ -66,16 +78,23 @@ void ball::update_ball()
         {
             brick* hitbrick = dynamic_cast<brick*>(items_ball_hit[i]);
             y_velocity = abs(y_velocity);
-            hitbrick->update_hit_brick();
-            emit hit_a_brick();
+            if(!is_powered_ball)
+            {
+                hitbrick->update_hit_brick();
+            }
+            else
+            {
+                hitbrick->destroy_brick();
+            }
             player->play();
+
         }
 
         //Check if a block isn't hit, but instead a paddle is hit
         else if(typeid(*items_ball_hit[i])==typeid(paddle))
         {
             paddle* hitpaddle = dynamic_cast<paddle*>(items_ball_hit[i]);
-            double reflection_angle;
+            double reflection_angle = 0;
             double ball_pos = this->getMiddleXCoord();
             double paddle_pos = hitpaddle->getMiddleXCoord();
             if(ball_pos < paddle_pos)
@@ -83,7 +102,7 @@ void ball::update_ball()
                 reflection_angle = 100+(140-100)*(paddle_pos-ball_pos)/((hitpaddle->getwidth()+ball_width/2)/2);
                 x_velocity = ball_speed*qCos(qDegreesToRadians((reflection_angle)));
             }
-            else if(ball_pos > paddle_pos)
+            else
             {
                 reflection_angle = 80-(80-40)*(ball_pos-paddle_pos)/((hitpaddle->getwidth()+ball_width/2)/2);
                 x_velocity = ball_speed*qCos(qDegreesToRadians((reflection_angle)));

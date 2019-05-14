@@ -23,10 +23,11 @@ public:
     game();
     void SetUpBricks(int game_level);
     QWidget* getGamePlayWindow();
+    void runPowerup();
 public slots:
     void run_game();
     void setpaddlefocus();
-    void update_score_on_brick_hit();
+    void update_score_on_brick_hit(int pnts);
     void died();
     void quitGame();
 signals:
@@ -43,6 +44,7 @@ private:
     paddle* mypaddle = nullptr;
     int game_level = 1;
     QTimer* focustimer = nullptr;
+    int ballcount = 1;
 };
 
 #endif // GAME_H

@@ -13,15 +13,6 @@
 welcome_window::welcome_window(QWidget *parent) :
     QMainWindow(parent)
 {
-    this->setMaximumSize(500,400);
-    this->setMinimumSize(500,400);
-    QPixmap bkgnd("/Users/danyaelgebaly/Desktop/IceBreakerBackground.png");
-    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-
-    QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
-    this->setPalette(palette);
-
     QWidget* centralWidget = new QWidget();
     QHBoxLayout* mainLayout = new QHBoxLayout();
 

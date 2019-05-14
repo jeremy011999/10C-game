@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QTimer>
 #include <QDebug>
+#include <QTime>
+#include <QRandomGenerator>
 
 game::game()
 {
@@ -43,17 +45,19 @@ game::game()
 
 void game::run_game()
 {
-     //Set up the bricks, parameter is the level
+    view->setFocus();
+    //Set up the bricks, parameter is the level
     SetUpBricks(2);
 
     //Make ball and add to scene
     ball* myball = new ball;
     gamescene->addItem(myball);
-    connect(myball,SIGNAL(hit_a_brick()),this,SLOT(update_score_on_brick_hit()));
+    ballcount = 1;
     connect(myball,SIGNAL(ball_hit_ground()),this,SLOT(died()));
 
     //set position of the ball in the scene
-    myball->setPos(gamescene->width()/2,gamescene->height()/2);
+    myball->setPos(gamescene->width()/2,gamescene->height()/2+5);
+
 
     //make paddle and add to scene
     mypaddle = new paddle;
@@ -79,10 +83,14 @@ void game::setpaddlefocus()
     }
 }
 
-void game::update_score_on_brick_hit()
+void game::update_score_on_brick_hit(int pnts)
 {
-    points+=10;
+    points+=pnts;
     score_label->setText("Score: " + QString::number(points));
+    if(points%100==0)
+    {
+        runPowerup();
+    }
 }
 
 
@@ -93,10 +101,15 @@ QWidget* game::getGamePlayWindow()
 
 void game::died()
 {
-    emit time_to_enter_results_screen(points);
-    points = 0;
-    score_label->setText("Score: " + QString::number(points));
-
+    ballcount--;
+    if(ballcount==0)
+    {
+        emit time_to_enter_results_screen(points);
+        gamescene->clear();
+        mypaddle=nullptr;
+        points = 0;
+        score_label->setText("Score: " + QString::number(points));
+    }
 }
 
 void game::quitGame()
@@ -124,6 +137,7 @@ void game::SetUpBricks(int game_level)
             {
                 int bricklevel = (i+j)%3;
                 brick* brick_to_add = new brick(gamescene->width()/9,25,bricklevel);
+                connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
                 gamescene->addItem(brick_to_add);
                 //set position of new brick in the scene
                 brick_to_add->setPos(45*i,25*j);
@@ -139,10 +153,37 @@ void game::SetUpBricks(int game_level)
             {
                 int bricklevel = (i+j)%3;
                 brick* brick_to_add = new brick(gamescene->width()/12,20,bricklevel);
+                connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
                 gamescene->addItem(brick_to_add);
                 //set position of new brick in the scene
                 brick_to_add->setPos(gamescene->width()/12*i,20*j);
             }
+        }
+    }
+}
+
+void game::runPowerup()
+{
+    int randomVal = qrand()%2;
+    if(randomVal==0)
+    {
+        ballcount += 2;
+        for(int i=0;i<2;i++)
+        {
+            ball* myball = new ball;
+            gamescene->addItem(myball);
+            connect(myball,SIGNAL(ball_hit_ground()),this,SLOT(died()));
+            //set position of the ball in the scene
+            myball->setPos(mypaddle->x()+mypaddle->getwidth(),mypaddle->y()-41-i*10);
+        }
+    }
+    else if(randomVal==1)
+    {
+        QList<QGraphicsItem*> items_list = gamescene->items();
+        for(int i=0;i<items_list.size();i++)
+        {
+            if(typeid(*items_list[i])==typeid(ball))
+                dynamic_cast<ball*>(items_list[i])->power_up_ball();
         }
     }
 }

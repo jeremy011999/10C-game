@@ -31,6 +31,11 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
    stackedWidget->addWidget(resultsWindow);
    goToWelcomeWindow();
 
+   stackedWidget->setMaximumSize(700,600);
+   stackedWidget->setMinimumSize(700,600);
+   welcomeWindow->setMaximumSize(700,600);
+   welcomeWindow->setMinimumSize(700,600);
+
    stackedWidget->show();
 }
 
