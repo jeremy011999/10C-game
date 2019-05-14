@@ -4,6 +4,7 @@
 #include <QObject>
 #include <welcome_window.h>
 #include <game.h>
+#include "resultswindow.h"
 
 class myGUI : public QObject
 {
@@ -14,7 +15,7 @@ private:
         welcome_window *welcomeWindow = nullptr;
         game* mygame = nullptr;
         QStackedWidget* stackedWidget = nullptr;
-        QWidget* resultsWindow = nullptr;
+        resultswindow* resultsWindow = nullptr;
 signals:
 
 public slots:

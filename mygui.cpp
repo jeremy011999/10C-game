@@ -9,7 +9,7 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
    mygame = new game();
 
    //Make a results screen
-   resultsWindow = new QWidget;
+   resultsWindow = new resultswindow();
 
 
    //Connect the start button from welcome window to run the game
@@ -23,6 +23,8 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
 
    //Make it so when you die in the game you will enter the results screen and show final score
    QObject::connect(mygame,SIGNAL(time_to_enter_results_screen(int)),this,SLOT(goToResultsScreen(int)));
+
+   QObject::connect(resultsWindow,SIGNAL(quitButtonClicked()),this,SLOT(goToWelcomeWindow()));
 
    //Make a stacked widget with the windows we have
    stackedWidget = new QStackedWidget;
@@ -51,9 +53,6 @@ void myGUI::goToWelcomeWindow()
 
 void myGUI::goToResultsScreen(int points)
 {
-    QLabel* score_report = new QLabel("your score is " + QString::number(points));
-    QHBoxLayout* scorelayout = new QHBoxLayout;
-    scorelayout->addWidget(score_report);
-    resultsWindow->setLayout(scorelayout);
+    resultsWindow->set_points_label(points);
     stackedWidget->setCurrentIndex(2);
 }
