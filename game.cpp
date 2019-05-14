@@ -17,10 +17,12 @@ game::game()
     //Add a quit button
     QPushButton* quitButton = new QPushButton("QUIT GAME");
     connect(quitButton,SIGNAL(clicked()),this,SLOT(quitGame()));
+    quitButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(9,87,162); color: rgb(255, 255, 255);}"));
     gamePlayLayout->addWidget(quitButton);
 
     //Add points label
     score_label = new QLabel("Score: " + QString::number(points));
+    score_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 15px; background-color: rgb(158,219,235); color: rgb(255, 255, 255);}"));
     gamePlayLayout->addWidget(score_label);
 
 
@@ -241,5 +243,3 @@ void game::runPowerup()
         mypaddle->power_up_paddle();
     }
 }
-
-
