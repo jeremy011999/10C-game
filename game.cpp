@@ -101,7 +101,7 @@ void game::update_score_on_brick_hit(int pnts)
     points+=pnts;
     score_label->setText("Score: " + QString::number(points));
     update_powerup_meter();
-    if(powerup_meter->value()==100)
+    if(powerup_meter->value()==30)
     {
         runPowerup();
         powerup_meter->setValue(0);
@@ -114,6 +114,7 @@ void game::update_powerup_meter()
     bool power_up_active=false;
     bool there_is_a_powered_ball=false;
     bool there_are_multiple_balls=false;
+    bool paddle_is_powered = false;
 
     QList<QGraphicsItem*> items_list = gamescene->items();
     for(int i=0;i<items_list.size();i++)
@@ -131,7 +132,11 @@ void game::update_powerup_meter()
     if(ballcount>1)
         there_are_multiple_balls=true;
 
-    if(there_are_multiple_balls||there_is_a_powered_ball)
+    if(mypaddle->power_up_paddle_active())
+        paddle_is_powered = true;
+
+
+    if(there_are_multiple_balls||there_is_a_powered_ball||paddle_is_powered)
         power_up_active=true;
 
     if(!power_up_active)
@@ -209,7 +214,7 @@ void game::SetUpBricks(int game_level)
 
 void game::runPowerup()
 {
-    int randomVal = qrand()%2;
+    int randomVal = qrand()%3;
     if(randomVal==0)
     {
         ballcount += 2;
@@ -230,6 +235,10 @@ void game::runPowerup()
             if(typeid(*items_list[i])==typeid(ball))
                 dynamic_cast<ball*>(items_list[i])->power_up_ball();
         }
+    }
+    else
+    {
+        mypaddle->power_up_paddle();
     }
 }
 

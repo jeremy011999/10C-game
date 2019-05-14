@@ -1,8 +1,9 @@
 #include "paddle.h"
 #include <QGraphicsScene>
 #include <QDebug>
+#include <QTimer>
 
-paddle::paddle():paddle_width(80),paddle_height(10)
+paddle::paddle():paddle_width(80),paddle_height(10),is_powered_paddle(false)
 {
     setRect(0,0,paddle_width,paddle_height);
     setBrush(Qt::red);
@@ -41,4 +42,23 @@ void paddle::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Left:{move_left();break;}
     case Qt::Key_Right:{move_right();break;}
     }
+}
+
+void paddle::power_up_paddle()
+{
+    paddle_width=150;
+    is_powered_paddle=true;
+    setRect(0,0,paddle_width,paddle_height);
+    QTimer::singleShot(10000, this, SLOT(back_to_regular_paddle()));
+}
+
+bool paddle::power_up_paddle_active()
+{
+    return is_powered_paddle;
+}
+void paddle::back_to_regular_paddle()
+{
+    paddle_width = 80;
+    setRect(0,0,paddle_width,paddle_height);
+    is_powered_paddle = false;
 }

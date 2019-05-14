@@ -19,13 +19,17 @@ public:
     void move_right();
     qreal getMiddleXCoord();
     int getwidth();
+    void power_up_paddle();
+    bool power_up_paddle_active();
     void keyPressEvent(QKeyEvent* event);
 private:
     int paddle_width;
     int paddle_height;
+    bool is_powered_paddle;
 signals:
 
 public slots:
+    void back_to_regular_paddle();
 };
 
 #endif // PADDLE_H
