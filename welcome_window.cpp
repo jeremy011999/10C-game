@@ -24,9 +24,11 @@ welcome_window::welcome_window(QWidget *parent) :
 
     QPushButton* InstructionButton = new QPushButton("Instructions");
     InstructionButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(20, 170, 255); color: rgb(255, 255, 255);}"));
+    connect(InstructionButton,SIGNAL(clicked()),this,SLOT(instructionsButtonClicked()));
 
     QPushButton* QuitButton = new QPushButton("Quit Game");
     QuitButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(20, 20, 140); color: rgb(255, 255, 255);}"));
+    connect(QuitButton,SIGNAL(clicked()),this,SLOT(quitButtonClicked()));
 
     mainLayout->addWidget(GameButton);
     mainLayout->addWidget(InstructionButton);
@@ -50,3 +52,15 @@ void welcome_window::GameButtonClicked()
 {
     emit startGame();
 }
+
+void welcome_window::quitButtonClicked()
+{
+    emit quitApplication();
+}
+
+void welcome_window::instructionsButtonClicked()
+{
+    emit showInstructions();
+}
+
+

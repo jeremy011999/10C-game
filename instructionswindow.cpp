@@ -16,9 +16,11 @@ InstructionsWindow::InstructionsWindow(QWidget *parent) :
     this->setCentralWidget(centralWidget);
 }
 
-void InstructionsWindow::paintEvent(QPaintEvent *e) {
+void InstructionsWindow::paintEvent(QPaintEvent *e)
+{
     QPainter painter(this);
-    painter.drawPixmap(0, 0, QPixmap("/InstructionsPage.png").scaled(size()));
+    QPixmap image(":/InstructionsPage.png");
+    painter.drawPixmap(0, 0, image.scaled(size()));
     QWidget::paintEvent(e);
 }
 

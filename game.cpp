@@ -216,6 +216,8 @@ void game::SetUpBricks(int game_level)
 
 void game::runPowerup()
 {
+    QTime time = QTime::currentTime();
+    qsrand(time.msec());
     int randomVal = qrand()%3;
     if(randomVal==0)
     {
@@ -243,3 +245,5 @@ void game::runPowerup()
         mypaddle->power_up_paddle();
     }
 }
+
+

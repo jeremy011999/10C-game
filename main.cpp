@@ -14,5 +14,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     myGUI mygui;
+    QObject::connect(&mygui,SIGNAL(quitAppSignal()),&a,SLOT(quit()));
     return a.exec();
 }

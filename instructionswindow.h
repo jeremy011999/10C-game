@@ -1,5 +1,5 @@
-#ifndef WELCOME_WINDOW_H
-#define WELCOME_WINDOW_H
+#ifndef INSTRUCTIONS_WINDOW_H
+#define INSTRUCTIONS_WINDOW_H
 
 #include <QMainWindow>
 #include <QLabel>
@@ -13,7 +13,6 @@
 class InstructionsWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit InstructionsWindow(QWidget *parent = nullptr);
     ~InstructionsWindow();
@@ -26,4 +25,4 @@ private:
     QHBoxLayout* mainLayout = nullptr;
 };
 
-#endif // WELCOME_WINDOW_H
+#endif // INSTRUCTIONS_WINDOW_H

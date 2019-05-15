@@ -11,6 +11,9 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
    //Make a results screen
    resultsWindow = new resultswindow();
 
+   //Make instructions window
+   instructionsWindow = new InstructionsWindow;
+
 
    //Connect the start button from welcome window to run the game
    QObject::connect(welcomeWindow,SIGNAL(startGame()),mygame,SLOT(run_game()));
@@ -26,11 +29,16 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
 
    QObject::connect(resultsWindow,SIGNAL(quitButtonClicked()),this,SLOT(goToWelcomeWindow()));
 
+   QObject::connect(welcomeWindow,SIGNAL(quitApplication()),this,SLOT(quitApplication()));
+
+   QObject::connect(welcomeWindow,SIGNAL(showInstructions()),this,SLOT(goToInstructionsScreen()));
+
    //Make a stacked widget with the windows we have
    stackedWidget = new QStackedWidget;
    stackedWidget->addWidget(welcomeWindow);
    stackedWidget->addWidget(mygame->getGamePlayWindow());
    stackedWidget->addWidget(resultsWindow);
+   stackedWidget->addWidget(instructionsWindow);
    goToWelcomeWindow();
 
    stackedWidget->setMaximumSize(700,600);
@@ -55,4 +63,14 @@ void myGUI::goToResultsScreen(int points)
 {
     resultsWindow->set_points_label(points);
     stackedWidget->setCurrentIndex(2);
+}
+
+void myGUI::quitApplication()
+{
+    emit quitAppSignal();
+}
+
+void myGUI::goToInstructionsScreen()
+{
+    stackedWidget->setCurrentIndex(3);
 }

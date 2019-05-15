@@ -20,8 +20,12 @@ public:
     void paintEvent(QPaintEvent *e);
 public slots:
     void GameButtonClicked();
+    void quitButtonClicked();
+    void instructionsButtonClicked();
 signals:
     void startGame();
+    void quitApplication();
+    void showInstructions();
 private:
     QLabel* welcomePage = nullptr;
     QPushButton* GameButton = nullptr;
