@@ -11,16 +11,16 @@ InstructionsWindow::InstructionsWindow(QWidget *parent) :
 {
     QWidget* centralWidget = new QWidget();
     QHBoxLayout* mainLayout = new QHBoxLayout();
+    QPushButton* returnToMainScreen = new QPushButton("Return to main screen");
 
     centralWidget->setLayout(mainLayout);
+    mainLayout->addWidget(returnToMainScreen);
     this->setCentralWidget(centralWidget);
 }
 
-void InstructionsWindow::paintEvent(QPaintEvent *e)
-{
+void InstructionsWindow::paintEvent(QPaintEvent *e) {
     QPainter painter(this);
-    QPixmap image(":/InstructionsPage.png");
-    painter.drawPixmap(0, 0, image.scaled(size()));
+    painter.drawPixmap(0, 0, QPixmap("/InstructionsPage.png").scaled(size()));
     QWidget::paintEvent(e);
 }
 
