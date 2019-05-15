@@ -13,6 +13,7 @@
 welcome_window::welcome_window(QWidget *parent) :
     QMainWindow(parent)
 {
+
     QWidget* centralWidget = new QWidget();
     QHBoxLayout* mainLayout = new QHBoxLayout();
 
@@ -20,21 +21,23 @@ welcome_window::welcome_window(QWidget *parent) :
     GameButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15 px; background-color: rgb(100, 0, 170); color: rgb(255, 255, 255);}"));
     connect(GameButton,SIGNAL(clicked()),this,SLOT(GameButtonClicked()));
 
-
+    QPushButton* OptionButton = new QPushButton("Options");
+    OptionButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15 px; background-color: rgb(50, 100, 150); color: rgb(255, 255, 255);}"));
+    connect(OptionButton,SIGNAL(clicked()),this,SLOT(OptionButtonClicked()));
 
     QPushButton* InstructionButton = new QPushButton("Instructions");
     InstructionButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(20, 170, 255); color: rgb(255, 255, 255);}"));
-    connect(InstructionButton,SIGNAL(clicked()),this,SLOT(instructionsButtonClicked()));
 
     QPushButton* QuitButton = new QPushButton("Quit Game");
     QuitButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(20, 20, 140); color: rgb(255, 255, 255);}"));
-    connect(QuitButton,SIGNAL(clicked()),this,SLOT(quitButtonClicked()));
 
     mainLayout->addWidget(GameButton);
     mainLayout->addWidget(InstructionButton);
+    mainLayout->addWidget(OptionButton);
     mainLayout->addWidget(QuitButton);
     centralWidget->setLayout(mainLayout);
     this->setCentralWidget(centralWidget);
+    options= new optionswindow();
 }
 
 void welcome_window::paintEvent(QPaintEvent *e) {
@@ -53,14 +56,12 @@ void welcome_window::GameButtonClicked()
     emit startGame();
 }
 
-void welcome_window::quitButtonClicked()
+void welcome_window::OptionButtonClicked()
 {
-    emit quitApplication();
+    options->show();
 }
 
-void welcome_window::instructionsButtonClicked()
+void welcome_window::MuteClicked()
 {
-    emit showInstructions();
+    emit mute();
 }
-
-

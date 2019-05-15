@@ -11,15 +11,15 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
    //Make a results screen
    resultsWindow = new resultswindow();
 
-   //Make instructions window
-   instructionsWindow = new InstructionsWindow;
-
 
    //Connect the start button from welcome window to run the game
    QObject::connect(welcomeWindow,SIGNAL(startGame()),mygame,SLOT(run_game()));
 
    //Make the start button in the welcome window switch this to game playing window
    QObject::connect(welcomeWindow,SIGNAL(startGame()),this,SLOT(goToGamePlayWindow()));
+
+   //Connect mute to muting sound in game
+   QObject::connect(welcomeWindow,SIGNAL(mute()), mygame,SLOT(mute_sound()));
 
    //Make the quit button in the game window switch us to the welcome window
    QObject::connect(mygame,SIGNAL(time_to_exit_game_screen()),this,SLOT(goToWelcomeWindow()));
@@ -29,16 +29,11 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
 
    QObject::connect(resultsWindow,SIGNAL(quitButtonClicked()),this,SLOT(goToWelcomeWindow()));
 
-   QObject::connect(welcomeWindow,SIGNAL(quitApplication()),this,SLOT(quitApplication()));
-
-   QObject::connect(welcomeWindow,SIGNAL(showInstructions()),this,SLOT(goToInstructionsScreen()));
-
    //Make a stacked widget with the windows we have
    stackedWidget = new QStackedWidget;
    stackedWidget->addWidget(welcomeWindow);
    stackedWidget->addWidget(mygame->getGamePlayWindow());
    stackedWidget->addWidget(resultsWindow);
-   stackedWidget->addWidget(instructionsWindow);
    goToWelcomeWindow();
 
    stackedWidget->setMaximumSize(700,600);
@@ -63,14 +58,4 @@ void myGUI::goToResultsScreen(int points)
 {
     resultsWindow->set_points_label(points);
     stackedWidget->setCurrentIndex(2);
-}
-
-void myGUI::quitApplication()
-{
-    emit quitAppSignal();
-}
-
-void myGUI::goToInstructionsScreen()
-{
-    stackedWidget->setCurrentIndex(3);
 }

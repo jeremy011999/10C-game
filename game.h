@@ -32,6 +32,7 @@ public slots:
     void update_score_on_brick_hit(int pnts);
     void died();
     void quitGame();
+    void mute_sound();
 signals:
     void time_to_exit_game_screen();
     void time_to_enter_results_screen(int totalpoints);
@@ -48,6 +49,8 @@ private:
     QTimer* focustimer = nullptr;
     int ballcount = 1;
     QProgressBar* powerup_meter = nullptr;
+    bool muted=false;
+    QMediaPlayer* music = nullptr;
 };
 
 #endif // GAME_H

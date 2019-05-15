@@ -8,6 +8,8 @@
 #include <QPushButton>
 #include <QPainter>
 #include <QPaintEvent>
+#include "optionswindow.h"
+#include <QMediaPlayer>
 
 
 class welcome_window : public QMainWindow
@@ -20,18 +22,19 @@ public:
     void paintEvent(QPaintEvent *e);
 public slots:
     void GameButtonClicked();
-    void quitButtonClicked();
-    void instructionsButtonClicked();
+    void OptionButtonClicked();
+    void MuteClicked();
 signals:
     void startGame();
-    void quitApplication();
-    void showInstructions();
+    void mute();
 private:
     QLabel* welcomePage = nullptr;
     QPushButton* GameButton = nullptr;
     QPushButton* InstructionButton = nullptr;
     QPushButton* QuitButton = nullptr;
     QHBoxLayout* mainLayout = nullptr;
+    optionswindow* options;
+
 };
 
 #endif // WELCOME_WINDOW_H

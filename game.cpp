@@ -56,6 +56,16 @@ game::game()
     //Add view to gamelayout
     gamePlayLayout->addLayout(horizontalbox);
 
+    music= new QMediaPlayer();
+    music->setMedia(QUrl("qrc:/impact_metal_small_005.mp3"));
+    if (!muted)
+        music->setVolume(100);
+    else {
+        music->setVolume(0);
+    }
+
+
+
 }
 
 void game::run_game()
@@ -216,8 +226,6 @@ void game::SetUpBricks(int game_level)
 
 void game::runPowerup()
 {
-    QTime time = QTime::currentTime();
-    qsrand(time.msec());
     int randomVal = qrand()%3;
     if(randomVal==0)
     {
@@ -246,4 +254,11 @@ void game::runPowerup()
     }
 }
 
-
+void game::mute_sound()
+{
+    if (muted)
+        muted=false;
+    else {
+        muted=true;
+    }
+}
