@@ -209,16 +209,29 @@ void game::SetUpBricks(int game_level)
     if(game_level==2)
     {
         //add bricks to the scene
-        for(int j=0;j<4;j++)
+        //add bricks to the scene
+        for(int j=1;j<7;j++)
         {
-            for (int i=0;i<12;i++)
+            for (int i=0;i<j;i++)
             {
                 int bricklevel = (i+j)%3;
-                brick* brick_to_add = new brick(gamescene->width()/12,20,bricklevel);
-                connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
-                gamescene->addItem(brick_to_add);
+                brick* brick_to_add_left_top = new brick(gamescene->width()/12,20,bricklevel);
+                connect(brick_to_add_left_top,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                gamescene->addItem(brick_to_add_left_top);
+                brick* brick_to_add_right_top = new brick(gamescene->width()/12,20,bricklevel);
+                connect(brick_to_add_right_top,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                gamescene->addItem(brick_to_add_right_top);
+                brick* brick_to_add_left_bottom = new brick(gamescene->width()/12,20,bricklevel);
+                connect(brick_to_add_left_bottom,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                gamescene->addItem(brick_to_add_left_bottom);
+                brick* brick_to_add_right_bottom = new brick(gamescene->width()/12,20,bricklevel);
+                connect(brick_to_add_right_bottom,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                gamescene->addItem(brick_to_add_right_bottom);
                 //set position of new brick in the scene
-                brick_to_add->setPos(gamescene->width()/12*i,20*j);
+                brick_to_add_left_top->setPos(gamescene->width()/12*(5-i),20*(j-1));
+                brick_to_add_right_top->setPos(gamescene->width()/12*(6+i),20*(j-1));
+                brick_to_add_left_bottom->setPos(gamescene->width()/12*(5-i),20*(12-j));
+                brick_to_add_right_bottom->setPos(gamescene->width()/12*(6+i),20*(12-j));
             }
         }
     }
