@@ -116,7 +116,7 @@ void game::run_game(int lvl)
         myball->mute_ball();
     ballcount = 1;
     connect(myball,SIGNAL(ball_hit_ground()),this,SLOT(a_ball_hit_ground()));
-    myball->set_level(0);
+    myball->set_level(1);
 
     //set position of the ball in the scene
     myball->setPos(gamescene->width()/2,gamescene->height()/2+5);
@@ -144,12 +144,30 @@ void game::run_game(int lvl)
     //set monster timer/ball speed depending on game level
     if(game_level==1)
     {
-        myball->set_level(0);
+        myball->set_level(1);
     }
     else if(game_level==2)
     {
         generateMonstersTimer->start(5000);
-        myball->set_level(0);
+        myball->set_level(2);
+        generateSnowflakesTimer->start(13000);
+    }
+    else if(game_level==3)
+    {
+        generateMonstersTimer->start(5000);
+        myball->set_level(2);
+        generateSnowflakesTimer->start(13000);
+    }
+    else if(game_level==4)
+    {
+        generateMonstersTimer->start(5000);
+        myball->set_level(2);
+        generateSnowflakesTimer->start(13000);
+    }
+    else if(game_level==5)
+    {
+        generateMonstersTimer->start(5000);
+        myball->set_level(2);
         generateSnowflakesTimer->start(13000);
     }
 
