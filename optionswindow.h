@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QLabel>
 
 class optionswindow : public QWidget
 {
@@ -12,10 +13,14 @@ public:
 private:
     QPushButton* Mute;
     bool muted=false;
+    QLabel* mute_notification;
 signals:
-
+    void mute();
+    void goBackToMain();
 public slots:
     void change_button();
+    void MuteClicked();
+    void backToMain();
 };
 
 #endif // OPTIONSWINDOW_H
