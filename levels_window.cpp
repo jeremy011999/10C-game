@@ -1,12 +1,13 @@
 #include "levels_window.h"
+#include "event_filters.h"
 
 levels_window::levels_window(QWidget *parent) : QMainWindow(parent)
 {
-    filter1 = new please_work1(this);
-    filter2 = new please_work2(this);
-    filter3 = new please_work3(this);
-    filter4 = new please_work4(this);
-    filter5 = new please_work5(this);
+    filter1 = new event_filter1(this);
+    filter2 = new event_filter2(this);
+    filter3 = new event_filter3(this);
+    filter4 = new event_filter4(this);
+    filter5 = new event_filter5(this);
 
 
     QWidget* centralWidget = new QWidget();
@@ -155,134 +156,5 @@ void level_pic::pic5()
 void level_pic::show_blank()
 {
     this->setPixmap(QPixmap(":/IceBreakerBackground.png"));
-}
-
-please_work1::please_work1(QObject *parent) : QObject(parent)
-{
-
-}
-
-please_work2::please_work2(QObject *parent) : QObject(parent)
-{
-
-}
-
-
-please_work3::please_work3(QObject *parent) : QObject(parent)
-{
-
-}
-
-
-please_work4::please_work4(QObject *parent) : QObject(parent)
-{
-
-}
-
-
-please_work5::please_work5(QObject *parent) : QObject(parent)
-{
-
-}
-
-
-bool please_work1::eventFilter(QObject *obj, QEvent *event)
-{
-    if (event->type()==QEvent::HoverEnter)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit show_pic1();
-        return true;
-    }
-    if (event->type()==QEvent::HoverLeave)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit blank1();
-        return true;
-    }
-    else
-    {
-        return QObject::eventFilter(obj,event);
-    }
-}
-
-bool please_work2::eventFilter(QObject *obj, QEvent *event)
-{
-    if (event->type()==QEvent::HoverEnter)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit show_pic2();
-        return true;
-    }
-    if (event->type()==QEvent::HoverLeave)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit blank2();
-        return true;
-    }
-    else
-    {
-        return QObject::eventFilter(obj,event);
-    }
-}
-
-bool please_work3::eventFilter(QObject *obj, QEvent *event)
-{
-    if (event->type()==QEvent::HoverEnter)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit show_pic3();
-        return true;
-    }
-    if (event->type()==QEvent::HoverLeave)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit blank3();
-        return true;
-    }
-    else
-    {
-        return QObject::eventFilter(obj,event);
-    }
-}
-
-bool please_work4::eventFilter(QObject *obj, QEvent *event)
-{
-    if (event->type()==QEvent::HoverEnter)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit show_pic4();
-        return true;
-    }
-    if (event->type()==QEvent::HoverLeave)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit blank4();
-        return true;
-    }
-    else
-    {
-        return QObject::eventFilter(obj,event);
-    }
-}
-
-bool please_work5::eventFilter(QObject *obj, QEvent *event)
-{
-    if (event->type()==QEvent::HoverEnter)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit show_pic5();
-        return true;
-    }
-    if (event->type()==QEvent::HoverLeave)
-    {
-        QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
-        emit blank5();
-        return true;
-    }
-    else
-    {
-        return QObject::eventFilter(obj,event);
-    }
 }
 
