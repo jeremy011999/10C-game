@@ -94,9 +94,9 @@ void paddle::space_press()
 
 void paddle::power_up_paddle()
 {
-    double power_up_width=paddle_width*2;
+    paddle_width=paddle_width*2;
     is_powered_paddle=true;
-    setRect(0,0,power_up_width,paddle_height);
+    setRect(0,0,paddle_width,paddle_height);
     setBrush(QColor(255,215,0));
     QTimer::singleShot(10000, this, SLOT(back_to_regular_paddle()));
 }
@@ -107,6 +107,7 @@ bool paddle::power_up_paddle_active()
 }
 void paddle::back_to_regular_paddle()
 {
+    paddle_width = paddle_width/2;
     setRect(0,0,paddle_width,paddle_height);
     setBrush(Qt::red);
     is_powered_paddle = false;

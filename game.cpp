@@ -171,7 +171,7 @@ void game::run_game(int lvl)
     connect(mypaddle,SIGNAL(paddleDead()),this,SLOT(killedByMonster()));
 
     //set position of the paddle in the scene, generalized for different sized scenes
-    mypaddle->setPos(gamescene->width()/2,gamescene->height()-.06*gamescene->height());
+    mypaddle->setPos(gamescene->width()/2-mypaddle->getwidth()/2,gamescene->height()-.06*gamescene->height());
 
     //Add ball to scene
     ball* myball = generateNewBall();
@@ -430,22 +430,20 @@ void game::SetUpBricks(int game_level)
     if(game_level==1)
     {
         //add bricks to the scene
-//        for(int j=0;j<4;j++)
-//        {
-//            for (int i=0;i<9;i++)
-//            {
-//                int bricklevel = (i+j)%3;
-                int bricklevel = 2;
-                brick* brick_to_add = new brick(gamescene->width()/9,25,bricklevel);
+        for(int j=0;j<4;j++)
+        {
+            for (int i=0;i<9;i++)
+            {
+                int bricklevel = (i+j)%3;
+                brick* brick_to_add = new brick(gamescene->width()/9*.9,25,bricklevel);
                 brick_count++;
                 connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
                 connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                 gamescene->addItem(brick_to_add);
                 //set position of new brick in the scene
-//                brick_to_add->setPos(45*i,25*j);
-                brick_to_add->setPos(45,25);
-//            }
-//        }
+                brick_to_add->setPos(gamescene->width()/9*i+2,gamescene->width()/9*.6*j+2);
+            }
+        }
      }
     if(game_level==3)
     {
@@ -519,10 +517,10 @@ void game::SetUpBricks(int game_level)
             int bricklevel=1;
             std::vector<brick*> bricks;
             double unit_width = gamescene->width()/12.0;
-            double unit_height= 20.0;
+            double unit_height= gamescene->width()/12.0*.61;
             for (int i=0; i<19;i++)
             {
-            brick* brick_to_add = new brick(gamescene->width()/12,25,bricklevel);
+            brick* brick_to_add = new brick(gamescene->width()/12*.9,25,bricklevel);
             brick_count++;
             connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
             connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
@@ -608,7 +606,7 @@ void game::SetUpBricks(int game_level)
 void game::runPowerup()
 {
     int randomVal = rand()%3;
-    randomVal=1;
+    randomVal=2;
 
     if(randomVal==0)
     {
