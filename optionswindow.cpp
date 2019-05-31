@@ -1,8 +1,9 @@
 #include "optionswindow.h"
 #include <QVBoxLayout>
 
-optionswindow::optionswindow(QWidget *parent) : QWidget(parent)
+optionswindow::optionswindow(QMainWindow *parent) : QMainWindow(parent)
 {
+    QWidget* main = new QWidget;
     QLabel* title = new QLabel("Options Menu");
     mute_label = new QLabel("Mute: OFF");
     QLabel* volume_settings = new QLabel("Volume Settings: ");
@@ -49,8 +50,8 @@ optionswindow::optionswindow(QWidget *parent) : QWidget(parent)
     optionslayout->setSpacing(25);
     overall_layout->addLayout(optionslayout);
     overall_layout->addSpacing(250);
-    setLayout(overall_layout);
-
+    main->setLayout(overall_layout);
+    this->setCentralWidget(main);
 }
 
 void optionswindow::change_button()
