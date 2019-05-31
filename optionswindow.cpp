@@ -86,3 +86,10 @@ void optionswindow::change_difficulty(int x)
 {
     emit set_difficulty(x);
 }
+
+void optionswindow::paintEvent(QPaintEvent *e) {
+    QPainter painter(this);
+    painter.drawPixmap(0, 0, QPixmap(":/ice.jpg").scaled(size()));
+    QWidget::paintEvent(e);
+}
+
