@@ -9,12 +9,13 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QObject>
+#include <QMainWindow>
 
-class optionswindow : public QWidget
+class optionswindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit optionswindow(QWidget *parent = nullptr);
+    explicit optionswindow(QMainWindow *parent = nullptr);
 signals:
     void mute();
     void goBackToMain();
