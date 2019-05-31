@@ -22,6 +22,7 @@ public:
     double getTopY();
     double getMiddleX();
     double getMiddleY();
+    void set_brick_level(int level);
 
     ~brick();
 signals:
