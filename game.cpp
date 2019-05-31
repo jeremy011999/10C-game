@@ -191,22 +191,12 @@ void game::run_game(int lvl)
 void game::itemGenerator()
 {
     int randInt = rand()%100;
-    if(game_level==1)
-    {
-        if(randInt<=30)
-            blueSnowflakesGenerator();
-        else if(randInt<=5)
-            monsterGenerator();
-    }
-    else
-    {
-        if(randInt<=10)
-            blueSnowflakesGenerator();
-        else if(randInt>=95)
-            greenSnowflakesGenerator();
-        else if(randInt>20&&randInt<30)
-            monsterGenerator();
-    }
+    if (randInt<=monster_prob)
+        monsterGenerator();
+    else if (randInt>monster_prob&&randInt<=(snow_prob+monster_prob))
+        blueSnowflakesGenerator();
+    else if (randInt>(snow_prob+monster_prob)&&randInt<=(snow_prob+monster_prob+life_prob))
+        greenSnowflakesGenerator();
 }
 
 void game::monsterGenerator()
@@ -810,6 +800,36 @@ void game::resizeGame(int size_factor)
     }
 }
 
+void game::difficulty(int x)
+{
+    switch(x)
+    {
+    case 0:
+    {
+        game_difficulty=.75;
+        monster_prob=8.0;
+        snow_prob=35.0;
+        life_prob=7.5;
+        break;
+    }
+    case 1:
+    {
+        game_difficulty=1;
+        monster_prob=12.0;
+        snow_prob=30.0;
+        life_prob=5.0;
+        break;
+    }
+    case 2:
+    {
+        game_difficulty=1.25;
+        monster_prob=16.0;
+        snow_prob=22.0;
+        life_prob=2.5;
+        break;
+    }
+    }
+}
 
 
 
