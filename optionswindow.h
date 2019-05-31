@@ -10,6 +10,8 @@
 #include <QPaintEvent>
 #include <QObject>
 #include <QMainWindow>
+#include <QPaintEvent>
+#include <QPainter>
 
 class optionswindow : public QMainWindow
 {
@@ -20,6 +22,7 @@ signals:
     void mute();
     void goBackToMain();
     void set_difficulty(int x);
+    void paintEvent (QPaintEvent* e);
 public slots:
     void change_button();
     void MuteClicked();
