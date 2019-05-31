@@ -29,7 +29,7 @@ public:
     void power_up_ball();
     bool power_up_ball_active();
     void mute_ball();
-    void set_level(int level);
+    void set_level(double level);
     double get_size();
     ~ball();
     void stopTimer();
