@@ -89,34 +89,32 @@ level_pic::level_pic()
 
 void level_pic::pic1()
 {
-    this->setPixmap(QPixmap(":/first.png"));
+    this->setPixmap(*firstlvlpic);
 }
 
 void level_pic::pic2()
 {
 
-   this->setPixmap(QPixmap(":/rows.png"));
+   this->setPixmap(*scndlvlpic);
 }
 
 void level_pic::pic3()
 {
 
-    this->setPixmap(QPixmap(":/diamond.png"));
+    this->setPixmap(*thrdlvlpic);
 
 }
 
 void level_pic::pic4()
 {
 
-    this->setPixmap(QPixmap(":/smiley.png"));
+    this->setPixmap(*frthlvlpic);
 
 }
 
 void level_pic::pic5()
 {
-
-    this->setPixmap(QPixmap(":/pasted image 0.png"));
-
+    this->setPixmap(*fthlvlpic);
 }
 
 void level_pic::show_blank()

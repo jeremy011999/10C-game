@@ -114,6 +114,11 @@ public slots:
     void pic5();
     void show_blank();
 private:
+    QPixmap* firstlvlpic = new QPixmap(":/first.png");
+    QPixmap* scndlvlpic = new QPixmap(":/rows.png");
+    QPixmap* thrdlvlpic = new QPixmap(":/diamond.png");
+    QPixmap* frthlvlpic = new QPixmap(":/smiley.png");
+    QPixmap* fthlvlpic = new QPixmap(":/pasted image 0.png");
 };
 
 #endif // LEVELS_WINDOW_H
