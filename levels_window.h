@@ -15,11 +15,6 @@
 #include <QLabel>
 
 class level_pic;
-class please_work1;
-class please_work2;
-class please_work3;
-class please_work4;
-class please_work5;
 
 class levels_window : public QMainWindow
 {
@@ -41,67 +36,12 @@ private:
     QPushButton* level5Button;
     QPushButton* returnButton = nullptr;
     level_pic* picture;
-    please_work1* filter1;
-    please_work2* filter2;
-    please_work3* filter3;
-    please_work4* filter4;
-    please_work5* filter5;
+    event_filter1* filter1;
+    event_filter2* filter2;
+    event_filter3* filter3;
+    event_filter4* filter4;
+    event_filter5* filter5;
 
-};
-
-class please_work1 : public QObject
-{
-    Q_OBJECT
-public:
-    explicit please_work1(QObject *parent = nullptr);
-    bool eventFilter(QObject* obj, QEvent* event) override;
-signals:
-    void show_pic1();
-    void blank1();
-};
-
-class please_work2 : public QObject
-{
-    Q_OBJECT
-public:
-    explicit please_work2(QObject *parent = nullptr);
-    bool eventFilter(QObject* obj, QEvent* event) override;
-signals:
-    void show_pic2();
-    void blank2();
-};
-
-class please_work3 : public QObject
-{
-    Q_OBJECT
-public:
-    explicit please_work3(QObject *parent = nullptr);
-    bool eventFilter(QObject* obj, QEvent* event) override;
-signals:
-    void show_pic3();
-    void blank3();
-};
-
-class please_work4 : public QObject
-{
-    Q_OBJECT
-public:
-    explicit please_work4(QObject *parent = nullptr);
-    bool eventFilter(QObject* obj, QEvent* event) override;
-signals:
-    void show_pic4();
-    void blank4();
-};
-
-class please_work5 : public QObject
-{
-    Q_OBJECT
-public:
-    explicit please_work5(QObject *parent = nullptr);
-    bool eventFilter(QObject* obj, QEvent* event) override;
-signals:
-    void show_pic5();
-    void blank5();
 };
 
 class level_pic : public QLabel
