@@ -749,7 +749,7 @@ ball* game::generateNewBall()
     if(muted)
         myball->mute_ball();
     ballcount += 1;
-    myball->set_level(game_level);
+    myball->set_level(game_difficulty);
     connect(myball,SIGNAL(ball_hit_ground()),this,SLOT(a_ball_hit_ground()));
     if(ballcount==1)
     {
