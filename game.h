@@ -59,6 +59,7 @@ public slots:
     void decrease_brick_count();
     void change_time();
     void resizeGame(int size_factor);
+    void difficulty(int x);
 signals:
     void time_to_exit_game_screen();
     void time_to_enter_results_screen(int totalpoints);
@@ -91,6 +92,8 @@ private:
     QTimer* power_up_time;
     QPushButton* quitButton;
     QMediaPlayer* snowflakeCaptureSound = nullptr;
+    double game_difficulty = 0;
+    double monster_prob, life_prob, snow_prob;
 };
 
 #endif // GAME_H
