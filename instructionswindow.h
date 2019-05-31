@@ -1,31 +1,39 @@
-#ifndef INSTRUCTIONS_WINDOW_H
-#define INSTRUCTIONS_WINDOW_H
+#ifndef INSTRUCTIONSWINDOW_H
+#define INSTRUCTIONSWINDOW_H
 
 #include <QMainWindow>
-#include <QLabel>
-#include <QPixmap>
-#include <QHBoxLayout>
 #include <QPushButton>
-#include <QPainter>
-#include <QPaintEvent>
 
+namespace Ui {
+class InstructionsWindow;
+}
 
 class InstructionsWindow : public QMainWindow
 {
     Q_OBJECT
+
 public:
     explicit InstructionsWindow(QWidget *parent = nullptr);
-
     ~InstructionsWindow();
-    void paintEvent(QPaintEvent *e);
-public slots:
-    void returnButtonClicked();
+
+private slots:
+    void on_NextPageEnemy_clicked();
+
+    void on_NextPagePowerups_clicked();
+
+    void on_ReturnToMainMenu_clicked();
+
+    void on_PrevPageHowToPlay_clicked();
+
+    void on_PrevPageEnemies_clicked();
+    void on_MainMenuButton_clicked();
 
 signals:
-    void returnToMainWindow();
+    void returnButtonClicked();
+
 private:
-    QHBoxLayout* mainLayout = nullptr;
-    QPushButton* returnButton = nullptr;
+    QPushButton* MainMenuButton = nullptr;
+    Ui::InstructionsWindow *ui;
 };
 
-#endif // INSTRUCTIONS_WINDOW_H
+#endif // INSTRUCTIONSWINDOW_H

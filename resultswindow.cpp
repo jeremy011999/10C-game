@@ -3,24 +3,25 @@
 resultswindow::resultswindow()
     :QWidget()
 {
-    score_report = new QLabel("your score is " + QString::number(0));
-    scorelayout = new QVBoxLayout;
+    score_report = new QLabel("Final Score: " + QString::number(0));
     score_report->setAlignment(Qt::AlignCenter);
-    QPushButton* quitResultsButton = new QPushButton("Return to main screen");
-    quitResultsButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(9,87,162); color: rgb(255, 255, 255);}"));
-    QPushButton* tryAgainButton = new QPushButton("Try Again!");
-    tryAgainButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(158,219,235); color: rgb(255, 255, 255);}"));
+    score_report->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 35px; background-color: rgb(255, 0, 0); color: rgb(158, 219, 235);}"));
+    game_over = new QLabel("GAME OVER");
+    scorelayout = new QVBoxLayout;
+    quitResultsButton = new QPushButton("Return to main screen");
+    game_over->setAlignment(Qt::AlignCenter);
+    game_over->setStyleSheet(QString("QLabel {font-family:Courier; font-size: 60px; background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);}"));
+    quitResultsButton->setStyleSheet(QString("QPushButton {font-family:Courier; font-size: 15px; background-color: rgb(158, 219, 235); color: rgb(20, 20, 140);}"));
     connect(quitResultsButton,SIGNAL(clicked()),this,SLOT(quitResultsButtonClicked()));
+    scorelayout->addWidget(game_over);
     scorelayout->addWidget(score_report);
     scorelayout->addWidget(quitResultsButton);
-    scorelayout->addWidget(tryAgainButton);
     setLayout(scorelayout);
 }
 
 void resultswindow::set_points_label(int pnts)
 {
-    score_report->setText("Your score is " + QString::number(pnts));
-    score_report->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 25px; background-color: rgb(30,145,202); color: rgb(255, 255, 255);}"));
+    score_report->setText("FINAL SCORE: " + QString::number(pnts));
 }
 
 void resultswindow::quitResultsButtonClicked()

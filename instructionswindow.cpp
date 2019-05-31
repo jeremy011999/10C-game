@@ -1,37 +1,47 @@
 #include "instructionswindow.h"
-#include <QLayout>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QPixmap>
-#include <QPainter>
-#include <QPaintEvent>
+#include "ui_instructionswindow.h"
 
 InstructionsWindow::InstructionsWindow(QWidget *parent) :
-    QMainWindow(parent)
+    QMainWindow(parent),
+    ui(new Ui::InstructionsWindow)
 {
-    QWidget* centralWidget = new QWidget();
-    mainLayout = new QHBoxLayout();
-    returnButton = new QPushButton("Return to main screen");
-    connect(returnButton,SIGNAL(clicked()),this,SLOT(returnButtonClicked()));
-
-    mainLayout->addWidget(returnButton);
-    centralWidget->setLayout(mainLayout);
-    this->setCentralWidget(centralWidget);
+    ui->setupUi(this);
+    ui->stackedWidget->setStyleSheet("QLabel {color: rgb(255, 255, 255);}");
+    ui->stackedWidget->setStyleSheet("QPushButton { background-color: rgb(50, 100, 150); color: rgb(255, 255, 255);}");
+    ui->centralWidget->setStyleSheet("QStackedWidget { background-color: rgb(255, 255, 255); color: rgb(255, 255, 255);}");
 }
-
-void InstructionsWindow::paintEvent(QPaintEvent *e)
-{
-    QPainter painter(this);
-    painter.drawPixmap(0, 0, QPixmap(":/InstructionsPage.png").scaled(size()));
-    QWidget::paintEvent(e);
-}
-
 
 InstructionsWindow::~InstructionsWindow()
 {
+    delete ui;
 }
 
-void InstructionsWindow::returnButtonClicked()
+void InstructionsWindow::on_NextPageEnemy_clicked()
 {
-    emit returnToMainWindow();
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void InstructionsWindow::on_NextPagePowerups_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+void InstructionsWindow::on_ReturnToMainMenu_clicked()
+{
+    emit returnButtonClicked();
+}
+
+void InstructionsWindow::on_PrevPageHowToPlay_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void InstructionsWindow::on_PrevPageEnemies_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void InstructionsWindow::on_MainMenuButton_clicked()
+{
+    emit returnButtonClicked();
 }

@@ -17,8 +17,10 @@ public slots:
 signals:
     void quitButtonClicked();
 private:
+    QPushButton* quitResultsButton = nullptr;
+    QLabel* game_over = nullptr;
     QLabel* score_report = nullptr;
-    QHBoxLayout* scorelayout = nullptr;
+    QVBoxLayout* scorelayout = nullptr;
 };
 
 

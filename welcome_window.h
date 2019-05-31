@@ -22,11 +22,14 @@ public:
     void paintEvent(QPaintEvent *e);
 public slots:
     void GameButtonClicked();
+    void quitButtonClicked();
+    void instructionsButtonClicked();
     void OptionButtonClicked();
-    void MuteClicked();
 signals:
     void startGame();
-    void mute();
+    void quitApplication();
+    void showInstructions();
+    void showOptionsWindow();
 private:
     QLabel* welcomePage = nullptr;
     QPushButton* GameButton = nullptr;
@@ -34,7 +37,6 @@ private:
     QPushButton* QuitButton = nullptr;
     QHBoxLayout* mainLayout = nullptr;
     optionswindow* options;
-
 };
 
 #endif // WELCOME_WINDOW_H

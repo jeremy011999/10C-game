@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/">
+        <file>impact_metal_small_005.mp3</file>
+        <file>monster.png</file>
+        <file>deadmonster.png</file>
+        <file>monstersound.mp3</file>
+        <file>20points.png</file>
+        <file>metallball.png</file>
+        <file>fireball.png</file>
+        <file>darkbrick.png</file>
+        <file>darkcrack.png</file>
+        <file>darkcrack2.png</file>
+        <file>lightbrick.png</file>
+        <file>mediumbrick.png</file>
+        <file>mediumcrack.png</file>
+        <file>snowflake.png</file>
+        <file>IceBreakerBackground.png</file>
+        <file>InstructionsPage.png</file>
+        <file>bensound-jazzyfrenchy.mp3</file>
+        <file>greensnowflake.png</file>
+        <file>imageedit_7_4142580579.png</file>
+        <file>imageedit_7_4838096674.png</file>
+        <file>imageedit_7_5130330305.png</file>
+        <file>imageedit_7_8302397809.png</file>
+        <file>imageedit_21_9525227244.png</file>
+        <file>lostlife.png</file>
+        <file>plusLife.png</file>
+        <file>red.png</file>
+        <file>67454__splashdust__negativebeep.wav</file>
+        <file>snowflake_capture_sound.wav</file>
+        <file>gameoversound.flac</file>
+        <file>finishedGameScreen.png</file>
+        <file>diamond.png</file>
+        <file>first.png</file>
+        <file>pasted image 0.png</file>
+        <file>rows.png</file>
+        <file>smiley.png</file>
+    </qresource>
+</RCC>
