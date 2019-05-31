@@ -25,6 +25,7 @@ public slots:
     void quitButtonClicked();
     void instructionsButtonClicked();
     void OptionButtonClicked();
+    void resizeWindow(int sizefactor);
 signals:
     void startGame();
     void quitApplication();
@@ -33,6 +34,7 @@ signals:
 private:
     QLabel* welcomePage = nullptr;
     QPushButton* GameButton = nullptr;
+    QPushButton* OptionButton;
     QPushButton* InstructionButton = nullptr;
     QPushButton* QuitButton = nullptr;
     QHBoxLayout* mainLayout = nullptr;

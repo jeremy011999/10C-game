@@ -134,11 +134,15 @@ void myGUI::goToGameWonWindow(int pnts)
 void myGUI::resizeAllMyWindowsPlease()
 {
     mygame->resizeGame(sizeFactor);
+    welcomeWindow->resizeWindow(sizeFactor);
     if(sizeFactor==1)
     {
         stackedWidget->setMaximumSize(700,600);
         stackedWidget->setMinimumSize(700,600);
-        welcomeWindow->setMaximumSize(700,600);
-        welcomeWindow->setMinimumSize(700,600);
+    }
+    if(sizeFactor==2)
+    {
+        stackedWidget->setMaximumSize(1000,775);
+        stackedWidget->setMinimumSize(1000,775);
     }
 }

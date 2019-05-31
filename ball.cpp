@@ -11,10 +11,8 @@
 #include <QPainter>
 
 
-
 ball::ball(double size):ballsize(size),ball_speed(.36*size)
 {
-    qDebug() << QString::number(ballsize);
     x_velocity = ball_speed*qCos(qDegreesToRadians(static_cast<double>(90)));
     y_velocity= -ball_speed*qSin(qDegreesToRadians(static_cast<double>(90)));
     fireball = new QPixmap(":/fireball.png");
