@@ -65,6 +65,10 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
    QObject::connect(welcomeWindow,SIGNAL(showOptionsWindow()),this,SLOT(goToOptionsWindow()));
 
    QObject::connect(optionsWindow,SIGNAL(goBackToMain()),this,SLOT(goToWelcomeWindow()));
+    
+    //difficulty settings
+
+   QObject::connect(optionsWindow,SIGNAL(set_difficulty(int)),mygame,SLOT(difficulty(int)));
 
    //Make a stacked widget with the windows we have
    stackedWidget = new QStackedWidget;
