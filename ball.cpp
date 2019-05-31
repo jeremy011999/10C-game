@@ -11,7 +11,8 @@
 #include <QPainter>
 
 
-ball::ball(double size):ballsize(size),ball_speed(.36*size)
+
+ball::ball(double size):ballsize(size),ball_speed(8)
 {
     x_velocity = ball_speed*qCos(qDegreesToRadians(static_cast<double>(90)));
     y_velocity= -ball_speed*qSin(qDegreesToRadians(static_cast<double>(90)));
@@ -166,12 +167,14 @@ void ball::mute_ball()
     player->setVolume(0);
 }
 
-void ball::set_level(int level)
+void ball::set_level(double level)
 {
-    if(level == 1)
-        ball_speed = .25*ballsize;
-    else if(level >= 2)
-        ball_speed = .36*ballsize;
+//    if(level == 1)
+//        ball_speed = 5;
+//    else if(level >= 2)
+//        ball_speed = 8;
+    ball_speed=8*level;
+    qDebug()<<ball_speed;
 
     //adjust velocities
     x_velocity = ball_speed*qCos(qDegreesToRadians((static_cast<double>(90))));

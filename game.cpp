@@ -10,7 +10,6 @@
 
 
 
-
 game::game()
 {
     //Make Scene and View for gameplay graphics
@@ -22,48 +21,33 @@ game::game()
 
     //Make a window for the game to be played in and give it a layout
     gamePlayWindow = new QWidget();
-    QPalette pal = gamePlayWindow->palette();
-
-    // set blue background
-    pal.setColor(QPalette::Background, QColor(136, 161, 204));
-    gamePlayWindow->setAutoFillBackground(true);
-    gamePlayWindow->setPalette(pal);
-
-    //make gameplay layout
-    gamePlayHLayout = new QHBoxLayout(gamePlayWindow);
-    QVBoxLayout* gamePlayRightVLayout = new QVBoxLayout(gamePlayWindow);
+    gamePlayLayout = new QVBoxLayout(gamePlayWindow);
 
     //Make a timer that generates snowflakes and monsters
     fallingObjectsTimer = new QTimer(gamescene);
     connect(fallingObjectsTimer,SIGNAL(timeout()),this,SLOT(itemGenerator()));
 
     //Add a quit button to return to the home screen
-    quitButton = new QPushButton("QUIT GAME");
+    QPushButton* quitButton = new QPushButton("QUIT GAME");
     connect(quitButton,SIGNAL(clicked()),this,SLOT(quitGame()));
-    quitButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255)}"));
-    quitButton->setMinimumHeight(30);
-
+    quitButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(9,87,162); color: rgb(255, 255, 255);}"));
+    gamePlayLayout->addWidget(quitButton);
 
     //Add points label
     score_label = new QLabel("Score: " + QString::number(points));
-    score_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 30px; color: rgb(255, 255, 255);}"));
-    score_label->setMinimumSize(200,50);
+    score_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 15px; background-color: rgb(158,219,235); color: rgb(9,87,162);}"));
     score_label->setMaximumSize(200,50);
-
+    gamePlayLayout->addWidget(score_label);
 
     //Add lives label
     lives_label = new QLabel("Lives: " + QString::number(lives));
-    lives_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 30px; color: rgb(255, 255, 255);}"));
-
+    lives_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 15px; background-color: rgb(9,87,162); color: rgb(255, 255, 255);}"));
+    gamePlayLayout->addWidget(lives_label);
 
 
     //Make a label that gives the amount of time of a powerup remaining
-    power_up_timer = new QLabel ("");
-    power_up_timer->setMinimumSize(200,100);
-    power_up_timer->setMaximumSize(200,100);
-    power_up_timer->setWordWrap(true);
-    power_up_timer->setStyleSheet("QLabel {font-family: Courier; font-size: 20px; color: rgb(255, 255, 255);}");
-
+    power_up_timer = new QLabel ("Power-Up Time Remaining: ");
+    gamePlayLayout->addWidget(power_up_timer);
 
     //Set color of view
     view->setBackgroundBrush(QBrush(QColor(219, 229, 249),Qt::Dense1Pattern));
@@ -73,8 +57,6 @@ game::game()
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     //Fix the size of the view and set the scene size to it
-//    view->setFixedSize(648,800);
-//    gamescene->setSceneRect(0,0,648,800);
     view->setFixedSize(400,500);
     gamescene->setSceneRect(0,0,400,500);
 
@@ -82,16 +64,18 @@ game::game()
     //Add snowflake powerup meter
     snowflakeMeter = new powerUpMeter;
 
-    gamePlayRightVLayout->addWidget(power_up_timer);
-    gamePlayRightVLayout->addSpacing(10);
-    gamePlayRightVLayout->addWidget(snowflakeMeter);
-    gamePlayRightVLayout->addWidget(score_label);
-    gamePlayRightVLayout->addWidget(lives_label);
-    gamePlayRightVLayout->addWidget(quitButton);
-    gamePlayRightVLayout->setAlignment(Qt::AlignCenter);
+    //Make a horizontal layout so that the progress bar is to the right of the game view
+    QHBoxLayout* horizontalbox = new QHBoxLayout();
+    horizontalbox->addWidget(view);
+    QVBoxLayout* vertical_box = new QVBoxLayout;
+    vertical_box->addWidget(snowflakeMeter);
+    vertical_box->setAlignment(Qt::AlignCenter);
+    vertical_box->addWidget(power_up_timer);
+    horizontalbox->addLayout(vertical_box);
 
-    gamePlayHLayout->addWidget(view);
-    gamePlayHLayout->addLayout(gamePlayRightVLayout);
+
+    //Add view and powerup layout to gamelayout
+    gamePlayLayout->addLayout(horizontalbox);
 
 
     //Make a playlist that plays music on loop
@@ -115,7 +99,7 @@ game::game()
     //Make a sound for when lives are lost
     lostLifeSound = new QMediaPlayer(this);
     lostLifeSound->setMedia(QUrl("qrc:/67454__splashdust__negativebeep.wav"));
-        lostLifeSound->setVolume(250);
+        lostLifeSound->setVolume(150);
     if(muted)
         lostLifeSound->setVolume(0);
 
@@ -171,7 +155,7 @@ void game::run_game(int lvl)
     connect(mypaddle,SIGNAL(paddleDead()),this,SLOT(killedByMonster()));
 
     //set position of the paddle in the scene, generalized for different sized scenes
-    mypaddle->setPos(gamescene->width()/2-mypaddle->getwidth()/2,gamescene->height()-.06*gamescene->height());
+    mypaddle->setPos(gamescene->width()/2,gamescene->height()-.06*gamescene->height());
 
     //Add ball to scene
     ball* myball = generateNewBall();
@@ -191,22 +175,30 @@ void game::run_game(int lvl)
 void game::itemGenerator()
 {
     int randInt = rand()%100;
-    if(game_level==1)
-    {
-        if(randInt<=30)
-            blueSnowflakesGenerator();
-        else if(randInt<=5)
-            monsterGenerator();
-    }
-    else
-    {
-        if(randInt<=10)
-            blueSnowflakesGenerator();
-        else if(randInt>=95)
-            greenSnowflakesGenerator();
-        else if(randInt>20&&randInt<30)
-            monsterGenerator();
-    }
+    qDebug()<<randInt;
+    if (randInt<=monster_prob)
+        monsterGenerator();
+    else if (randInt>monster_prob&&randInt<=(snow_prob+monster_prob))
+        blueSnowflakesGenerator();
+    else if (randInt>(snow_prob+monster_prob)&&randInt<=(snow_prob+monster_prob+life_prob))
+        greenSnowflakesGenerator();
+
+//    if(game_level==1)
+//    {
+//        if(randInt<=30)
+//            blueSnowflakesGenerator();
+//        else if(randInt<=5)
+//            monsterGenerator();
+//    }
+//    else
+//    {
+//        if(randInt<=10)
+//            blueSnowflakesGenerator();
+//        else if(randInt>=95)
+//            greenSnowflakesGenerator();
+//        else if(randInt>20&&randInt<30)
+//            monsterGenerator();
+//    }
 }
 
 void game::monsterGenerator()
@@ -267,11 +259,10 @@ void game::update_meter_on_snowflake_capture()
 {
     if(!some_power_up_is_active())
     {
-        runPowerup();
         snowflakeCaptureSound->play();
         snowflakeMeter->update_counter();
-       //if(snowflakeMeter->is_full())
-           // runPowerup();
+        if(snowflakeMeter->is_full())
+            runPowerup();
     }
 }
 
@@ -430,106 +421,120 @@ void game::SetUpBricks(int game_level)
     if(game_level==1)
     {
         //add bricks to the scene
-        for(int j=0;j<4;j++)
-        {
-            for (int i=0;i<9;i++)
-            {
-                int bricklevel = (i+j)%3;
-                brick* brick_to_add = new brick(gamescene->width()/9*.9,25,bricklevel);
+//        for(int j=0;j<4;j++)
+//        {
+//            for (int i=0;i<9;i++)
+//            {
+//                int bricklevel = (i+j)%3;
+                int bricklevel = 2;
+                brick* brick_to_add = new brick(gamescene->width()/9,25,bricklevel);
                 brick_count++;
                 connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
                 connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                 gamescene->addItem(brick_to_add);
                 //set position of new brick in the scene
-                brick_to_add->setPos(gamescene->width()/9*i+2,gamescene->width()/9*.6*j+2);
-            }
-        }
+//                brick_to_add->setPos(45*i,25*j);
+                brick_to_add->setPos(45,25);
+//            }
+//        }
      }
-    if(game_level==3)
+    if(game_level==3) //diamond level
     {
-        //add bricks to the scene
+
+        //top/bottom and left/right bricks in order to add all bricks using same for loop
+        //
         //add bricks to the scene
         for(int j=1;j<7;j++)
         {
             for (int i=0;i<j;i++)
             {
                 int bricklevel = (i+j)%3;
-                brick* brick_to_add_left_top = new brick(gamescene->width()/12*.9,20,bricklevel);
+                brick* brick_to_add_left_top = new brick(gamescene->width()/12,20,bricklevel);
                 brick_count++;
                 connect(brick_to_add_left_top,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
                 connect(brick_to_add_left_top,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                 gamescene->addItem(brick_to_add_left_top);
-                brick* brick_to_add_right_top = new brick(gamescene->width()/12*.9,20,bricklevel);
+                brick* brick_to_add_right_top = new brick(gamescene->width()/12,20,bricklevel);
                 brick_count++;
                 connect(brick_to_add_right_top,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
                 connect(brick_to_add_right_top,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                 gamescene->addItem(brick_to_add_right_top);
-                brick* brick_to_add_left_bottom = new brick(gamescene->width()/12*.9,20,bricklevel);
+                brick* brick_to_add_left_bottom = new brick(gamescene->width()/12,20,bricklevel);
                 brick_count++;
                 connect(brick_to_add_left_bottom,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
                 connect(brick_to_add_left_bottom,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                 gamescene->addItem(brick_to_add_left_bottom);
 
-                brick* brick_to_add_right_bottom = new brick(gamescene->width()/12*.9,20,bricklevel);
+                brick* brick_to_add_right_bottom = new brick(gamescene->width()/12,20,bricklevel);
                 brick_count++;
                 connect(brick_to_add_right_bottom,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
                 connect(brick_to_add_right_bottom,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
 
                 gamescene->addItem(brick_to_add_right_bottom);
                 //set position of new brick in the scene
-                brick_to_add_left_top->setPos(gamescene->width()/12*(5-i),gamescene->width()/12*.65*(j-1));
-                brick_to_add_right_top->setPos(gamescene->width()/12*(6+i),gamescene->width()/12*.65*(j-1));
-                brick_to_add_left_bottom->setPos(gamescene->width()/12*(5-i),gamescene->width()/12*.65*(12-j));
-                brick_to_add_right_bottom->setPos(gamescene->width()/12*(6+i),gamescene->width()/12*.65*(12-j));
+                brick_to_add_left_top->setPos(gamescene->width()/12*(5-i),20*(j-1));
+                brick_to_add_right_top->setPos(gamescene->width()/12*(6+i),20*(j-1));
+                brick_to_add_left_bottom->setPos(gamescene->width()/12*(5-i),20*(12-j));
+                brick_to_add_right_bottom->setPos(gamescene->width()/12*(6+i),20*(12-j));
             }
         }
     }
-        if (game_level==2)
+        if (game_level==2) //level with columns
         {
             for (int i=0; i<7;i++)
             {
                 if (i%2==0)
                 {
-                    for (int j=0;j<8;j++)
-                    {
+                for (int j=0;j<11;j++)
+                {
 
+                    //different colors depending on level in column
 
-                        int bricklevel=0;
-                        if (j<=3)
-                            bricklevel=2;
-                        else if (j<=5)
-                            bricklevel=1;
-                        else if (j<=8)
-                            bricklevel=0;
+                    int bricklevel=0;
+                    if (j<=3)
+                        bricklevel=2;
+                    else if (j<=7)
+                        bricklevel=1;
+                    else if (j<=11)
+                        bricklevel=0;
 
-                        brick* brick_to_add = new brick(gamescene->width()/7,gamescene->width()/7*.6,bricklevel);
-                        brick_count++;
-                        connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
-                        connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
-                        gamescene->addItem(brick_to_add);
-                        brick_to_add->setPos(gamescene->width()/7*i,gamescene->width()/7*.63*j);
-                    }
+                    //actually adding bricks to level
+
+                    brick* brick_to_add = new brick(gamescene->width()/7,20,bricklevel);
+                    brick_count++;
+                    connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                    connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
+                    gamescene->addItem(brick_to_add);
+                    brick_to_add->setPos(gamescene->width()/7*i,20*j); //setting position
+
+                }
                 }
             }
         }
-        if (game_level==4)
+        if (game_level==4) //smiley face level
         {
             int bricklevel=1;
             std::vector<brick*> bricks;
             double unit_width = gamescene->width()/12.0;
-            double unit_height= gamescene->width()/12.0*.61;
-            for (int i=0; i<19;i++)
+            double unit_height= 20.0;
+            for (int i=0; i<19;i++) //adding bricks needed to make up scene
             {
-            brick* brick_to_add = new brick(gamescene->width()/12*.9,25,bricklevel);
+            brick* brick_to_add = new brick(gamescene->width()/12,25,bricklevel);
             brick_count++;
             connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
             connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
             bricks.push_back(brick_to_add);
             gamescene->addItem(bricks[i]);
             }
+
+            //setting position of bricks in scene
+
             bricks[0]->setPos(3*unit_width,unit_height);
+            bricks[0]->set_brick_level(0);
             bricks[1]->setPos(8*unit_width,unit_height);
+            bricks[1]->set_brick_level(0);
             bricks[2]->setPos(5.5*unit_width,3*unit_height);
+            bricks[2]->set_brick_level(2);
             for (int i=3; i<=10;i++)
             {
                 if (i<7)
@@ -545,44 +550,61 @@ void game::SetUpBricks(int game_level)
             }
 
         }
-        if (game_level==5)
+        if (game_level==5) //sets up level 5 bricks (
         {
             int bricklevel=1;
             std::vector<brick*> bricks;
             double unit_width = gamescene->width()/13.0;
-            double unit_height= .04*gamescene->height();
-            for (int i=0; i<49;i++)
-            {   
-
-            brick* brick_to_add = new brick(gamescene->width()/13.5,25,bricklevel);
+            double unit_height= 20.0;
+            for (int i=0; i<49;i++) //creating all bricks needed in scene
+            {
+            brick* brick_to_add = new brick(gamescene->width()/12,25,bricklevel);
             connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
             brick_count++;
             connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
             bricks.push_back(brick_to_add);
             gamescene->addItem(bricks[i]);
             }
+
+            // bricks that go across top
+
             bricks[0]->setPos(unit_width*1,unit_height*1);
+            bricks[0]->set_brick_level(0);
             bricks[1]->setPos(unit_width*2,unit_height*1);
+            bricks[1]->set_brick_level(0);
             bricks[2]->setPos(unit_width*5,unit_height*1);
             bricks[3]->setPos(unit_width*6,unit_height*1);
             bricks[4]->setPos(unit_width*7,unit_height*1);
             bricks[5]->setPos(unit_width*9,unit_height*1);
+            bricks[5]->set_brick_level(2);
             bricks[6]->setPos(unit_width*10,unit_height*1);
+            bricks[6]->set_brick_level(2);
             bricks[7]->setPos(unit_width*11,unit_height*1);
+            bricks[7]->set_brick_level(2);
             bricks[8]->setPos(unit_width*1,unit_height*10);
+            bricks[8]->set_brick_level(0);
             bricks[9]->setPos(unit_width*2,unit_height*10);
+            bricks[9]->set_brick_level(0);
             bricks[10]->setPos(unit_width*3,unit_height*10);
+            bricks[10]->set_brick_level(0);
             bricks[11]->setPos(unit_width*5,unit_height*10);
             bricks[12]->setPos(unit_width*6,unit_height*10);
             bricks[13]->setPos(unit_width*7,unit_height*10);
             bricks[14]->setPos(unit_width*9,unit_height*10);
+            bricks[14]->set_brick_level(2);
             bricks[15]->setPos(unit_width*10,unit_height*10);
+            bricks[15]->set_brick_level(2);
             bricks[16]->setPos(unit_width*11,unit_height*10);
+            bricks[16]->set_brick_level(2);
+
+            //bricks that make up columns
+
             for (int i=17; i<bricks.size();i++)
             {
                 if (i<25)
                 {
                     bricks[i]->setPos(unit_width*2,unit_height*(i-15));
+                    bricks[i]->set_brick_level(0);
                 }
                 else if (i<33)
                 {
@@ -595,6 +617,7 @@ void game::SetUpBricks(int game_level)
                 else
                 {
                     bricks[i]->setPos(unit_width*9,unit_height*(i-39));
+                    bricks[i]->set_brick_level(2);
                 }
             }
         }
@@ -605,9 +628,8 @@ void game::SetUpBricks(int game_level)
 
 void game::runPowerup()
 {
-    int randomVal = rand()%3;
-    randomVal=2;
-
+    //int randomVal = rand()%3;
+    int randomVal=0;
     if(randomVal==0)
     {
         for(int i=0;i<2;i++)
@@ -619,7 +641,7 @@ void game::runPowerup()
 
     else if(randomVal==1)
     {
-        power_time = 5;
+        power_time = 4;
         QList<QGraphicsItem*> items_list = gamescene->items();
         for(int i=0;i<items_list.size();i++)
         {
@@ -629,7 +651,7 @@ void game::runPowerup()
     }
     else
     {
-        power_time=10;
+        power_time=9;
         mypaddle->power_up_paddle();
     }
     run_powerup_bar_flash_animation();
@@ -642,7 +664,6 @@ void game::run_powerup_bar_flash_animation()
     connect(flash_animation_timer,SIGNAL(timeout()),this,SLOT(powerup_meter_flash_helper()));
     connect(power_up_time,SIGNAL(timeout()),this,SLOT(change_time()));
     flash_animation_timer->start(150);
-    change_time();
     power_up_time->start(1000);
 }
 
@@ -676,7 +697,7 @@ void game::change_time()
         return;
     if(some_power_up_is_active())
     {
-        QString s1= "Power-Up Time Remaining:\n"+QString::number(power_time)+" Seconds";
+        QString s1= "Power-Up Time Remaining: "+QString::number(power_time);
     power_up_timer->setText(s1);
     power_time--;
     }
@@ -685,7 +706,7 @@ void game::change_time()
         power_up_time->stop();
         delete power_up_time;
         power_up_time=nullptr;
-        power_up_timer->setText("");
+        power_up_timer->setText("Power-Up Time Remaining: ");
     }
 }
 
@@ -759,7 +780,8 @@ ball* game::generateNewBall()
     if(muted)
         myball->mute_ball();
     ballcount += 1;
-    myball->set_level(game_level);
+    //based on difficulty chosen not game level
+    myball->set_level(game_difficulty);
     connect(myball,SIGNAL(ball_hit_ground()),this,SLOT(a_ball_hit_ground()));
     if(ballcount==1)
     {
@@ -775,41 +797,36 @@ ball* game::generateNewBall()
     return myball;
 }
 
-
-
-void game::resizeGame(int size_factor)
+void game::difficulty(int x)
 {
-    if(size_factor==1)
+    switch(x)
     {
-        view->setFixedSize(400,500);
-        gamescene->setSceneRect(0,0,400,500);
-        snowflakeMeter->setMaximumSize(200,200);
-        snowflakeMeter->setMinimumSize(200,200);
-        quitButton->setMinimumHeight(30);
-        power_up_timer->setStyleSheet("QLabel {font-family: Courier; font-size: 20px; color: rgb(255, 255, 255);}");
-        score_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 30px; color: rgb(255, 255, 255);}"));
-        lives_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 30px; color: rgb(255, 255, 255);}"));
-        score_label->setMinimumSize(200,50);
-        score_label->setMaximumSize(200,50);
-        power_up_timer->setMinimumSize(200,100);
-        power_up_timer->setMaximumSize(200,100);
+    case 0:
+    {
+        game_difficulty=.75;
+        monster_prob=8.0;
+        snow_prob=35.0;
+        life_prob=7.5;
+        break;
     }
-    else {
-        view->setFixedSize(600,750);
-        gamescene->setSceneRect(0,0,600,750);
-        snowflakeMeter->setMaximumSize(300,300);
-        snowflakeMeter->setMinimumSize(300,300);
-        quitButton->setMinimumHeight(30*1.5);
-        power_up_timer->setStyleSheet("QLabel {font-family: Courier; font-size: 30px; color: rgb(255, 255, 255);}");
-        score_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 45px; color: rgb(255, 255, 255);}"));
-        lives_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 45px; color: rgb(255, 255, 255);}"));
-        score_label->setMinimumSize(200*1.5,50*1.5);
-        score_label->setMaximumSize(200*1.5,50*1.5);
-        power_up_timer->setMinimumSize(200*1.5,100*1.5);
-        power_up_timer->setMaximumSize(200*1.5,100*1.5);
+    case 1:
+    {
+        game_difficulty=1;
+        monster_prob=12.0;
+        snow_prob=30.0;
+        life_prob=5.0;
+        break;
+    }
+    case 2:
+    {
+        game_difficulty=1.25;
+        monster_prob=16.0;
+        snow_prob=22.0;
+        life_prob=2.5;
+        break;
+    }
     }
 }
-
 
 
 
@@ -818,5 +835,5 @@ void game::resizeGame(int size_factor)
 game::~game()
 {
     delete gamePlayWindow; gamePlayWindow = nullptr;
-    delete gamePlayHLayout; gamePlayHLayout = nullptr;
+    delete gamePlayLayout; gamePlayLayout = nullptr;
 }

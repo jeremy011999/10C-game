@@ -18,6 +18,7 @@
 #include "lives_meter.h"
 #include "notifications.h"
 #include <QMediaPlaylist>
+#include <QDebug>
 
 
 #ifndef GAME_H
@@ -58,7 +59,7 @@ public slots:
     void update_lives_on_green_snowflake_capture();
     void decrease_brick_count();
     void change_time();
-    void resizeGame(int size_factor);
+    void difficulty(int x);
 signals:
     void time_to_exit_game_screen();
     void time_to_enter_results_screen(int totalpoints);
@@ -71,7 +72,7 @@ private:
     QGraphicsScene* gamescene = nullptr;
     QGraphicsView* view = nullptr;
     int points=0;
-    QHBoxLayout* gamePlayHLayout=nullptr;
+    QVBoxLayout* gamePlayLayout=nullptr;
     paddle* mypaddle = nullptr;
     int game_level = 1;
     QTimer* focustimer = nullptr;
@@ -89,8 +90,9 @@ private:
     QLabel* power_up_timer;
     int power_time;
     QTimer* power_up_time;
-    QPushButton* quitButton;
     QMediaPlayer* snowflakeCaptureSound = nullptr;
+    double game_difficulty = 0;
+    double monster_prob, life_prob, snow_prob;
 };
 
 #endif // GAME_H
