@@ -11,35 +11,35 @@ levels_window::levels_window(QWidget *parent) : QMainWindow(parent)
 
     QWidget* centralWidget = new QWidget();
     mainLayout = new QVBoxLayout();
-    returnButton = new QPushButton("Return to main screen");
+    returnButton = new QPushButton("Quit");
     returnButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
     connect(returnButton,&QPushButton::clicked,[this](){emit returnToMainWindow();});
 
-    QPushButton* level1Button = new QPushButton("level 1");
+    level1Button = new QPushButton("Level 1");
     level1Button->setAttribute(Qt::WA_Hover);
     level1Button->installEventFilter(filter1);
     level1Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
     connect(level1Button,&QPushButton::clicked,[this](){emit goToLevel(1);});
 
-    QPushButton* level2Button = new QPushButton("level 2");
+    level2Button = new QPushButton("Level 2");
     level2Button->setAttribute(Qt::WA_Hover);
     level2Button->installEventFilter(filter2);
     level2Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
     connect(level2Button,&QPushButton::clicked,[this](){emit goToLevel(2);});
 
-    QPushButton* level3Button = new QPushButton("level 3");
+    level3Button = new QPushButton("Level 3");
     level3Button->setAttribute(Qt::WA_Hover);
     level3Button->installEventFilter(filter3);
     level3Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
     connect(level3Button,&QPushButton::clicked,[this](){emit goToLevel(3);});
 
-    QPushButton* level4Button = new QPushButton("level 4");
+    level4Button = new QPushButton("Level 4");
     level4Button->setAttribute(Qt::WA_Hover);
     level4Button->installEventFilter(filter4);
     level4Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
     connect(level4Button,&QPushButton::clicked,[this](){emit goToLevel(4);});
 
-    QPushButton* level5Button = new QPushButton("level 5");
+    level5Button = new QPushButton("Level 5");
     level5Button->setAttribute(Qt::WA_Hover);
     level5Button->installEventFilter(filter5);
     level5Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
@@ -77,9 +77,45 @@ levels_window::levels_window(QWidget *parent) : QMainWindow(parent)
     setCentralWidget(centralWidget);
 }
 
+void levels_window::resizeWindow(int sizeFactor)
+{
+    if(sizeFactor==1)
+    {
+        returnButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
+        level1Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
+        level2Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
+        level3Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
+        level4Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
+        level5Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(20, 20, 140);}"));
+    }
+    if(sizeFactor==2)
+    {
+        returnButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        level1Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        level2Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        level3Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        level4Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        level5Button->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+
+        returnButton->setMinimumSize(200,75);
+        level1Button->setMinimumSize(200,75);
+        level2Button->setMinimumSize(200,75);
+        level3Button->setMinimumSize(200,75);
+        level4Button->setMinimumSize(200,75);
+        level5Button->setMinimumSize(200,75);
+
+
+    }
+}
+
+
+
 level_pic::level_pic()
 {
     this->setPixmap(QPixmap(":/IceBreakerBackground.png"));
+    setScaledContents(true);
+    setMaximumSize(600,750);
+    setMinimumSize(600,750);
 }
 
 //void level_pic::paintEvent(QPaintEvent *e) {
@@ -102,7 +138,6 @@ void level_pic::pic3()
 {
 
     this->setPixmap(*thrdlvlpic);
-
 }
 
 void level_pic::pic4()

@@ -135,6 +135,7 @@ void myGUI::resizeAllMyWindowsPlease()
 {
     mygame->resizeGame(sizeFactor);
     welcomeWindow->resizeWindow(sizeFactor);
+    levelsWindow->resizeWindow(sizeFactor);
     if(sizeFactor==1)
     {
         stackedWidget->setMaximumSize(700,600);

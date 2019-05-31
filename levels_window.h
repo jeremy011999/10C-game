@@ -31,8 +31,14 @@ signals:
     void returnToMainWindow();
     void goToLevel(int lvl);
 public slots:
+    void resizeWindow(int sizeFactor);
 private:
     QVBoxLayout* mainLayout = nullptr;
+    QPushButton* level1Button;
+    QPushButton* level2Button;
+    QPushButton* level3Button;
+    QPushButton* level4Button;
+    QPushButton* level5Button;
     QPushButton* returnButton = nullptr;
     level_pic* picture;
     please_work1* filter1;
