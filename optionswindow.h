@@ -3,26 +3,22 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QLabel>
-#include <QComboBox>
-#include <QPixmap>
-#include <QPainter>
-#include <QPaintEvent>
-#include <QObject>
 #include <QMainWindow>
-#include <QPaintEvent>
 #include <QPainter>
+#include <QPaintEvent>
+#include <QComboBox>
+#include <QLabel>
 
 class optionswindow : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit optionswindow(QMainWindow *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
 signals:
     void mute();
     void goBackToMain();
     void set_difficulty(int x);
-    void paintEvent (QPaintEvent* e);
 public slots:
     void change_button();
     void MuteClicked();

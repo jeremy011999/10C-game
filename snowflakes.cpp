@@ -56,6 +56,8 @@ snowflake::~snowflake()
 {
     delete snowflake_pic;
     snowflake_pic = nullptr;
+    delete snowflakeTimer;
+    snowflakeTimer = nullptr;
 }
 
 void snowflake::stop_timer()

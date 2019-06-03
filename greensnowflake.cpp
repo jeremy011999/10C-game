@@ -46,5 +46,7 @@ greenSnowflake::~greenSnowflake()
 {
     delete plusLifePic; plusLifePic = nullptr;
     delete snowflake_pic; snowflake_pic = nullptr;
+    delete snowflakeTimer;
+    snowflakeTimer = nullptr;
 }
 

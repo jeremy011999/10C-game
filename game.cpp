@@ -31,7 +31,7 @@ game::game()
 
     //make gameplay layout
     gamePlayHLayout = new QHBoxLayout(gamePlayWindow);
-    QVBoxLayout* gamePlayRightVLayout = new QVBoxLayout(gamePlayWindow);
+    QVBoxLayout* gamePlayRightVLayout = new QVBoxLayout();
 
     //Make a timer that generates snowflakes and monsters
     fallingObjectsTimer = new QTimer(gamescene);
@@ -40,8 +40,10 @@ game::game()
     //Add a quit button to return to the home screen
     quitButton = new QPushButton("QUIT GAME");
     connect(quitButton,SIGNAL(clicked()),this,SLOT(quitGame()));
-    quitButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255)}"));
-    quitButton->setMinimumHeight(30);
+    quitButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);} \
+                                      QPushButton:hover:!pressed {min-width: 100px; min-height = 75px; font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgb(50, 100, 150); color: rgb(255, 255, 255);}\
+                                      QPushButton:hover:pressed {min-width: 100px; min-height = 75px; font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgb(0, 0, 102); color: rgb(255, 255, 255);}"));
+    quitButton->setMinimumHeight(50);
 
 
     //Add points label
@@ -73,8 +75,6 @@ game::game()
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     //Fix the size of the view and set the scene size to it
-//    view->setFixedSize(648,800);
-//    gamescene->setSceneRect(0,0,648,800);
     view->setFixedSize(400,500);
     gamescene->setSceneRect(0,0,400,500);
 
@@ -138,6 +138,9 @@ game::game()
     //this timer is needed to  fix bugs that would take the focus off the paddle, making it uncontrollable during gameplay
     focustimer = new QTimer(this);
     connect(focustimer, SIGNAL(timeout()),this,SLOT(setpaddlefocus()));
+
+    //call function that initializes game difficulty and the probabilities of monster/snowflake generation
+    difficulty(0);
 }
 
 void game::run_game(int lvl)
@@ -190,13 +193,13 @@ void game::run_game(int lvl)
 
 void game::itemGenerator()
 {
-    int randInt = rand()%100;
+    int randInt = rand() % 100;
     if (randInt<=monster_prob)
-        monsterGenerator();
-    else if (randInt>monster_prob&&randInt<=(snow_prob+monster_prob))
-        blueSnowflakesGenerator();
-    else if (randInt>(snow_prob+monster_prob)&&randInt<=(snow_prob+monster_prob+life_prob))
-        greenSnowflakesGenerator();
+           monsterGenerator();
+       else if (randInt>monster_prob&&randInt<=(snow_prob+monster_prob))
+           blueSnowflakesGenerator();
+       else if (randInt>(snow_prob+monster_prob)&&randInt<=(snow_prob+monster_prob+life_prob))
+           greenSnowflakesGenerator();
 }
 
 void game::monsterGenerator()
@@ -257,11 +260,10 @@ void game::update_meter_on_snowflake_capture()
 {
     if(!some_power_up_is_active())
     {
-        runPowerup();
         snowflakeCaptureSound->play();
         snowflakeMeter->update_counter();
-       //if(snowflakeMeter->is_full())
-           // runPowerup();
+        if(snowflakeMeter->is_full())
+            runPowerup();
     }
 }
 
@@ -543,7 +545,12 @@ void game::SetUpBricks(int game_level)
             double unit_height= .04*gamescene->height();
             for (int i=0; i<49;i++)
             {   
-
+            if(i==0||i==1||i==8||i==9||i==10||(i>16&&i<25))
+                bricklevel = 2;
+            else if(i==2||i==3||i==4||i==11||i==12||i==13||(i>=25&&i<41))
+                bricklevel = 1;
+            else if(i==5||i==6||i==7||i==14||i==15||i==16||(i>=41&&i<49))
+                bricklevel = 0;
             brick* brick_to_add = new brick(gamescene->width()/13.5,25,bricklevel);
             connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
             brick_count++;
@@ -596,8 +603,6 @@ void game::SetUpBricks(int game_level)
 void game::runPowerup()
 {
     int randomVal = rand()%3;
-    randomVal=2;
-
     if(randomVal==0)
     {
         for(int i=0;i<2;i++)
@@ -800,14 +805,15 @@ void game::resizeGame(int size_factor)
     }
 }
 
+
 void game::difficulty(int x)
 {
     switch(x)
     {
     case 0:
     {
-        game_difficulty=.75;
-        monster_prob=8.0;
+        game_difficulty=0;
+        monster_prob=5.0;
         snow_prob=35.0;
         life_prob=7.5;
         break;
@@ -815,23 +821,21 @@ void game::difficulty(int x)
     case 1:
     {
         game_difficulty=1;
-        monster_prob=12.0;
-        snow_prob=30.0;
+        monster_prob=16.0;
+        snow_prob=20.0;
         life_prob=5.0;
         break;
     }
     case 2:
     {
-        game_difficulty=1.25;
-        monster_prob=16.0;
-        snow_prob=22.0;
+        game_difficulty=2;
+        monster_prob=20.0;
+        snow_prob=10.0;
         life_prob=2.5;
         break;
     }
     }
 }
-
-
 
 
 

@@ -11,7 +11,7 @@
 #include <QPainter>
 
 
-ball::ball(double size):ballsize(size),ball_speed(.36*size)
+ball::ball(double size):ballsize(size),ball_speed(.3*size)
 {
     x_velocity = ball_speed*qCos(qDegreesToRadians(static_cast<double>(90)));
     y_velocity= -ball_speed*qSin(qDegreesToRadians(static_cast<double>(90)));
@@ -115,9 +115,11 @@ void ball::update_ball()
             else
             {
                  //Check if brick was hit on a right or left side, then change x velocity
-                 if(getMiddleXCoord() < hitbrick->x() && y() < hitbrick->getBottomY()-5 && y()+boundingRect().height()*scale > hitbrick->y()+5 && x_velocity>0)
+                 if(getMiddleXCoord() < hitbrick->x() && y() < hitbrick->getBottomY()-5 &&
+                         y()+boundingRect().height()*scale > hitbrick->y()+5 && x_velocity>0)
                      x_velocity = -abs(x_velocity);
-                 else if(getMiddleXCoord()>hitbrick->getRightX() && y() < hitbrick->getBottomY()-5 && y()+boundingRect().height()*scale > hitbrick->y()+5  && x_velocity<0)
+                 else if(getMiddleXCoord()>hitbrick->getRightX() && y() < hitbrick->getBottomY()-5 &&
+                         y()+boundingRect().height()*scale > hitbrick->y()+5  && x_velocity<0)
                      x_velocity = abs(x_velocity);
 
                  //Check if brick was hit on a bottom or top side, then change y velocity
@@ -166,9 +168,14 @@ void ball::mute_ball()
     player->setVolume(0);
 }
 
-void ball::set_level(double level)
+void ball::set_level(int level)
 {
-    ball_speed=8*level;
+    if(level == 0)
+        ball_speed = .3*ballsize;
+    else if(level == 1)
+        ball_speed = .45*ballsize;
+    else if(level >= 2)
+        ball_speed = .6*ballsize;
 
     //adjust velocities
     x_velocity = ball_speed*qCos(qDegreesToRadians((static_cast<double>(90))));

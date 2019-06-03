@@ -2,9 +2,8 @@
 
 LevelWonWindow::LevelWonWindow():level_just_beat(0)
 {
-    mainLayout = new QVBoxLayout(this);
+    mainLayout = new QVBoxLayout();
 
-    setGeometry(0, 0, 700, 600);
     QPalette pal = palette();
 
     // set black background

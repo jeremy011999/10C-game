@@ -13,6 +13,7 @@
 #include <QHoverEvent>
 #include <QPixmap>
 #include <QLabel>
+#include "event_filters.h"
 
 class level_pic;
 
@@ -29,6 +30,8 @@ public slots:
     void resizeWindow(int sizeFactor);
 private:
     QVBoxLayout* mainLayout = nullptr;
+    QLabel* directions1;
+    QLabel* directions2;
     QPushButton* level1Button;
     QPushButton* level2Button;
     QPushButton* level3Button;
@@ -49,8 +52,21 @@ class level_pic : public QLabel
     Q_OBJECT
 public:
     level_pic();
-    //QPainter* painter;
-    //void paintEvent(QPaintEvent *e);
+    ~level_pic()
+    {
+        delete blanklvlpic;
+        delete firstlvlpic;
+        delete scndlvlpic;
+        delete thrdlvlpic;
+        delete frthlvlpic;
+        delete fthlvlpic;
+        blanklvlpic    = nullptr;
+        firstlvlpic    = nullptr;
+        scndlvlpic     = nullptr;
+        thrdlvlpic     = nullptr;
+        frthlvlpic     = nullptr;
+        fthlvlpic      = nullptr;
+    }
 signals:
 public slots:
     void pic1();
@@ -60,6 +76,7 @@ public slots:
     void pic5();
     void show_blank();
 private:
+    QPixmap* blanklvlpic = new QPixmap(":/blank.png");
     QPixmap* firstlvlpic = new QPixmap(":/first.png");
     QPixmap* scndlvlpic = new QPixmap(":/rows.png");
     QPixmap* thrdlvlpic = new QPixmap(":/diamond.png");

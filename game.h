@@ -92,7 +92,7 @@ private:
     QTimer* power_up_time;
     QPushButton* quitButton;
     QMediaPlayer* snowflakeCaptureSound = nullptr;
-    double game_difficulty = 0;
+    double game_difficulty;
     double monster_prob, life_prob, snow_prob;
 };
 

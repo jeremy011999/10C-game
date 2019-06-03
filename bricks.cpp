@@ -28,32 +28,6 @@ brick::brick(int bwidth,int bheight, int bricklevel):brick_width(bwidth),brick_h
     }
 }
 
-void brick::set_brick_level(int level)
-{
-    this->brick_level=level;
-    if(brick_level==2)
-    {
-        darkbrick = new QPixmap(":/darkbrick.png");
-        setPixmap(*darkbrick);
-        scale = brick_width/boundingRect().width();
-        setScale(scale);
-    }
-    else if(brick_level==1)
-    {
-        mediumbrick = new QPixmap(":/mediumbrick.png");
-        setPixmap(*mediumbrick);
-        scale = brick_width/boundingRect().width();
-        setScale(scale);
-    }
-    else if(brick_level==0)
-    {
-        lightbrick = new QPixmap(":/lightbrick.png");
-        setPixmap(*lightbrick);
-        scale = brick_width/boundingRect().width();
-        setScale(scale);
-    }
-}
-
 void brick::update_hit_brick()
 {
     emit update_points(10);

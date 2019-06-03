@@ -3,11 +3,17 @@
 
 optionswindow::optionswindow(QMainWindow *parent) : QMainWindow(parent)
 {
+    setStyleSheet(QString("QWidget {background-color: rgb(136, 161, 204);}"));
     QWidget* main = new QWidget;
     QLabel* title = new QLabel("Options Menu");
+
     mute_label = new QLabel("Mute: OFF");
+    mute_label->setMaximumWidth(100);
+    mute_label->setMinimumWidth(100);
+
     QLabel* volume_settings = new QLabel("Volume Settings: ");
     QLabel* difficulty_label = new QLabel("Change Difficulty:");
+
     select_difficulty = new QComboBox;
     select_difficulty->setStyleSheet("QComboBox {font-family: Courier; font-size: 12px; background-color: rgb(20, 170, 255); color: rgb(255, 255, 255);}");
     Mute = new QPushButton("Mute/Unmute Sound");
@@ -16,9 +22,9 @@ optionswindow::optionswindow(QMainWindow *parent) : QMainWindow(parent)
     select_difficulty->addItem("Normal");
     select_difficulty->addItem("Hard");
     select_difficulty->setCurrentIndex(0);
-    volume_settings->setStyleSheet("font-family: Courier; font-size: 20px");
-    difficulty_label->setStyleSheet("font-family: Courier; font-size: 20px");
-    title->setStyleSheet("font-family: Courier; font-size: 120px");
+    volume_settings->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 40px; color: rgb(255, 255, 255);}"));
+    difficulty_label->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 40px; color: rgb(255, 255, 255);}"));
+    title->setStyleSheet(QString("QLabel {font-family: Courier; font-size: 120px; color: rgb(255, 255, 255);}"));
     title->setAlignment(Qt::AlignHCenter);
 
 
@@ -29,7 +35,7 @@ optionswindow::optionswindow(QMainWindow *parent) : QMainWindow(parent)
     connect(select_difficulty,SIGNAL(currentIndexChanged(int)),this,SLOT(change_difficulty(int)));
 
     QPushButton* back = new QPushButton("Back to Main");
-    back->setStyleSheet("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(0, 0, 150); color: rgb(255, 255, 255);}");
+    back->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 2px;border-radius: 5px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
     connect(back,SIGNAL(clicked()),this,SLOT(backToMain()));
 
 
@@ -51,24 +57,25 @@ optionswindow::optionswindow(QMainWindow *parent) : QMainWindow(parent)
     overall_layout->addLayout(optionslayout);
     overall_layout->addSpacing(250);
     main->setLayout(overall_layout);
+
     this->setCentralWidget(main);
 }
 
 void optionswindow::change_button()
 {
     if (muted)
-    {
         muted=false;
-        mute_label->setText("Mute: OFF");
-    }
     else {
         muted=true;
-        mute_label->setText("Mute: ON ");
     }
     if (muted)
-    Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(10, 200, 10); color: rgb(255, 255, 255);}"));
+    {
+        Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15 px; background-color: rgb(10, 200, 10); color: rgb(255, 255, 255);}"));
+        mute_label->setText("Mute: ON");
+    }
     else {
-        Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15px; background-color: rgb(200, 10, 10); color: rgb(255, 255, 255);}"));
+        Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 15 px; background-color: rgb(200, 10, 10); color: rgb(255, 255, 255);}"));
+        mute_label->setText("Mute: OFF");
     }
 }
 
@@ -82,14 +89,13 @@ void optionswindow::backToMain()
     emit goBackToMain();
 }
 
+void optionswindow::paintEvent(QPaintEvent *e) {
+    QPainter painter(this);
+    //painter.drawPixmap(0, 0, QPixmap(":/ice.jpg").scaled(size()));
+    QWidget::paintEvent(e);
+}
+
 void optionswindow::change_difficulty(int x)
 {
     emit set_difficulty(x);
 }
-
-void optionswindow::paintEvent(QPaintEvent *e) {
-    QPainter painter(this);
-    painter.drawPixmap(0, 0, QPixmap(":/ice.jpg").scaled(size()));
-    QWidget::paintEvent(e);
-}
-

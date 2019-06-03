@@ -77,43 +77,49 @@ void welcome_window::OptionButtonClicked()
     emit showOptionsWindow();
 }
 
+
 void welcome_window::resizeWindow(int sizefactor)
 {
     if(sizefactor == 1)
     {
+        QString buttonstyle = "QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);} \
+                                 QPushButton:hover:!pressed {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,255); color: rgb(255, 255, 255);}\
+                                 QPushButton:hover:pressed {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgb(0, 0, 102); color: rgb(255, 255, 255);}";
         setMaximumSize(700,600);
         setMinimumSize(700,600);
         GameButton->setMaximumSize(300,75);
         GameButton->setMinimumSize(300,75);
-        GameButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        GameButton->setStyleSheet(buttonstyle);
         OptionButton->setMaximumSize(300,75);
         OptionButton->setMinimumSize(300,75);
-        OptionButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        OptionButton->setStyleSheet(buttonstyle);
         InstructionButton->setMaximumSize(300,75);
         InstructionButton->setMinimumSize(300,75);
-        InstructionButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        InstructionButton->setStyleSheet(buttonstyle);
         QuitButton->setMaximumSize(300,75);
         QuitButton->setMinimumSize(300,75);
-        QuitButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
-
+        QuitButton->setStyleSheet(buttonstyle);
     }
     else if(sizefactor==2)
     {
         setMaximumSize(1000,775);
         setMinimumSize(1000,775);
 
+        QString buttonstyle = "QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);} \
+                                 QPushButton:hover:!pressed {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,255); color: rgb(255, 255, 255);}\
+                                 QPushButton:hover:pressed {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgb(0, 0, 102); color: rgb(255, 255, 255);}";
+
         GameButton->setMaximumSize(450,75*1.2);
         GameButton->setMinimumSize(450,75*1.2);
-        GameButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        GameButton->setStyleSheet(buttonstyle);
         OptionButton->setMaximumSize(450,75*1.2);
         OptionButton->setMinimumSize(450,75*1.2);
-        OptionButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        OptionButton->setStyleSheet(buttonstyle);
         InstructionButton->setMaximumSize(450,75*1.2);
         InstructionButton->setMinimumSize(450,75*1.2);
-        InstructionButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
+        InstructionButton->setStyleSheet(buttonstyle);
         QuitButton->setMaximumSize(450,75*1.2);
         QuitButton->setMinimumSize(450,75*1.2);
-        QuitButton->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 5px;border-radius: 15px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);}"));
-
+        QuitButton->setStyleSheet(buttonstyle);
     }
 }
