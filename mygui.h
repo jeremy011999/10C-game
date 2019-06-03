@@ -28,7 +28,7 @@ public slots:
         void goToLevelsWindow();
         void goToLevelWonWindow(int lvl_just_beat);
         void goToGameWonWindow(int pnts);
-        void resizeAllMyWindowsPlease();
+        void resizeAllMyWindowsPlease(int szfactor);
 private:
         welcome_window *welcomeWindow;
         game* mygame;
@@ -39,7 +39,7 @@ private:
         levels_window* levelsWindow;
         LevelWonWindow* levelWonWindow;
         winGameWindow* gameWonWindow;
-        int sizeFactor = 2;
+        int sizeFactor = 1;
 };
 
 #endif // MYGUI_H

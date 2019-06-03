@@ -140,7 +140,7 @@ game::game()
     connect(focustimer, SIGNAL(timeout()),this,SLOT(setpaddlefocus()));
 
     //call function that initializes game difficulty and the probabilities of monster/snowflake generation
-    difficulty(0);
+    difficulty(1);
 }
 
 void game::run_game(int lvl)

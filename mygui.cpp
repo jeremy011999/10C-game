@@ -35,6 +35,9 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
 
     QObject::connect(optionsWindow,SIGNAL(set_difficulty(int)),mygame,SLOT(difficulty(int)));
 
+    //size settings
+    QObject::connect(optionsWindow,SIGNAL(set_sizeFactor(int)),this,SLOT(resizeAllMyWindowsPlease(int)));
+
    //Connect the start button from welcome window to run the game
    QObject::connect(welcomeWindow,SIGNAL(startGame()),this,SLOT(goToLevelsWindow()));
 
@@ -82,7 +85,7 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
    stackedWidget->addWidget(gameWonWindow);
    goToWelcomeWindow();
 
-   resizeAllMyWindowsPlease();
+   resizeAllMyWindowsPlease(1);
    stackedWidget->show();
 }
 
@@ -135,19 +138,24 @@ void myGUI::goToGameWonWindow(int pnts)
     stackedWidget->setCurrentIndex(7);
 }
 
-void myGUI::resizeAllMyWindowsPlease()
+void myGUI::resizeAllMyWindowsPlease(int szfactor)
 {
+    sizeFactor = szfactor;
     mygame->resizeGame(sizeFactor);
     welcomeWindow->resizeWindow(sizeFactor);
     levelsWindow->resizeWindow(sizeFactor);
+    optionsWindow->resizeWindow(sizeFactor);
     if(sizeFactor==1)
     {
         stackedWidget->setMaximumSize(700,600);
         stackedWidget->setMinimumSize(700,600);
+        stackedWidget->resize(700,600);
     }
     if(sizeFactor==2)
     {
         stackedWidget->setMaximumSize(1000,775);
         stackedWidget->setMinimumSize(1000,775);
+        stackedWidget->resize(1000,775);
+
     }
 }
