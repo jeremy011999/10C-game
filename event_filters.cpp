@@ -31,6 +31,7 @@ event_filter5::event_filter5(QObject *parent) : QObject(parent)
 /*
 sets up event filter to take care of hover_enter and hover_leave events
     in order to display level picture when mouse moves over a button
+    as well as change stylesheet of button
 @param: obj: lets the event filter know what it is being attached to
 @param event: refers to event that is currently happening to obj
 @return: returns whether or not anything should be done for event (true for yes)
@@ -64,6 +65,7 @@ bool event_filter1::eventFilter(QObject *obj, QEvent *event)
 /*
 sets up event filter to take care of hover_enter and hover_leave events
     in order to display level picture when mouse moves over a button
+    as well as change stylesheet of button
 @param: obj: lets the event filter know what it is being attached to
 @param event: refers to event that is currently happening to obj
 @return: returns whether or not anything should be done for event (true for yes)
@@ -97,6 +99,7 @@ bool event_filter2::eventFilter(QObject *obj, QEvent *event)
 /*
 sets up event filter to take care of hover_enter and hover_leave events
     in order to display level picture when mouse moves over a button
+    as well as change stylesheet of button
 @param: obj: lets the event filter know what it is being attached to
 @param event: refers to event that is currently happening to obj
 @return: returns whether or not anything should be done for event (true for yes)
@@ -130,6 +133,7 @@ bool event_filter3::eventFilter(QObject *obj, QEvent *event)
 /*
 sets up event filter to take care of hover_enter and hover_leave events
     in order to display level picture when mouse moves over a button
+    as well as change stylesheet of button
 @param: obj: lets the event filter know what it is being attached to
 @param event: refers to event that is currently happening to obj
 @return: returns whether or not anything should be done for event (true for yes)
@@ -163,6 +167,7 @@ bool event_filter4::eventFilter(QObject *obj, QEvent *event)
 /*
 sets up event filter to take care of hover_enter and hover_leave events
     in order to display level picture when mouse moves over a button
+    as well as change stylesheet of button
 @param: obj: lets the event filter know what it is being attached to
 @param event: refers to event that is currently happening to obj
 @return: returns whether or not anything should be done for event (true for yes)
