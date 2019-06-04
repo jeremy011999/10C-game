@@ -20,10 +20,10 @@ public slots:
     void set_counter(int num);
 private:
     int counter = 0;
-    QPixmap* emptySnowflake = new QPixmap(":/imageedit_7_4838096674.png");
-    QPixmap* snowflakeFill1 = new QPixmap(":/imageedit_7_8302397809.png");
-    QPixmap* snowflakeFill2 = new QPixmap(":/imageedit_7_4142580579.png");
-    QPixmap* snowflakeFill3 = new QPixmap(":/imageedit_7_5130330305.png");
+    QPixmap* emptySnowflake = new QPixmap(":/Game_Media/Pictures/imageedit_7_4838096674.png");
+    QPixmap* snowflakeFill1 = new QPixmap(":/Game_Media/Pictures/imageedit_7_8302397809.png");
+    QPixmap* snowflakeFill2 = new QPixmap(":/Game_Media/Pictures/imageedit_7_4142580579.png");
+    QPixmap* snowflakeFill3 = new QPixmap(":/Game_Media/Pictures/imageedit_7_5130330305.png");
 };
 
 
