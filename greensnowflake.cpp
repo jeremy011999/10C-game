@@ -1,5 +1,9 @@
 #include "greensnowflake.h"
 
+/*
+Constructor for greenSnowflake (inherits from snowflake class
+@param size: sets size of base class snowflake
+*/
 greenSnowflake::greenSnowflake(double size):snowflake(size)
 {
     delete snowflake_pic;
@@ -9,6 +13,10 @@ greenSnowflake::greenSnowflake(double size):snowflake(size)
     setScale(scale);
 }
 
+/*
+Updates snowflake either when it collides with something or if it
+hits the bottom of the screen
+*/
 void greenSnowflake::updateSnowflake()
 {
     //If ball hits bottom of screen remove it and clean up its memory
@@ -21,7 +29,7 @@ void greenSnowflake::updateSnowflake()
     }
 
 
-
+    //figures out what snowflake has hit
     QList<QGraphicsItem*> items_monster_hit = collidingItems();
     for(int i=0;i<items_monster_hit.size();i++)
     {
@@ -39,9 +47,14 @@ void greenSnowflake::updateSnowflake()
             return;
         }
     }
+    //otherwise keep moving
     move();
 }
 
+/*
+Destructor for greenSnowflake cleans up timer
+and pixmaps for snowflake
+*/
 greenSnowflake::~greenSnowflake()
 {
     delete plusLifePic; plusLifePic = nullptr;
