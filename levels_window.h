@@ -76,12 +76,12 @@ public slots:
     void pic5();
     void show_blank();
 private:
-    QPixmap* blanklvlpic = new QPixmap(":/blank.png");
-    QPixmap* firstlvlpic = new QPixmap(":/first.png");
-    QPixmap* scndlvlpic = new QPixmap(":/rows.png");
-    QPixmap* thrdlvlpic = new QPixmap(":/diamond.png");
-    QPixmap* frthlvlpic = new QPixmap(":/smiley.png");
-    QPixmap* fthlvlpic = new QPixmap(":/pasted image 0.png");
+    QPixmap* blanklvlpic = new QPixmap(":/Game_Media/Pictures/blank.png");
+    QPixmap* firstlvlpic = new QPixmap(":/Game_Media/Pictures/first.png");
+    QPixmap* scndlvlpic = new QPixmap(":/Game_Media/Pictures/rows.png");
+    QPixmap* thrdlvlpic = new QPixmap(":/Game_Media/Pictures/diamond.png");
+    QPixmap* frthlvlpic = new QPixmap(":/Game_Media/Pictures/smiley.png");
+    QPixmap* fthlvlpic = new QPixmap(":/Game_Media/Pictures/pasted image 0.png");
 };
 
 #endif // LEVELS_WINDOW_H
