@@ -26,7 +26,7 @@ winGameWindow::winGameWindow(QWidget *parent) : QMainWindow(parent)
 
 void winGameWindow::paintEvent(QPaintEvent *e) {
     QPainter painter(this);
-    painter.drawPixmap(0, 0, QPixmap(":/finishedGameScreen.png").scaled(size()));
+    painter.drawPixmap(0, 0, QPixmap(":/Game_Media/Pictures/finishedGameScreen.png").scaled(size()));
     QWidget::paintEvent(e);
 }
 
