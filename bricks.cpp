@@ -34,6 +34,10 @@ brick::brick(int bwidth,int bheight, int bricklevel):brick_width(bwidth),brick_h
     }
 }
 
+/*
+if brick is hit, updates picture as well as current brick level
+and removes brick if necessary
+*/
 void brick::update_hit_brick()
 {
     emit update_points(10);
@@ -69,6 +73,10 @@ void brick::update_hit_brick()
     }
 }
 
+/*
+destroys current brick and emits to game to get rid of it
+and decrease brick count and increase points
+*/
 void brick::destroy_brick()
 {
     if(brick_level==0)
@@ -82,37 +90,64 @@ void brick::destroy_brick()
     delete this;
 }
 
+/*
+returns left x coordinate of brick (for collisions)
+@return: coordinate as a double
+*/
 double  brick::getLeftX()
 {
     return x();
 }
 
+/*
+returns right x coordinate of brick (for collisions)
+@return: coordinate as a double
+*/
 double  brick::getRightX()
 {
     return x() + boundingRect().width()*scale;
 }
 
+/*
+returns top y coordinate of brick (for collisions)
+@return: coordinate as a double
+*/
 double brick::getTopY()
 {
     return y();
 }
 
+/*
+returns bottom y coordinate of brick (for collisions)
+@return: coordinate as a double
+*/
 double brick::getBottomY()
 {
     return y() + boundingRect().height()*scale;
 }
 
+/*
+returns middle x coordinate of brick (for collisions)
+@return: coordinate as a double
+*/
 double brick::getMiddleX()
 {
     return x() + boundingRect().width()*scale/2;
 }
 
-
+/*
+returns middle y coordinate of brick (for collisions)
+@return: coordinate as a double
+*/
 double brick::getMiddleY()
 {
     return y() + boundingRect().width()*scale/2;
 }
 
+/*
+destructor for brick in order to properly deallocate and clean up
+pixmaps for brick pictures
+*/
 brick::~brick()
 {
     delete darkbrick;  darkbrick = nullptr;
