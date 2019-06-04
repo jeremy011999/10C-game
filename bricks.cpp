@@ -3,6 +3,12 @@
 #include <QGraphicsView>
 #include <QDebug>
 
+/*
+Constructor for brick object
+@param bwidth: sets brick width
+@param bheight: set brick height
+@param bricklevel: sets level of brick (darkness)
+*/
 brick::brick(int bwidth,int bheight, int bricklevel):brick_width(bwidth),brick_height(bheight),brick_level(bricklevel),brick_type(bricklevel)
 {
     if(brick_level==2)
