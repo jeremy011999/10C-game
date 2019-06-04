@@ -1,6 +1,14 @@
 #include "optionswindow.h"
 #include <QVBoxLayout>
 
+
+/*
+Default constructor for optionswindow object
+@param parent: sets the parent for this object as QMainWindow (optionswindow
+    inherits from QMainWindow)
+Constructor handles setting style sheet, adding buttons and layout
+    as well as setting connections to gui for those buttons.
+*/
 optionswindow::optionswindow(QMainWindow *parent) : QMainWindow(parent)
 {
     setStyleSheet(QString("QWidget {background-color: rgb(136, 161, 204);}"));
@@ -63,6 +71,10 @@ optionswindow::optionswindow(QMainWindow *parent) : QMainWindow(parent)
     this->setCentralWidget(main);
 }
 
+/*
+Changed the button color as well as text whenever the mute button is pressed
+to better show to the user whether the sound is muted or not
+*/
 void optionswindow::change_button()
 {
     if (muted)
@@ -81,32 +93,44 @@ void optionswindow::change_button()
     }
 }
 
+/*
+emits the mute signal to the gui to let the game know that
+mute button was clicked
+*/
 void optionswindow::MuteClicked()
 {
     emit mute();
 }
 
+/*
+Emits signal letting gui know to open back up to the main window
+*/
 void optionswindow::backToMain()
 {
     emit goBackToMain();
 }
 
-void optionswindow::paintEvent(QPaintEvent *e) {
-    QPainter painter(this);
-    QWidget::paintEvent(e);
-}
-
+/*
+emits signal to change difficulty based on index of combobox (1-3)
+@param x: index of combobox that sets difficulty for game
+*/
 void optionswindow::change_difficulty(int x)
 {
     emit set_difficulty(x);
 }
 
-
+/*emits signal to let gui know to change size of screen
+@param x: index of combobox that scales the size of screen
+*/
 void optionswindow::change_size(int x)
 {
     emit set_sizeFactor(x+1);
 }
 
+/*
+Slot that changes windowsize when set_sizeFactor signal is emitted
+@param: szefactor: allows differentiating between large and small setting (1 or 2)
+*/
 void optionswindow::resizeWindow(int szefactor)
 {
     if(szefactor==1)
