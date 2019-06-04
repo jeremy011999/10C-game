@@ -4,8 +4,8 @@
 
 Monster::Monster(double width):x_velocity(0),y_velocity(2),monster_width(width)
 {
-    deadmonsterpic = new QPixmap(":/deadmonster.png");
-    livemonsterpic = new QPixmap(":/monster.png");
+    deadmonsterpic = new QPixmap(":/Game_Media/Pictures/deadmonster.png");
+    livemonsterpic = new QPixmap(":/Game_Media/Pictures/monster.png");
     setPixmap(*livemonsterpic);
     double scale = monster_width/boundingRect().width();
     setScale(scale);
