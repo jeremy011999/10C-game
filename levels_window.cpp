@@ -1,8 +1,14 @@
 #include "levels_window.h"
 
+/*
+Constructor for levels_window object that constructs event filters for buttons,
+    implements all buttons and layouts for window as well as connects event filters
+    to said level buttons
+@param parent: sets parent to QMainWindow
+*/
 levels_window::levels_window(QWidget *parent) : QMainWindow(parent)
 {
-
+    //constructs event filters for buttons and hover events
     filter1 = new event_filter1(this);
     filter2 = new event_filter2(this);
     filter3 = new event_filter3(this);
@@ -10,39 +16,48 @@ levels_window::levels_window(QWidget *parent) : QMainWindow(parent)
     filter5 = new event_filter5(this);
 
 
-
+    //setting up layout and return to main window button
     QWidget* centralWidget = new QWidget();
     mainLayout = new QVBoxLayout();
     returnButton = new QPushButton("Quit");
     connect(returnButton,&QPushButton::clicked,[this](){emit returnToMainWindow();});
-
+    
+    //level 1 button constructions and connection to event filter
     level1Button = new QPushButton("Level 1");
     level1Button->setAttribute(Qt::WA_Hover);
     level1Button->installEventFilter(filter1);
     connect(level1Button,&QPushButton::clicked,[this](){emit goToLevel(1);});
 
+    //level 2 button constructions and connection to event filter
     level2Button = new QPushButton("Level 2");
     level2Button->setAttribute(Qt::WA_Hover);
     level2Button->installEventFilter(filter2);
     connect(level2Button,&QPushButton::clicked,[this](){emit goToLevel(2);});
 
+    //level 3 button constructions and connection to event filter
     level3Button = new QPushButton("Level 3");
     level3Button->setAttribute(Qt::WA_Hover);
     level3Button->installEventFilter(filter3);
     connect(level3Button,&QPushButton::clicked,[this](){emit goToLevel(3);});
 
+    //level 4 button constructions and connection to event filter
     level4Button = new QPushButton("Level 4");
     level4Button->setAttribute(Qt::WA_Hover);
     level4Button->installEventFilter(filter4);
     connect(level4Button,&QPushButton::clicked,[this](){emit goToLevel(4);});
 
+    //level 5 button constructions and connection to event filter
     level5Button = new QPushButton("Level 5");
     level5Button->setAttribute(Qt::WA_Hover);
     level5Button->installEventFilter(filter5);
     connect(level5Button,&QPushButton::clicked,[this](){emit goToLevel(5);});
-
+    
+    
     QHBoxLayout* overall_layout = new QHBoxLayout;
     picture = new level_pic;
+    
+    //connecting each filter to the corresponding level picture
+    //or blank if mouse has left button
     connect(filter1, SIGNAL(show_pic1()),picture,SLOT(pic1()));
     connect(filter2, SIGNAL(show_pic2()),picture,SLOT(pic2()));
     connect(filter3, SIGNAL(show_pic3()),picture,SLOT(pic3()));
@@ -56,7 +71,7 @@ levels_window::levels_window(QWidget *parent) : QMainWindow(parent)
 
 
 
-
+    //adding buttons to layout
     mainLayout->addWidget(level1Button);
     mainLayout->addWidget(level2Button);
     mainLayout->addWidget(level3Button);
@@ -88,6 +103,10 @@ levels_window::levels_window(QWidget *parent) : QMainWindow(parent)
     setCentralWidget(centralWidget);
 }
 
+/*
+slot to resize window based on optionswindow and connected in gui
+@param sizeFactor: corresponds to either small (1) or large (2) windowsize
+*/
 void levels_window::resizeWindow(int sizeFactor)
 {
     if(sizeFactor==1)
