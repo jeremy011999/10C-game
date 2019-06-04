@@ -48,7 +48,7 @@ welcome_window::welcome_window(QWidget *parent) :
 
 void welcome_window::paintEvent(QPaintEvent *e) {
     QPainter painter(this);
-    painter.drawPixmap(0, 0, QPixmap(":/IceBreakerBackground.png").scaled(size()));
+    painter.drawPixmap(0, 0, QPixmap(":/Game_Media/Pictures/IceBreakerBackground.png").scaled(size()));
     QWidget::paintEvent(e);
 }
 
