@@ -1,34 +1,40 @@
 #include "event_filters.h"
 
+/*
+Constructors for event_filters 1-5 (each filter corresponds to a button on
+    levelswindow page)
+@param parent: sets parents to QObject (inherits from QObject)
+*/
 event_filter1::event_filter1(QObject *parent) : QObject(parent)
 {
 
 }
-
 event_filter2::event_filter2(QObject *parent) : QObject(parent)
 {
 
 }
-
-
 event_filter3::event_filter3(QObject *parent) : QObject(parent)
 {
 
 }
-
-
 event_filter4::event_filter4(QObject *parent) : QObject(parent)
 {
 
 }
-
-
 event_filter5::event_filter5(QObject *parent) : QObject(parent)
 {
 
 }
 
 
+
+/*
+sets up event filter to take care of hover_enter and hover_leave events
+    in order to display level picture when mouse moves over a button
+@param: obj: lets the event filter know what it is being attached to
+@param event: refers to event that is currently happening to obj
+@return: returns whether or not anything should be done for event (true for yes)
+*/
 bool event_filter1::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type()==QEvent::HoverEnter)
@@ -54,6 +60,14 @@ bool event_filter1::eventFilter(QObject *obj, QEvent *event)
     }
 }
 
+
+/*
+sets up event filter to take care of hover_enter and hover_leave events
+    in order to display level picture when mouse moves over a button
+@param: obj: lets the event filter know what it is being attached to
+@param event: refers to event that is currently happening to obj
+@return: returns whether or not anything should be done for event (true for yes)
+*/
 bool event_filter2::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type()==QEvent::HoverEnter)
@@ -79,6 +93,14 @@ bool event_filter2::eventFilter(QObject *obj, QEvent *event)
     }
 }
 
+
+/*
+sets up event filter to take care of hover_enter and hover_leave events
+    in order to display level picture when mouse moves over a button
+@param: obj: lets the event filter know what it is being attached to
+@param event: refers to event that is currently happening to obj
+@return: returns whether or not anything should be done for event (true for yes)
+*/
 bool event_filter3::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type()==QEvent::HoverEnter)
@@ -104,6 +126,14 @@ bool event_filter3::eventFilter(QObject *obj, QEvent *event)
     }
 }
 
+
+/*
+sets up event filter to take care of hover_enter and hover_leave events
+    in order to display level picture when mouse moves over a button
+@param: obj: lets the event filter know what it is being attached to
+@param event: refers to event that is currently happening to obj
+@return: returns whether or not anything should be done for event (true for yes)
+*/
 bool event_filter4::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type()==QEvent::HoverEnter)
@@ -129,6 +159,14 @@ bool event_filter4::eventFilter(QObject *obj, QEvent *event)
     }
 }
 
+
+/*
+sets up event filter to take care of hover_enter and hover_leave events
+    in order to display level picture when mouse moves over a button
+@param: obj: lets the event filter know what it is being attached to
+@param event: refers to event that is currently happening to obj
+@return: returns whether or not anything should be done for event (true for yes)
+*/
 bool event_filter5::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type()==QEvent::HoverEnter)
