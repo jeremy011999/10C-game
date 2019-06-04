@@ -1,12 +1,4 @@
 #include "game.h"
-#include <QGraphicsSceneWheelEvent>
-#include <QString>
-#include <QMouseEvent>
-#include <QObject>
-#include <QTimer>
-#include <QDebug>
-#include <QTime>
-#include <ctime>
 
 
 
@@ -82,6 +74,7 @@ game::game()
     //Add snowflake powerup meter
     snowflakeMeter = new powerUpMeter;
 
+    //Setup gamePlayRightVLayout
     gamePlayRightVLayout->addWidget(power_up_timer);
     gamePlayRightVLayout->addSpacing(10);
     gamePlayRightVLayout->addWidget(snowflakeMeter);
@@ -90,13 +83,14 @@ game::game()
     gamePlayRightVLayout->addWidget(quitButton);
     gamePlayRightVLayout->setAlignment(Qt::AlignCenter);
 
+    //Add view and gamePlayRightVLayout to the main game layout
     gamePlayHLayout->addWidget(view);
     gamePlayHLayout->addLayout(gamePlayRightVLayout);
 
 
     //Make a playlist that plays music on loop
     QMediaPlaylist *playlist = new QMediaPlaylist(this);
-    playlist->addMedia(QUrl("qrc:/bensound-jazzyfrenchy.mp3"));
+    playlist->addMedia(QUrl("qrc:/Game_Media/Sounds/bensound-jazzyfrenchy.mp3"));
     playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
 
@@ -114,21 +108,21 @@ game::game()
 
     //Make a sound for when lives are lost
     lostLifeSound = new QMediaPlayer(this);
-    lostLifeSound->setMedia(QUrl("qrc:/67454__splashdust__negativebeep.wav"));
+    lostLifeSound->setMedia(QUrl("qrc:/Game_Media/Sounds/67454__splashdust__negativebeep.wav"));
         lostLifeSound->setVolume(250);
     if(muted)
         lostLifeSound->setVolume(0);
 
     //Make a sound for when lives are lost
     gameOverSound = new QMediaPlayer(this);
-    gameOverSound->setMedia(QUrl("qrc:/gameoversound.flac"));
+    gameOverSound->setMedia(QUrl("qrc:/Game_Media/Sounds/gameoversound.flac"));
         gameOverSound->setVolume(50);
     if(muted)
         gameOverSound->setVolume(0);
 
     //Make sound for when snowflakes are captured
     snowflakeCaptureSound = new QMediaPlayer(this);
-    snowflakeCaptureSound->setMedia(QUrl("qrc:/snowflake_capture_sound.wav"));
+    snowflakeCaptureSound->setMedia(QUrl("qrc:/Game_Media/Sounds/snowflake_capture_sound.wav"));
         snowflakeCaptureSound->setVolume(100);
     if(muted)
         snowflakeCaptureSound->setVolume(0);
@@ -141,6 +135,9 @@ game::game()
 
     //call function that initializes game difficulty and the probabilities of monster/snowflake generation
     difficulty(1);
+
+    //set the fontsize of the "click spacebar" instructions
+    spacebar_instructions_fontsize = 20;
 }
 
 void game::run_game(int lvl)
@@ -177,7 +174,7 @@ void game::run_game(int lvl)
     mypaddle->setPos(gamescene->width()/2-mypaddle->getwidth()/2,gamescene->height()-.06*gamescene->height());
 
     //Add ball to scene
-    ball* myball = generateNewBall();
+    generateNewBall();
 
     //Make paddle focusable
     mypaddle->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -188,35 +185,43 @@ void game::run_game(int lvl)
     //start the timer to make sure nothing else overrides the paddle while the game window is open
     focustimer->start(500);
 
+    //start a timer that makes snowflakes and monsters fall
     fallingObjectsTimer->start(1000);
 }
 
 void game::itemGenerator()
 {
+    //make a random integer 0-99
     int randInt = rand() % 100;
+    
+    //generate objects based on their generation probabilities
     if (randInt<=monster_prob)
-           monsterGenerator();
-       else if (randInt>monster_prob&&randInt<=(snow_prob+monster_prob))
-           blueSnowflakesGenerator();
-       else if (randInt>(snow_prob+monster_prob)&&randInt<=(snow_prob+monster_prob+life_prob))
-           greenSnowflakesGenerator();
+        monsterGenerator();
+    else if (randInt>monster_prob&&randInt<=(snow_prob+monster_prob))
+        blueSnowflakesGenerator();
+    else if (randInt>(snow_prob+monster_prob)&&randInt<=(snow_prob+monster_prob+life_prob))
+        greenSnowflakesGenerator();
 }
 
 void game::monsterGenerator()
 {
+    //generate a monster at a random x location at top of the screen
     int randInt = rand() % static_cast<int>(gamescene->width()-.1105*gamescene->width());
     Monster* mymonster = new Monster(.1105*gamescene->width());
     if(muted)
         mymonster->mute_monster();
-    connect(mymonster,SIGNAL(update_points(int)),this,SLOT(update_score_on_monster_hit(int)));
+    connect(mymonster,SIGNAL(update_points(int)),this,SLOT(update_score(int)));
     gamescene->addItem(mymonster);
     mymonster->setPos(randInt,0);
 }
 
 void game::blueSnowflakesGenerator()
 {
+    //if a powerup is active don't generate blue snowflakes
     if(some_power_up_is_active())
         return;
+    
+    //generate a blue snowflake at a random x location at top of the screen
     int randInt = rand() % static_cast<int>(gamescene->width()-.075*gamescene->width());
     snowflake* mysnowflake = new snowflake(.075*gamescene->width());
     connect(mysnowflake,SIGNAL(snowflake_captured()),this,SLOT(update_meter_on_snowflake_capture()));
@@ -226,10 +231,14 @@ void game::blueSnowflakesGenerator()
 
 void game::greenSnowflakesGenerator()
 {
+    //if player has 3 lives, don't generate green snowflakes
     if(lives==3)
         return;
+    
+    //generate a green snowflake at a random x location at top of the screen
     int randInt = rand() % static_cast<int>(gamescene->width()-.075*gamescene->width());
     greenSnowflake* mygreensnowflake = new greenSnowflake(.075*gamescene->width());
+
     connect(mygreensnowflake,SIGNAL(green_snowflake_captured()),this,SLOT(update_lives_on_green_snowflake_capture()));
     gamescene->addItem(mygreensnowflake);
     mygreensnowflake->setPos(randInt,0);
@@ -238,26 +247,23 @@ void game::greenSnowflakesGenerator()
 
 void game::setpaddlefocus()
 {
+    //make paddle focus of view
     if(mypaddle!=nullptr)
     {
        mypaddle->setFocus();
     }
 }
 
-void game::update_score_on_brick_hit(int pnts)
+void game::update_score(int pnts)
 {
     points+=pnts;
     score_label->setText("Score: " + QString::number(points));
 }
 
-void game::update_score_on_monster_hit(int pnts)
-{
-    points+=pnts;
-    score_label->setText("Score: " + QString::number(points));
-}
 
 void game::update_meter_on_snowflake_capture()
 {
+    //if a powerup isn't already active, update the powerup meter
     if(!some_power_up_is_active())
     {
         snowflakeCaptureSound->play();
@@ -351,15 +357,20 @@ void game::reset_game()
 void game::a_ball_hit_ground()
 {
   ballcount--;
+    
+  //If there are no balls left take away a life
   if(ballcount==0)
   {
     lives--;
     lives_label->setText("Lives: " + QString::number(lives));
+      
+    //if no lives left, run no_more_lives()
     if(lives <= 0)
     {
         no_more_lives();
     }
     else {
+        //make the red flash when a life is lost
         notifications* lifelost_notification = new notifications;
         gamescene->addItem(lifelost_notification);
         lifelost_notification->display_lost_life();
@@ -419,6 +430,7 @@ void game::quitGame()
  */
 void game::SetUpBricks(int game_level)
 {
+    //Set up bricks for each level
     if(game_level==1)
     {
         //add bricks to the scene
@@ -429,7 +441,7 @@ void game::SetUpBricks(int game_level)
                 int bricklevel = (i+j)%3;
                 brick* brick_to_add = new brick(gamescene->width()/9*.9,25,bricklevel);
                 brick_count++;
-                connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score(int)));
                 connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                 gamescene->addItem(brick_to_add);
                 //set position of new brick in the scene
@@ -440,7 +452,6 @@ void game::SetUpBricks(int game_level)
     if(game_level==3)
     {
         //add bricks to the scene
-        //add bricks to the scene
         for(int j=1;j<7;j++)
         {
             for (int i=0;i<j;i++)
@@ -448,23 +459,23 @@ void game::SetUpBricks(int game_level)
                 int bricklevel = (i+j)%3;
                 brick* brick_to_add_left_top = new brick(gamescene->width()/12*.9,20,bricklevel);
                 brick_count++;
-                connect(brick_to_add_left_top,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                connect(brick_to_add_left_top,SIGNAL(update_points(int)),this,SLOT(update_score(int)));
                 connect(brick_to_add_left_top,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                 gamescene->addItem(brick_to_add_left_top);
                 brick* brick_to_add_right_top = new brick(gamescene->width()/12*.9,20,bricklevel);
                 brick_count++;
-                connect(brick_to_add_right_top,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                connect(brick_to_add_right_top,SIGNAL(update_points(int)),this,SLOT(update_score(int)));
                 connect(brick_to_add_right_top,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                 gamescene->addItem(brick_to_add_right_top);
                 brick* brick_to_add_left_bottom = new brick(gamescene->width()/12*.9,20,bricklevel);
                 brick_count++;
-                connect(brick_to_add_left_bottom,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                connect(brick_to_add_left_bottom,SIGNAL(update_points(int)),this,SLOT(update_score(int)));
                 connect(brick_to_add_left_bottom,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                 gamescene->addItem(brick_to_add_left_bottom);
 
                 brick* brick_to_add_right_bottom = new brick(gamescene->width()/12*.9,20,bricklevel);
                 brick_count++;
-                connect(brick_to_add_right_bottom,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                connect(brick_to_add_right_bottom,SIGNAL(update_points(int)),this,SLOT(update_score(int)));
                 connect(brick_to_add_right_bottom,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
 
                 gamescene->addItem(brick_to_add_right_bottom);
@@ -496,7 +507,7 @@ void game::SetUpBricks(int game_level)
 
                         brick* brick_to_add = new brick(gamescene->width()/7,gamescene->width()/7*.6,bricklevel);
                         brick_count++;
-                        connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+                        connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score(int)));
                         connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
                         gamescene->addItem(brick_to_add);
                         brick_to_add->setPos(gamescene->width()/7*i,gamescene->width()/7*.63*j);
@@ -514,7 +525,7 @@ void game::SetUpBricks(int game_level)
             {
             brick* brick_to_add = new brick(gamescene->width()/12*.9,25,bricklevel);
             brick_count++;
-            connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+            connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score(int)));
             connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
             bricks.push_back(brick_to_add);
             gamescene->addItem(bricks[i]);
@@ -552,7 +563,7 @@ void game::SetUpBricks(int game_level)
             else if(i==5||i==6||i==7||i==14||i==15||i==16||(i>=41&&i<49))
                 bricklevel = 0;
             brick* brick_to_add = new brick(gamescene->width()/13.5,25,bricklevel);
-            connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score_on_brick_hit(int)));
+            connect(brick_to_add,SIGNAL(update_points(int)),this,SLOT(update_score(int)));
             brick_count++;
             connect(brick_to_add,SIGNAL(decrease_brick_count()),this,SLOT(decrease_brick_count()));
             bricks.push_back(brick_to_add);
@@ -602,7 +613,10 @@ void game::SetUpBricks(int game_level)
 
 void game::runPowerup()
 {
+    //randomly run one of three powerups
     int randomVal = rand()%3;
+    
+    //three ball powerup
     if(randomVal==0)
     {
         for(int i=0;i<2;i++)
@@ -611,7 +625,7 @@ void game::runPowerup()
         }
     }
 
-
+    //fireball powerup
     else if(randomVal==1)
     {
         power_time = 5;
@@ -622,11 +636,15 @@ void game::runPowerup()
                 dynamic_cast<ball*>(items_list[i])->power_up_ball();
         }
     }
+    
+    //big paddle powerup
     else
     {
         power_time=10;
         mypaddle->power_up_paddle();
     }
+    
+    //run animation of flashing powerup meter
     run_powerup_bar_flash_animation();
 }
 
@@ -635,9 +653,9 @@ void game::run_powerup_bar_flash_animation()
     flash_animation_timer = new QTimer(this);
     power_up_time = new QTimer(this);
     connect(flash_animation_timer,SIGNAL(timeout()),this,SLOT(powerup_meter_flash_helper()));
-    connect(power_up_time,SIGNAL(timeout()),this,SLOT(change_time()));
+    connect(power_up_time,SIGNAL(timeout()),this,SLOT(update_time_remaining_label()));
     flash_animation_timer->start(150);
-    change_time();
+    update_time_remaining_label();
     power_up_time->start(1000);
 }
 
@@ -665,15 +683,18 @@ void game::powerup_meter_flash_helper()
     }
 }
 
-void game::change_time()
+void game::update_time_remaining_label()
 {
+    //don't show time label when in multi ball powerup
     if (ballcount>1)
         return;
+    
+    //if some powerup is active (other than multiball) then update powerup time remaining label
     if(some_power_up_is_active())
     {
         QString s1= "Power-Up Time Remaining:\n"+QString::number(power_time)+" Seconds";
-    power_up_timer->setText(s1);
-    power_time--;
+        power_up_timer->setText(s1);
+        power_time--;
     }
     else
     {
@@ -687,32 +708,33 @@ void game::change_time()
 
 void game::mute_sound()
 {
+    //toggle mute setting
     if (muted)
         muted=false;
     else
         muted=true;
 
-    //setvolume
+    //setvolume of music
     if (!muted)
         music->setVolume(50);
     else {
         music->setVolume(0);
     }
-    //setvolume
+    //setvolume of lostlife sound
     if (!muted)
         lostLifeSound->setVolume(150);
     else {
         lostLifeSound->setVolume(0);
     }
 
-    //setvolume
+    //setvolume of snowflakecapture sound
     if (!muted)
         snowflakeCaptureSound->setVolume(100);
     else {
         snowflakeCaptureSound->setVolume(0);
     }
 
-    //setvolume
+    //setvolume of gameover sound
     if (!muted)
         gameOverSound->setVolume(50);
     else {
@@ -724,6 +746,8 @@ void game::mute_sound()
 void game::decrease_brick_count()
 {
     brick_count--;
+    
+    //if all bricks are gone, the level has been beat. Stop the timer for the ball
     if (brick_count<=0)
     {
         QList<QGraphicsItem*> items_list = gamescene->items();
@@ -738,11 +762,15 @@ void game::decrease_brick_count()
     }
 }
 
+
 void game::nextLevel()
 {
     clean_up_board();
+    
+    //if game was beat
     if(game_level==5)
         emit go_to_game_won_window(points);
+    
     else
         emit just_beat_level(game_level);
 }
@@ -756,14 +784,27 @@ ball* game::generateNewBall()
     ballcount += 1;
     myball->set_level(game_difficulty);
     connect(myball,SIGNAL(ball_hit_ground()),this,SLOT(a_ball_hit_ground()));
+    
+    //if the newly generated ball is the only ball
     if(ballcount==1)
     {
+        //make spacebar release ball instruction
+        spacebar_instruction_label = new QGraphicsTextItem("Press Spacebar To Release Ball");
+        QFont font("courier", spacebar_instructions_fontsize);
+        spacebar_instruction_label->setFont(font);
+        spacebar_instruction_label->setDefaultTextColor(QColor(136, 161, 204));
+        gamescene->addItem(spacebar_instruction_label);
+        spacebar_instruction_label->setPos((gamescene->width()-spacebar_instruction_label->boundingRect().width())/2,gamescene->height()-200);
+
+        //stick the ball to the paddle until spacebar is pressed
         myball->setPos(mypaddle->x()+mypaddle->getwidth()/2-myball->get_size()/2,mypaddle->y()-myball->get_size()-2);
         connect(mypaddle,SIGNAL(space_bar_pressed()),myball,SLOT(start_moving_ball()));
+        connect(mypaddle,&paddle::space_bar_pressed,[this](){if(spacebar_instruction_label != nullptr){gamescene->removeItem(spacebar_instruction_label); delete spacebar_instruction_label; spacebar_instruction_label = nullptr;}});
         mypaddle->stick_ball_to_paddle();
     }
     else
     {
+        //if the new ball is a powerup ball just send it into motion
         myball->setPos(mypaddle->x()+mypaddle->getwidth()*(ballcount-2),mypaddle->y()-myball->get_size()-2);
         myball->start_moving_ball();
     }
@@ -788,6 +829,7 @@ void game::resizeGame(int size_factor)
         score_label->setMaximumSize(200,50);
         power_up_timer->setMinimumSize(200,100);
         power_up_timer->setMaximumSize(200,100);
+        spacebar_instructions_fontsize = 20;
     }
     else {
         view->setFixedSize(600,750);
@@ -802,6 +844,7 @@ void game::resizeGame(int size_factor)
         score_label->setMaximumSize(200*1.5,50*1.5);
         power_up_timer->setMinimumSize(200*1.5,100*1.5);
         power_up_timer->setMaximumSize(200*1.5,100*1.5);
+        spacebar_instructions_fontsize = 30;
     }
 }
 
@@ -841,6 +884,7 @@ void game::difficulty(int x)
 
 game::~game()
 {
+    //perfom necessary cleanup when game ends
     delete gamePlayWindow; gamePlayWindow = nullptr;
     delete gamePlayHLayout; gamePlayHLayout = nullptr;
 }
