@@ -2,8 +2,9 @@
 #include <QSound>
 #include <QDebug>
 
-Monster::Monster(double width):x_velocity(0),y_velocity(2),monster_width(width)
+Monster::Monster(double width):x_velocity(0),monster_width(width)
 {
+    y_velocity = .0452*width;
     deadmonsterpic = new QPixmap(":/Game_Media/Pictures/deadmonster.png");
     livemonsterpic = new QPixmap(":/Game_Media/Pictures/monster.png");
     setPixmap(*livemonsterpic);
@@ -13,7 +14,7 @@ Monster::Monster(double width):x_velocity(0),y_velocity(2),monster_width(width)
     connect(monsterTimer,SIGNAL(timeout()),this,SLOT(updateMonster()));
     monsterTimer->start(25);
     monsterplayer = new QMediaPlayer(this);
-    monsterplayer->setMedia(QUrl("qrc:/monstersound.mp3"));
+    monsterplayer->setMedia(QUrl("qrc:/Game_Media/Sounds/monstersound.mp3"));
     monsterplayer->setVolume(50);
 }
 
@@ -109,7 +110,7 @@ void Monster::updateImage()
     flashcount++;
     if(flashcount>=6&&flashcount<=8)
     {
-        _20pointspic = new QPixmap(":/20points.png");
+        _20pointspic = new QPixmap(":/Game_Media/Pictures/20points.png");
         setPixmap(*_20pointspic);
         double scale = monster_width/boundingRect().width();
         setScale(scale);
