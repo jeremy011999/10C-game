@@ -7,7 +7,7 @@ Constructor for greenSnowflake (inherits from snowflake class
 greenSnowflake::greenSnowflake(double size):snowflake(size)
 {
     delete snowflake_pic;
-    snowflake_pic = new QPixmap(":/greensnowflake.png");
+    snowflake_pic = new QPixmap(":/Game_Media/Pictures/greensnowflake.png");
     setPixmap(*snowflake_pic);
     double scale = flake_size/boundingRect().width();
     setScale(scale);
@@ -37,7 +37,7 @@ void greenSnowflake::updateSnowflake()
         if(typeid(*items_monster_hit[i])==typeid(paddle))
         {
             emit green_snowflake_captured();
-            plusLifePic = new QPixmap(":/plusLife.png");
+            plusLifePic = new QPixmap(":/Game_Media/Pictures/plusLife.png");
             setPixmap(*plusLifePic);
             double scale = flake_size*3.5/boundingRect().width();
             setScale(scale);
