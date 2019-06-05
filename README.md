@@ -16,9 +16,11 @@ This project is a game called “IceBreaker”, a spin-off the game “BrickBrea
 ## Screenshots
 ![Example screenshot](./img/screenshot.png)
 
-## Technologies
-* Qt Software
-* C++ programming language
+## Technologies and Recommended Setup
+* Qt Software and Libraries (must have Qt version 4 or higher)
+* C++ programming language (computer must have compiler for C++)
+* Game is optimized for the smaller window size, but can be enlarged in the game options page
+* Game is cross-platform desktop application optimized for Mac OS and Windows.
 
 ## Setup
 In order to run this application, install Qt on your computer and open the project via the .pro file. Once this opens the file and all other cpp files included in the zip, click the green play button to run the game. Click start game to begin playing! 
