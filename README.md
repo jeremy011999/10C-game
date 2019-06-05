@@ -11,6 +11,7 @@ Created by Olivia Heiner, Jeremy Toop, Danya Elgebaly
 * [Inspiration](#inspiration)
 
 <a name="general-info"/>
+
 ## General info
 This project is a game called “IceBreaker”, a spin-off the game “Breakout” by Atari Incorporated, with some additional features, sounds, level variations and various functionalities. The objective of the game is to destroy all the bricks by hitting them with the ball. And in order to do so, you must move the paddle right and left using the arrow keys on your keyboard in order to deflect the bouncing ball. Every time you lose control of the ball and it hits the ground, you lose a life. Also you must avoid falling Monsters, or kill them with the ball. There are various power-ups that can allow you to regain a life or gain more points. There are five different levels and every level has a different visual layout and difficulty level. Once you win one level, you will immediately advance to the next until you finish the game.
 
@@ -32,17 +33,20 @@ This project is a game called “IceBreaker”, a spin-off the game “Breakout�
 
 
 
+<a name="technologies"/>
 
-
-## Technologies and Recommended Setup
+## Technologies
 * Qt Software and Libraries (must have Qt version 4 or higher)
 * C++ programming language (computer must have compiler for C++)
 * Game is optimized for the smaller window size, but can be enlarged in the game options page
 * Game is cross-platform desktop application optimized for Mac OS and Windows.
 
+<a name="setup"/>
+
 ## Setup
 In order to run this application, install Qt on your computer and open the project via the .pro file. Once this opens the file and all other cpp files included in the zip, click the green play button to run the game. Click start game to begin playing!
 
+<a name="features"/>
 
 ## Cool Features
 * Options Page and Functionality
@@ -87,10 +91,14 @@ In order to run this application, install Qt on your computer and open the proje
 	  color and gets larger for approximately 6-7 seconds, making it
 	  easier to hit the ball. Monsters also have no effect on your lives when
 	  the golden paddle is active.
-
+	  
+<a name="status"/>
 
 ## Status
 Project is finished. If desired, additional changes to UI could be made or additional levels added.
+
+
+<a name="inspiration"/>
 
 ## Inspiration
 This project was inspired by the 1976 arcade game "Breakout", published by Atari Incorporated.
