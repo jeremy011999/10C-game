@@ -15,7 +15,9 @@ Created by Olivia Heiner, Jeremy Toop, Danya Elgebaly
 This project is a game called “IceBreaker”, a spin-off the game “Breakout” by Atari Incorporated, with some additional features, sounds, level variations and various functionalities. The objective of the game is to destroy all the bricks by hitting them with the ball. And in order to do so, you must move the paddle right and left using the arrow keys on your keyboard in order to deflect the bouncing ball. Every time you lose control of the ball and it hits the ground, you lose a life. Also you must avoid falling Monsters, or kill them with the ball. There are various power-ups that can allow you to regain a life or gain more points. There are five different levels and every level has a different visual layout and difficulty level. Once you win one level, you will immediately advance to the next until you finish the game.
 
 <a name="screenshots"/>
+
 ## Screenshots/Gifs
+
 ##### Starting the Game
 <img src="Screenshots_and_Sample_Video/startingGame.gif" alt="Starting the Game" width=300px>
 
