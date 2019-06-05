@@ -1,5 +1,4 @@
 #include "optionswindow.h"
-#include <QVBoxLayout>
 
 
 /*

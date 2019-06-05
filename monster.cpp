@@ -1,18 +1,21 @@
 #include "monster.h"
-#include <QSound>
-#include <QDebug>
 
 Monster::Monster(double width):x_velocity(0),monster_width(width)
 {
     y_velocity = .0452*width;
+    
+    //set picture for monster
     deadmonsterpic = new QPixmap(":/Game_Media/Pictures/deadmonster.png");
     livemonsterpic = new QPixmap(":/Game_Media/Pictures/monster.png");
     setPixmap(*livemonsterpic);
     double scale = monster_width/boundingRect().width();
     setScale(scale);
+    
     monsterTimer = new QTimer(this);
     connect(monsterTimer,SIGNAL(timeout()),this,SLOT(updateMonster()));
     monsterTimer->start(25);
+    
+    //makes player to make sound when monster dies
     monsterplayer = new QMediaPlayer(this);
     monsterplayer->setMedia(QUrl("qrc:/Game_Media/Sounds/monstersound.mp3"));
     monsterplayer->setVolume(50);
@@ -81,6 +84,7 @@ void Monster::killMonster()
 
 void Monster::dyingMonsterAnimation()
 {
+    //make the monster flash when it dies
     flashcount = 0;
     QTimer* dyingAnimationTimer = new QTimer(this);
     connect(dyingAnimationTimer,SIGNAL(timeout()),this,SLOT(updateImage()));
@@ -93,6 +97,7 @@ void Monster::dyingMonsterAnimation()
 
 void Monster::updateImage()
 {
+    //switches back and forth between live and dead monster images to make an animation
     if(livepic == true)
     {
         setPixmap(*deadmonsterpic);

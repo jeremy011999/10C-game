@@ -1,6 +1,4 @@
 #include "wingamewindow.h"
-#include <QPaintEvent>
-#include <QPainter>
 
 winGameWindow::winGameWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -28,5 +26,11 @@ void winGameWindow::paintEvent(QPaintEvent *e) {
     QPainter painter(this);
     painter.drawPixmap(0, 0, QPixmap(":/Game_Media/Pictures/finishedGameScreen.png").scaled(size()));
     QWidget::paintEvent(e);
+}
+
+
+void winGameWindow::setFinalScore(int pnts)
+{
+    levelLabel->setText("CONGRATULATIONS! \n\n You won the game!\nFinal Score:\n" + QString::number(pnts));
 }
 

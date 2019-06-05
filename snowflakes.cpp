@@ -1,9 +1,8 @@
 #include "snowflakes.h"
-#include <QSound>
 
 snowflake::snowflake(double size):x_velocity(0),y_velocity(2),flake_size(size)
 {
-    snowflake_pic = new QPixmap(":/snowflake.png");
+    snowflake_pic = new QPixmap(":/Game_Media/Pictures/snowflake.png");
     setPixmap(*snowflake_pic);
     double Scale = flake_size/boundingRect().width();
     setScale(Scale);

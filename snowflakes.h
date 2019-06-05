@@ -1,16 +1,13 @@
 #ifndef SNOWFLAKES_H
 #define SNOWFLAKES_H
 
-#include <QWidget>
-#include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
-#include <QObject>
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <QDebug>
 #include <QtMultimedia/QMediaPlayer>
 #include <QMediaPlayer>
+#include <QSound>
 #include "ball.h"
 #include "paddle.h"
 

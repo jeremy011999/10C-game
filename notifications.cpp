@@ -1,8 +1,8 @@
 #include "notifications.h"
-#include <QDebug>
+
 notifications::notifications()
 {
-    redpic = new QPixmap(":/red.png");
+    redpic = new QPixmap(":/Game_Media/Pictures/red.png");
     deadcounter = 0;
 }
 
@@ -44,9 +44,6 @@ void notifications::dying_animation()
         dyingtimer->stop();
     }
 }
-
-
-
 
 
 

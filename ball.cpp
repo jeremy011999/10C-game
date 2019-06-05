@@ -1,31 +1,28 @@
 #include "ball.h"
-#include "paddle.h"
-#include <QTimer>
-#include <QDebug>
-#include <QGraphicsScene>
-#include <QList>
-#include <QGraphicsItem>
-#include "bricks.h"
-#include <QtMath>
-#include <cmath>
-#include <QPainter>
+
 
 
 ball::ball(double size):ballsize(size),ball_speed(.3*size)
 {
     x_velocity = ball_speed*qCos(qDegreesToRadians(static_cast<double>(90)));
     y_velocity= -ball_speed*qSin(qDegreesToRadians(static_cast<double>(90)));
-    fireball = new QPixmap(":/fireball.png");
-    metalball = new QPixmap(":/metallball.png");
+    
+    // Initialize images of ball
+    fireball = new QPixmap(":/Game_Media/Pictures/fireball.png");
+    metalball = new QPixmap(":/Game_Media/Pictures/metallball.png");
     setPixmap(*metalball);
+    
+    // scale the ball image
     scale = ballsize/boundingRect().width();
     setScale(scale);
+    
+    // make a timer to update the ball
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(update_ball()));
 
-    //hopefully does sound
+    //make a player that plays sound when the ball collides with things
     player= new QMediaPlayer(this);
-    player->setMedia(QUrl("qrc:/impact_metal_small_005.mp3"));
+    player->setMedia(QUrl("qrc:/Game_Media/Sounds/impact_metal_small_005.mp3"));
     player->setVolume(100);
 }
 
@@ -170,6 +167,9 @@ void ball::mute_ball()
 
 void ball::set_level(int level)
 {
+    /* set speed of ball based on level and ballsize. ballsize is important for scaling the velocity at different
+     * game sizes
+     */
     if(level == 0)
         ball_speed = .3*ballsize;
     else if(level == 1)

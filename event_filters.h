@@ -2,8 +2,6 @@
 #define EVENT_FILTERS_H
 
 #include <QMainWindow>
-#include <QObject>
-#include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -12,8 +10,6 @@
 #include <QHoverEvent>
 #include <QPixmap>
 #include <QLabel>
-
-//event filters are gross im sorry
 
 
 

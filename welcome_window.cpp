@@ -1,14 +1,5 @@
 #include "welcome_window.h"
-#include <QWidget>
-#include <QLayout>
-#include <QPushButton>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QPixmap>
-#include <QStyle>
-#include <QPainter>
-#include <QPaintEvent>
+
 
 welcome_window::welcome_window(QWidget *parent) :
     QMainWindow(parent)

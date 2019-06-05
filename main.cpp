@@ -4,11 +4,6 @@
 #include "mygui.h"
 #include "welcome_window.h"
 #include <QApplication>
-#include <QHBoxLayout>
-#include <QWidget>
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QObject>
 
 
 int main(int argc, char *argv[])

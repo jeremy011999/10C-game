@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Game_Media/Sounds/67454__splashdust__negativebeep.wav</file>
+        <file>Game_Media/Sounds/bensound-jazzyfrenchy.mp3</file>
+        <file>Game_Media/Sounds/gameoversound.flac</file>
+        <file>Game_Media/Sounds/impact_metal_small_005.mp3</file>
+        <file>Game_Media/Sounds/monstersound.mp3</file>
+        <file>Game_Media/Sounds/snowflake_capture_sound.wav</file>
+        <file>Game_Media/Pictures/10_C_image.png</file>
+        <file>Game_Media/Pictures/20points.png</file>
+        <file>Game_Media/Pictures/blank.png</file>
+        <file>Game_Media/Pictures/darkbrick.png</file>
+        <file>Game_Media/Pictures/darkcrack.png</file>
+        <file>Game_Media/Pictures/darkcrack2.png</file>
+        <file>Game_Media/Pictures/deadmonster.png</file>
+        <file>Game_Media/Pictures/diamond.png</file>
+        <file>Game_Media/Pictures/finishedGameScreen.png</file>
+        <file>Game_Media/Pictures/fireball.png</file>
+        <file>Game_Media/Pictures/first.png</file>
+        <file>Game_Media/Pictures/greensnowflake.png</file>
+        <file>Game_Media/Pictures/IceBreakerBackground.png</file>
+        <file>Game_Media/Pictures/imageedit_7_4142580579.png</file>
+        <file>Game_Media/Pictures/imageedit_7_4838096674.png</file>
+        <file>Game_Media/Pictures/imageedit_7_5130330305.png</file>
+        <file>Game_Media/Pictures/imageedit_7_8302397809.png</file>
+        <file>Game_Media/Pictures/imageedit_21_9525227244.png</file>
+        <file>Game_Media/Pictures/lightbrick.png</file>
+        <file>Game_Media/Pictures/mediumbrick.png</file>
+        <file>Game_Media/Pictures/mediumcrack.png</file>
+        <file>Game_Media/Pictures/metallball.png</file>
+        <file>Game_Media/Pictures/monster.png</file>
+        <file>Game_Media/Pictures/plusLife.png</file>
+        <file>Game_Media/Pictures/red.png</file>
+        <file>Game_Media/Pictures/rows.png</file>
+        <file>Game_Media/Pictures/smiley.png</file>
+        <file>Game_Media/Pictures/snowflake.png</file>
+    </qresource>
+</RCC>

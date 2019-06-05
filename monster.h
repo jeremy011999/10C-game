@@ -1,18 +1,14 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
-#include <QWidget>
-#include <QGraphicsItem>
-#include <QGraphicsPixmapItem>
-#include <QObject>
-#include <QTimer>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QDebug>
-#include <QtMultimedia/QMediaPlayer>
-#include <QMediaPlayer>
 #include "ball.h"
 #include "paddle.h"
+#include <QGraphicsPixmapItem>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QtMultimedia/QMediaPlayer>
+#include <QMediaPlayer>
+
 
 class Monster : public QObject, public QGraphicsPixmapItem
 {

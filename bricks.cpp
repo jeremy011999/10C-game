@@ -1,7 +1,5 @@
 #include "bricks.h"
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QDebug>
+
 
 /*
 Constructor for brick object
@@ -13,21 +11,21 @@ brick::brick(int bwidth,int bheight, int bricklevel):brick_width(bwidth),brick_h
 {
     if(brick_level==2)
     {
-        darkbrick = new QPixmap(":/darkbrick.png");
+        darkbrick = new QPixmap(":/Game_Media/Pictures/darkbrick.png");
         setPixmap(*darkbrick);
         scale = brick_width/boundingRect().width();
         setScale(scale);
     }
     else if(brick_level==1)
     {
-        mediumbrick = new QPixmap(":/mediumbrick.png");
+        mediumbrick = new QPixmap(":/Game_Media/Pictures/mediumbrick.png");
         setPixmap(*mediumbrick);
         scale = brick_width/boundingRect().width();
         setScale(scale);
     }
     else if(brick_level==0)
     {
-        lightbrick = new QPixmap(":/lightbrick.png");
+        lightbrick = new QPixmap(":/Game_Media/Pictures/lightbrick.png");
         setPixmap(*lightbrick);
         scale = brick_width/boundingRect().width();
         setScale(scale);
@@ -43,7 +41,7 @@ void brick::update_hit_brick()
     emit update_points(10);
     if(brick_level==2)
     {
-        darkcrack = new QPixmap(":/darkcrack.png");
+        darkcrack = new QPixmap(":/Game_Media/Pictures/darkcrack.png");
         setPixmap(*darkcrack);
         scale = brick_width/boundingRect().width();
         setScale(scale);
@@ -53,12 +51,12 @@ void brick::update_hit_brick()
     {
         if(brick_type==2)
         {
-            darkcrack2 = new QPixmap(":/darkcrack2.png");
+            darkcrack2 = new QPixmap(":/Game_Media/Pictures/darkcrack2.png");
             setPixmap(*darkcrack2);
         }
         else if(brick_type==1)
         {
-            mediumcrack = new QPixmap(":/mediumcrack.png");
+            mediumcrack = new QPixmap(":/Game_Media/Pictures/mediumcrack.png");
             setPixmap(*mediumcrack);
         }
         scale = brick_width/boundingRect().width();

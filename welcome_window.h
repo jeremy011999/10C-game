@@ -8,6 +8,9 @@
 #include <QPushButton>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QStyle>
 #include "optionswindow.h"
 #include <QMediaPlayer>
 

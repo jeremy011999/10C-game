@@ -2,10 +2,11 @@
 #define BRICKS_H
 
 #include <QWidget>
-#include <QGraphicsRectItem>
-#include <QObject>
 #include <QPointF>
 #include <QGraphicsPixmapItem>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+
 
 class game;
 

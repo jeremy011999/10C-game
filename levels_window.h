@@ -121,7 +121,7 @@ private:
     QPixmap* scndlvlpic = new QPixmap(":/Game_Media/Pictures/rows.png");
     QPixmap* thrdlvlpic = new QPixmap(":/Game_Media/Pictures/diamond.png");
     QPixmap* frthlvlpic = new QPixmap(":/Game_Media/Pictures/smiley.png");
-    QPixmap* fthlvlpic = new QPixmap(":/Game_Media/Pictures/pasted image 0.png");
+    QPixmap* fthlvlpic = new QPixmap(":/Game_Media/Pictures/10_C_image.png");
 };
 
 #endif // LEVELS_WINDOW_H

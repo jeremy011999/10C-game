@@ -1,8 +1,5 @@
 #include "game.h"
 
-
-
-
 game::game()
 {
     //Make Scene and View for gameplay graphics

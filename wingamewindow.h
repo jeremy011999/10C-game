@@ -2,12 +2,13 @@
 #define WINGAMEWINDOW_H
 
 #include <QMainWindow>
-#include <QObject>
-#include <QWidget>
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QPaintEvent>
+#include <QPainter>
+
 
 class winGameWindow : public QMainWindow
 {
@@ -17,14 +18,20 @@ public:
     
     /* paintEvent(QPaintEvent* e) creates a paintevent to set the pixmap to the final winning game screen
     @param QPaintEvent e - object called to draw pixmap
-    @return
     */
     void paintEvent(QPaintEvent* e);
+    
+    /*
+     * sets the score of the won game screen based on the players score
+     *
+     * @param pnts the number of points player finished game with
+     */
+    void setFinalScore(int pnts);
+
 signals:
     /* goToMainWindow() is a signal used to return to the main winow
-    @param no parameters
-    @return void, returns nothing
-    */
+     *
+     */
     void goToMainWindow();
 private:
     QPixmap* winningBackground = nullptr;

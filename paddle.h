@@ -1,13 +1,13 @@
 #ifndef PADDLE_H
 #define PADDLE_H
 
-#include<QObject>
 #include <QWidget>
 #include <QPainter>
 #include <QKeyEvent>
 #include <QCoreApplication>
-#include <QRectF>
 #include <QGraphicsRectItem>
+#include <QGraphicsScene>
+#include <QTimer>
 #include "ball.h"
 
 class paddle:public QObject,public QGraphicsRectItem

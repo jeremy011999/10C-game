@@ -1,13 +1,14 @@
 #ifndef OPTIONSWINDOW_H
 #define OPTIONSWINDOW_H
 
-#include <QWidget>
 #include <QPushButton>
 #include <QMainWindow>
 #include <QPainter>
 #include <QPaintEvent>
 #include <QComboBox>
 #include <QLabel>
+#include <QVBoxLayout>
+
 
 class optionswindow : public QMainWindow
 {

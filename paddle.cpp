@@ -1,7 +1,5 @@
 #include "paddle.h"
-#include <QGraphicsScene>
-#include <QDebug>
-#include <QTimer>
+
 
 paddle::paddle(double width):paddle_width(width),is_powered_paddle(false)
 {
