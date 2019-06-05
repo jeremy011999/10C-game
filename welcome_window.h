@@ -52,34 +52,22 @@ public slots:
     */
     void OptionButtonClicked();
     
-    /* resizeWindow(int sizefactor) slot for adjusting window size
-    @param int sizefactor - this changes size of window by factor
-    @return void
+    /*
+     resizeWindow(int sizefactor) slot for adjusting window size
+     @param int sizefactor - this changes size of window by factor
     */
     void resizeWindow(int sizefactor);
 signals:
-    /* signal to start game
-    @param none
-    @return void
-    */
+    // signal to start game
     void startGame();
     
-    /* signal to quit game
-    @param none
-    @return void
-    */
+    // signal to quit game
     void quitApplication();
     
-    /* signal to show instructions
-    @param none
-    @return void
-    */
+    // signal to show instructions
     void showInstructions();
     
-    /* signal to show options
-    @param none
-    @return return void
-    */
+    // signal to show options
     void showOptionsWindow();
 private:
     QLabel* welcomePage = nullptr;

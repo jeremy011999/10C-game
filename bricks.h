@@ -16,59 +16,63 @@ class brick:public QObject,public QGraphicsPixmapItem
 public:
     brick(int bwidth, int bheight, int bricklevel);
     
-    /* update_hit_brick() emits the signal to update the number of points and adjusts the brick color relative to its strength
-    @param No parameters 
-    @return void, does not return anything
-    */
+    /**
+     * update_hit_brick() emits the signal to update the number of points and adjusts the brick color relative
+     * its strength
+     */
     void update_hit_brick();
     
-    /* destroy_brick() emits signal to update points depending on which brick you hit and removes the item from the scene when hit
-    @param No parameters
-    @return void, does not return anything
-    */
+    /**
+     * destroy_brick() emits signal to update points depending on which brick you hit and removes the item from the scene when hit
+     */
     void destroy_brick();
     
-    /* Description about the function
-    @param No parameters
-    @return void, does not return anything
-    */
+    /**
+     * get right X coordinate of the brick
+     *
+     * @return right X coordinate of brick
+     */
     double getRightX();
     
-    /* Description about the function
-    @param No parameters
-    @return void, does not return anything
-    */
+    /**
+     * get bottom y coordinate of the brick
+     *
+     * @return bottom Y coordinate of brick
+     */
     double getBottomY();
     
-    /* Description about the function
-    @param No parameters
-    @return void, does not return anything
-    */
+    /**
+     * get left X coordinate of the brick
+     *
+     * @return left X coordinate of brick
+     */
     double getLeftX();
    
-    /* Description about the function
-    @param No parameters
-    @return void, does not return anything
-    */
+    /**
+     * get top y coordinate of the brick
+     *
+     * @return top y coordinate of brick
+     */
     double getTopY();
     
-    /* Description about the function
-    @param No parameters
-    @return void, does not return anything
-    */
+    /**
+     * get middle x coordinate of the brick
+     *
+     * @return middle x coordinate of brick
+     */
     double getMiddleX();
     
-    /* Description about the function
-    @param No parameters
-    @return void, does not return anything
-    */
+    /**
+     * get middle y coordinate of the brick
+     *
+     * @return middle y coordinate of brick
+     */
     double getMiddleY();
 
     ~brick();
 signals:
     /* update_points(int pnts) is a signal that is emitted to adjust the points when the bricks are hit
     @param int pnts - number of points to emit in the signal
-    @return
     */
     void update_points(int pnts);
     
