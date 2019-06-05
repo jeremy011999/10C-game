@@ -29,7 +29,7 @@ This project is a game called “IceBreaker”, a spin-off the game “Breakout�
 <img src="Screenshots_and_Sample_Video/Monster2.gif" alt="Ball hits Monster" width=300px>
 
 ##### Powerup Example
-<img src="Screenshots_and_Sample_Video/Monster2.gif" alt="Ball hits Monster" width=300px>
+<img src="Screenshots_and_Sample_Video/fireBall.gif" alt="Ball hits Monster" width=300px>
 
 
 
