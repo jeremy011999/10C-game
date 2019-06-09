@@ -64,7 +64,7 @@ myGUI::myGUI(QObject *parent) : QObject(parent)
     
     QObject::connect(levelWonWindow,SIGNAL(goToLevel(int)),this,SLOT(goToGamePlayWindow(int)));
     
-    QObject::connect(levelWonWindow,SIGNAL(returnToMainWindow()),this,SLOT(goToWelcomeWindow()));
+    QObject::connect(levelWonWindow,SIGNAL(returnToMainWindow()),mygame,SLOT(quitGame()));
     
     //Make the levels button in the levels window switch this to game playing window
     QObject::connect(levelsWindow,SIGNAL(goToLevel(int)),this,SLOT(goToGamePlayWindow(int)));

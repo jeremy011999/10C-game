@@ -338,6 +338,20 @@ void game::clean_up_board()
       focustimer->stop();
       fallingObjectsTimer->stop();
       music->stop();
+      power_up_timer->setText("");
+      snowflakeMeter->set_counter(0);
+      if (flash_animation_timer!=nullptr)
+      {
+          flash_animation_timer->stop();
+          delete flash_animation_timer;
+          flash_animation_timer = nullptr;
+      }
+      if (power_up_time!=nullptr)
+      {
+          power_up_time->stop();
+          delete power_up_time;
+          power_up_time = nullptr;
+      }
   }
 }
 
@@ -380,6 +394,19 @@ void game::a_ball_hit_ground()
 void game::no_more_lives()
 {
     music->stop();
+    if (flash_animation_timer!=nullptr)
+    {
+        flash_animation_timer->stop();
+        snowflakeMeter->set_counter(0);
+        delete flash_animation_timer;
+        flash_animation_timer = nullptr;
+    }
+    if (power_up_time!=nullptr)
+    {
+        power_up_time->stop();
+        delete power_up_time;
+        power_up_time = nullptr;
+    }
     notifications* lifelost_notification = new notifications;
     gamescene->addItem(lifelost_notification);
     fallingObjectsTimer->stop();
@@ -395,7 +422,7 @@ void game::no_more_lives()
     lifelost_notification->display_dead();
     gameOverSound->play();
     QTimer::singleShot(3400,[this](){emit time_to_enter_results_screen(points);
-        reset_game();});
+    reset_game();});
 }
 
 
