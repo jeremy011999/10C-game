@@ -23,6 +23,7 @@ Monster::Monster(double width):x_velocity(0),monster_width(width)
 
 void Monster::move()
 {
+    //checks if scene is present, and consequently moves monster
     if(scene()!=nullptr)
         moveBy(x_velocity,y_velocity);
 }
@@ -59,6 +60,7 @@ void Monster::updateMonster()
         else if(typeid(*items_monster_hit[i])==typeid(paddle))
         {
             paddle* hitpaddle = dynamic_cast<paddle*>(items_monster_hit[i]);
+            //if paddle is hit, activate powerup
             if(!hitpaddle->power_up_paddle_active())
             {
                 scene()->removeItem(this);
@@ -69,6 +71,7 @@ void Monster::updateMonster()
             }
         }
     }
+    //moves monster
     if(!dontmove)
         move();
 }
@@ -113,6 +116,7 @@ void Monster::updateImage()
         livepic = true;
     }
     flashcount++;
+    //checks flash count and provides 20 points icon
     if(flashcount>=6&&flashcount<=8)
     {
         _20pointspic = new QPixmap(":/Game_Media/Pictures/20points.png");
@@ -120,6 +124,7 @@ void Monster::updateImage()
         double scale = monster_width/boundingRect().width();
         setScale(scale);
     }
+    //checks flash count and removes item from scene
     if(flashcount>8)
     {
         scene()->removeItem(this);
