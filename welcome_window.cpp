@@ -71,6 +71,7 @@ void welcome_window::OptionButtonClicked()
 
 void welcome_window::resizeWindow(int sizefactor)
 {
+    //check if sizefactor is 1 and adjust accordingly
     if(sizefactor == 1)
     {
         QString buttonstyle = "QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,175); color: rgb(255, 255, 255);} \
@@ -91,6 +92,7 @@ void welcome_window::resizeWindow(int sizefactor)
         QuitButton->setMinimumSize(300,75);
         QuitButton->setStyleSheet(buttonstyle);
     }
+    //check if sizefactor is 2 and adjust accordingly
     else if(sizefactor==2)
     {
         setMaximumSize(1000,775);
