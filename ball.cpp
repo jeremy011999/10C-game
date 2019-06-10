@@ -83,7 +83,7 @@ void ball::update_ball()
     if((x()<=0&&x_velocity<0)||((x()+ballWidth)>=scene()->width()&&x_velocity>0))
         x_velocity *= (-1);
 
-    //If ball hits cieling switch y velocity
+    //If ball hits ceiling switch y velocity
     if(y()<=0&&y_velocity<0)
         y_velocity *= (-1);
 
@@ -104,6 +104,7 @@ void ball::update_ball()
         if(typeid(*items_ball_hit[i])==typeid(brick))
         {
             brick* hitbrick = dynamic_cast<brick*>(items_ball_hit[i]);
+            //if brick is hit, destroy
             if(is_powered_ball)
             {
                 player->play();
@@ -137,6 +138,7 @@ void ball::update_ball()
             double reflection_angle = 0;
             double ball_pos = this->getMiddleXCoord();
             double paddle_pos = hitpaddle->getMiddleXCoord();
+            //change direction based on coordinates of ball and paddle
             if(ball_pos < paddle_pos)
             {
                 reflection_angle = 100+(140-100)*(paddle_pos-ball_pos)/((hitpaddle->getwidth()+ballWidth/2)/2);
