@@ -14,34 +14,28 @@ class LevelWonWindow : public QWidget
 public:
     LevelWonWindow();
     
-    /* set_level_just_beat(int lvl_just_beat) is responsible for text that notifies you what level you just beat
-    @param int lvl_just_beat - value of the level just beat
-    @return void
-    */
+    /**
+     * set_level_just_beat(int lvl_just_beat) is responsible for text that notifies you what level you just beat
+     *
+     * @param int lvl_just_beat - value of the level just beat
+     */
     void set_level_just_beat(int lvl_just_beat);
 signals:
-    /* returnToMainWindow() is a signal emitted to return to the main screen
-    @param none
-    @return void
-    */
+   
+    //returnToMainWindow() is a signal emitted to return to the main screen    
     void returnToMainWindow();
     
-     /* goToLevel(int lvl) is a signal emitted to go to the next level
-    @param int lvl - level number of next level
-    @return none
-    */
+    /**
+     * goToLevel(int lvl) is a signal emitted to go to the next level
+     *
+     * @param int lvl - level number of next level
+     */
     void goToLevel(int lvl);
 public slots:
-    /* nextLevelButtonClicked() is a slot responsible for managing the clicking of the next level button
-    @param
-    @return
-    */
+    //nextLevelButtonClicked() is a slot responsible for managing the clicking of the next level button
     void nextLevelButtonClicked();
     
-    /* quitButtonClicked() is a slot responsible for managing the clicking of the quit button
-    @param none
-    @return void
-    */
+    // quitButtonClicked() is a slot responsible for managing the clicking of the quit button
     void quitButtonClicked();
 private:
     QVBoxLayout* mainLayout;
