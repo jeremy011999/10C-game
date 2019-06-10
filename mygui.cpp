@@ -148,12 +148,14 @@ void myGUI::resizeAllMyWindowsPlease(int szfactor)
     welcomeWindow->resizeWindow(sizeFactor);
     levelsWindow->resizeWindow(sizeFactor);
     optionsWindow->resizeWindow(sizeFactor);
+    //checks sizefactor and changes size of stacked widget
     if(sizeFactor==1)
     {
         stackedWidget->setMaximumSize(700,600);
         stackedWidget->setMinimumSize(700,600);
         stackedWidget->resize(700,600);
     }
+    //checks sizefactor and changes size of stacked widget
     if(sizeFactor==2)
     {
         stackedWidget->setMaximumSize(1000,775);
