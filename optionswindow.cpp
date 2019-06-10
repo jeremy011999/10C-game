@@ -76,16 +76,20 @@ to better show to the user whether the sound is muted or not
 */
 void optionswindow::change_button()
 {
+    //If muted, sets bool to false
     if (muted)
         muted=false;
+    //Else, sets bool to true
     else {
         muted=true;
     }
+    //If muted, sets mute label to muted
     if (muted)
     {
         Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: "+fontsize+"px; background-color: rgb(200, 10, 10); color: rgb(255, 255, 255);border-style: outset; border-width: 3px;border-radius: 10px; border-color: white}"));
         mute_label->setText("Muted");
     }
+    //Else, sets mute label to unmuted
     else {
         Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: "+fontsize+"px; background-color: rgb(10, 200, 10); color: rgb(255, 255, 255);border-style: outset; border-width: 3px;border-radius: 10px; border-color: white}"));
         mute_label->setText("Unmuted");
@@ -132,6 +136,7 @@ Slot that changes windowsize when set_sizeFactor signal is emitted
 */
 void optionswindow::resizeWindow(int szefactor)
 {
+    //if sizefactor is 1, adjusts window accordingly
     if(szefactor==1)
     {
         QString buttonstyle = "QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,100); color: rgb(255, 255, 255);} \
@@ -142,12 +147,14 @@ void optionswindow::resizeWindow(int szefactor)
 
         Mute->setMinimumSize(200,30);
         Mute->setMaximumSize(200,30);
-
+        
+        //if muted, sets label to muted
         if (muted)
         {
             Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: "+fontsize+"px; background-color: rgb(200, 10, 10); color: rgb(255, 255, 255);border-style: outset; border-width: 3px;border-radius: 10px; border-color: white}"));
             mute_label->setText("Muted");
         }
+        //else, sets label to unmuted
         else {
             Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: "+fontsize+"px; background-color: rgb(10, 200, 10); color: rgb(255, 255, 255);border-style: outset; border-width: 3px;border-radius: 10px; border-color: white}"));
             mute_label->setText("Unmuted");
@@ -173,6 +180,7 @@ void optionswindow::resizeWindow(int szefactor)
         back->setStyleSheet(buttonstyle);
         back->setFixedSize(175,50);
     }
+    //if sizefactor is 2, adjusts window accordingly
     else if(szefactor==2)
     {
         QString buttonstyle = "QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,100); color: rgb(255, 255, 255);} \
@@ -186,12 +194,13 @@ void optionswindow::resizeWindow(int szefactor)
         Mute->setMinimumSize(250,35);
         Mute->setMaximumSize(250,35);
 
-
+        //if muted, sets label to muted
         if (muted)
         {
             Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: "+fontsize+"px; background-color: rgb(200, 10, 10); color: rgb(255, 255, 255);border-style: outset; border-width: 3px;border-radius: 10px; border-color: white}"));
             mute_label->setText("Muted");
         }
+        //else, sets label to unmuted
         else {
             Mute->setStyleSheet(QString("QPushButton {font-family: Courier; font-size: "+fontsize+"px; background-color: rgb(10, 200, 10); color: rgb(255, 255, 255);border-style: outset; border-width: 3px;border-radius: 10px; border-color: white}"));
             mute_label->setText("Unmuted");
