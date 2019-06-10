@@ -269,7 +269,7 @@ private:
     powerUpMeter* snowflakeMeter = nullptr;
     
     //lives label on game window
-    QLabel* lives_label;
+    QLabel* lives_label = nullptr;
     
     //lives keeps track of number of lives
     int lives=3;
@@ -284,16 +284,16 @@ private:
     QMediaPlayer* gameOverSound = nullptr;
     
     //Label that tells powerup time remaining
-    QLabel* power_up_timer;
+    QLabel* power_up_timer = nullptr;
     
     //the amount of time left in a powerup
     int power_time;
     
     //timer that runs during powerup to update time remaining label
-    QTimer* power_up_time;
+    QTimer* power_up_time = nullptr;
     
     //quit button to return to home screen
-    QPushButton* quitButton;
+    QPushButton* quitButton = nullptr;
     
     //Makes positive sound when capturing a snowflake
     QMediaPlayer* snowflakeCaptureSound = nullptr;
@@ -305,7 +305,7 @@ private:
     double monster_prob, life_prob, snow_prob;
     
     //A label that tells user to click spacebar to release ball
-    QGraphicsTextItem* spacebar_instruction_label;
+    QGraphicsTextItem* spacebar_instruction_label = nullptr;
     
     //fontsize of the spacebar instruction, determined by the size of the gamewindow
     int spacebar_instructions_fontsize;
