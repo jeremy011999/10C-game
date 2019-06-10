@@ -9,6 +9,7 @@ Constructor for brick object
 */
 brick::brick(int bwidth,int bheight, int bricklevel):brick_width(bwidth),brick_height(bheight),brick_level(bricklevel),brick_type(bricklevel)
 {
+    //Check if brick level is highest, set pixmap to darkest brick
     if(brick_level==2)
     {
         darkbrick = new QPixmap(":/Game_Media/Pictures/darkbrick.png");
@@ -16,6 +17,7 @@ brick::brick(int bwidth,int bheight, int bricklevel):brick_width(bwidth),brick_h
         scale = brick_width/boundingRect().width();
         setScale(scale);
     }
+    //Check if brick level is medium, set pixmap to medium brick
     else if(brick_level==1)
     {
         mediumbrick = new QPixmap(":/Game_Media/Pictures/mediumbrick.png");
@@ -23,6 +25,7 @@ brick::brick(int bwidth,int bheight, int bricklevel):brick_width(bwidth),brick_h
         scale = brick_width/boundingRect().width();
         setScale(scale);
     }
+    //Check if brick level is lowest, set pixmap to lightest brick
     else if(brick_level==0)
     {
         lightbrick = new QPixmap(":/Game_Media/Pictures/lightbrick.png");
@@ -39,6 +42,7 @@ and removes brick if necessary
 void brick::update_hit_brick()
 {
     emit update_points(10);
+    //Check if brick level is highest, update brick to dark crack
     if(brick_level==2)
     {
         darkcrack = new QPixmap(":/Game_Media/Pictures/darkcrack.png");
@@ -47,13 +51,16 @@ void brick::update_hit_brick()
         setScale(scale);
         --brick_level;
     }
+    //Check if brick level is medium, update brick to medium crack
     else if(brick_level==1)
     {
+        ///Checks if brick level is dark, updates brick to a darker crack
         if(brick_type==2)
         {
             darkcrack2 = new QPixmap(":/Game_Media/Pictures/darkcrack2.png");
             setPixmap(*darkcrack2);
         }
+        //Checks if brick level is medium, updates brick to medium crack
         else if(brick_type==1)
         {
             mediumcrack = new QPixmap(":/Game_Media/Pictures/mediumcrack.png");
@@ -63,6 +70,7 @@ void brick::update_hit_brick()
         setScale(scale);
         --brick_level;
     }
+    //if brick level is light blue, remove item from scene (does not crack)
     else if(brick_level==0)
     {
         scene()->removeItem(this);
@@ -77,6 +85,7 @@ and decrease brick count and increase points
 */
 void brick::destroy_brick()
 {
+    //next if/else statements take care of destroying bricks and sending point signals, depending on brick level  
     if(brick_level==0)
         emit update_points(10);
     else if(brick_level==1)
