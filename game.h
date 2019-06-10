@@ -9,7 +9,6 @@
 #include "powerupmeter.h"
 #include "monster.h"
 #include "snowflakes.h"
-#include "lives_meter.h"
 #include "notifications.h"
 #include <QMediaPlaylist>
 #include <QTime>
