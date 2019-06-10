@@ -20,7 +20,8 @@ class ball:public QObject,public QGraphicsPixmapItem
     Q_OBJECT
 public:
     
-    /* Constructs ball
+    /**
+     * Constructs ball
      *
      * @param size the size of the ball
      */
@@ -29,33 +30,38 @@ public:
     //moves ball
     void move();
 
-    /* gets middle X coordinate of ball
+    /**
+     * gets middle X coordinate of ball
      *
      * @returns middle X coordinate of ball
      */
     qreal getMiddleXCoord();
     
-    /* gets left X coordinate of ball
+    /**
+     * gets left X coordinate of ball
      *
      * @returns left X coordinate of ball
      */
     qreal getLeftX();
     
     
-    /* gets right X coordinate of ball
+    /**
+     * gets right X coordinate of ball
      *
      * @returns right X coordinate of ball
      */
     qreal getRightX();
     
     
-    /* gets top Y coordinate of ball
+    /**
+     * gets top Y coordinate of ball
      *
      * @returns top Y coordinate of ball
      */
     qreal getTopY();
     
-    /* gets bottom Y coordinate of ball
+    /**
+     * gets bottom Y coordinate of ball
      *
      * @returns bottom Y coordinate of ball
      */
@@ -64,7 +70,8 @@ public:
     // turns the ball into powered up fire ball
     void power_up_ball();
     
-    /* Checks if a powerup ball is active
+    /**
+     * Checks if a powerup ball is active
      *
      * @return bool true if powerup ball is active
      */
@@ -73,13 +80,15 @@ public:
     // Toggles sound for ball
     void mute_ball();
     
-    /* set the level of the ball (its speed)
+    /**
+     * set the level of the ball (its speed)
      *
      * @param level of ball
      */
     void set_level(int level);
     
-    /* gets the size of the ball
+    /**
+     * gets the size of the ball
      *
      * @return double size of the ball
      */
