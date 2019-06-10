@@ -38,6 +38,7 @@ sets up event filter to take care of hover_enter and hover_leave events
 */
 bool event_filter1::eventFilter(QObject *obj, QEvent *event)
 {
+    //Checks if you enter hover event, and shows the respective picture of the level
     if (event->type()==QEvent::HoverEnter)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
@@ -46,6 +47,7 @@ bool event_filter1::eventFilter(QObject *obj, QEvent *event)
         emit show_pic1();
         return true;
     }
+    //Checks if you leave hover event, and shows blank level screen
     if (event->type()==QEvent::HoverLeave)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
@@ -72,6 +74,7 @@ sets up event filter to take care of hover_enter and hover_leave events
 */
 bool event_filter2::eventFilter(QObject *obj, QEvent *event)
 {
+    //Checks if you enter hover event, and shows the respective picture of the level
     if (event->type()==QEvent::HoverEnter)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
@@ -80,6 +83,7 @@ bool event_filter2::eventFilter(QObject *obj, QEvent *event)
         emit show_pic2();
         return true;
     }
+    //Checks if you leave hover event, and shows blank level screen
     if (event->type()==QEvent::HoverLeave)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
@@ -106,6 +110,7 @@ sets up event filter to take care of hover_enter and hover_leave events
 */
 bool event_filter3::eventFilter(QObject *obj, QEvent *event)
 {
+    //Checks if you enter hover event, and shows the respective picture of the level
     if (event->type()==QEvent::HoverEnter)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
@@ -114,6 +119,7 @@ bool event_filter3::eventFilter(QObject *obj, QEvent *event)
         emit show_pic3();
         return true;
     }
+    //Checks if you leave hover event, and shows blank level screen
     if (event->type()==QEvent::HoverLeave)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
@@ -140,6 +146,7 @@ sets up event filter to take care of hover_enter and hover_leave events
 */
 bool event_filter4::eventFilter(QObject *obj, QEvent *event)
 {
+    //Checks if you enter hover event, and shows the respective picture of the level
     if (event->type()==QEvent::HoverEnter)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
@@ -148,6 +155,7 @@ bool event_filter4::eventFilter(QObject *obj, QEvent *event)
         emit show_pic4();
         return true;
     }
+    //Checks if you leave hover event, and shows blank level screen
     if (event->type()==QEvent::HoverLeave)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
@@ -174,6 +182,7 @@ sets up event filter to take care of hover_enter and hover_leave events
 */
 bool event_filter5::eventFilter(QObject *obj, QEvent *event)
 {
+    //Checks if you enter hover event, and shows the respective picture of the level
     if (event->type()==QEvent::HoverEnter)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
@@ -182,6 +191,7 @@ bool event_filter5::eventFilter(QObject *obj, QEvent *event)
         emit show_pic5();
         return true;
     }
+    //Checks if you leave hover event, and shows blank level screen
     if (event->type()==QEvent::HoverLeave)
     {
         QHoverEvent *hoverEvent = static_cast<QHoverEvent*>(event);
