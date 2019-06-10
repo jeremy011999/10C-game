@@ -13,7 +13,7 @@ Created by Olivia Heiner, Jeremy Toop, Danya Elgebaly
 <a name="general-info"/>
 
 ## General info
-This project is a game called “IceBreaker”, a spin-off the game “Breakout” by Atari Incorporated, with some additional features, sounds, level variations and various functionalities. The objective of the game is to destroy all the bricks by hitting them with the ball. And in order to do so, you must move the paddle right and left using the arrow keys on your keyboard in order to deflect the bouncing ball. Every time you lose control of the ball and it hits the ground, you lose a life. Also you must avoid falling Monsters, or kill them with the ball. There are various power-ups that can allow you to regain a life or gain more points. There are five different levels and every level has a different visual layout and difficulty level. Once you win one level, you will immediately advance to the next until you finish the game.
+This project is a game called “IceBreaker”, a variation on the game “Breakout” by Atari Incorporated, with some additional features, sounds, level variations and functionalities. The objective of the game is to destroy all the bricks by hitting them with the ball. And in order to do so, you must move the paddle right and left using the arrow keys on your keyboard in order to deflect the bouncing ball. Every time you lose control of the ball and it hits the ground, you lose a life. Also you must avoid falling Monsters, or kill them with the ball. There are various power-ups that can allow you to regain a life or gain more points. There are five different levels and every level has a different visual layout and difficulty level. Once you win one level, you will immediately advance to the next until you finish the game.
 
 <a name="screenshots"/>
 
@@ -40,15 +40,17 @@ This project is a game called “IceBreaker”, a spin-off the game “Breakout�
 * C++ programming language (computer must have compiler for C++)
 * Game is optimized for the smaller window size, but can be enlarged in the game options page
 * Game is cross-platform desktop application optimized for Mac OS and Windows.
+* Game was designed and tested on MacBook Pro with MacOS Version 10.14.
 
 <a name="setup"/>
 
 ## Setup
-In order to run this application, install Qt on your computer and open the project via the .pro file. Once this opens the file and all other cpp files included in the zip, click the green play button to run the game. Click start game to begin playing!
+* In order to run this application, install Qt on your computer and open the project via the .pro file. Once this opens the file and all other cpp files included in the zip, click the green play button to run the game. Click start game to begin playing!
+
 
 <a name="features"/>
 
-## Cool Features
+## Features
 * Options Page and Functionality
 	- The options window contains many of our setting features. From
 	  this window, you can adjust the sound (mute/unmute), change the
