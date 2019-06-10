@@ -22,16 +22,18 @@ class levels_window : public QMainWindow
     Q_OBJECT
 public:
 
-    /*
-    Constructor for levels_window, sets up buttons and pixmap for level preview
-    @param parent: sets parent of levels_window (defaulted to nullptr)
-    */
+    /**
+     * Constructor for levels_window, sets up buttons and pixmap for level preview
+     *
+     * @param parent: sets parent of levels_window (defaulted to nullptr)
+     */
     explicit levels_window(QWidget *parent = nullptr);
     
-    /*
-    handles mouse hover events to preview picture of level that is being hovered over
-    @param e: refers to any hover event that is currently being performed on level select buttons
-    */
+    /**
+     * handles mouse hover events to preview picture of level that is being hovered over
+     *
+     * @param e: refers to any hover event that is currently being performed on level select buttons
+     */
     void hoverEvent(QHoverEvent* e);
     
 signals:
@@ -39,18 +41,20 @@ signals:
     //lets gui know to go back to main welcome window
     void returnToMainWindow();
     
-    /*
-    lets game know to start and what level to start at
-    @param lvl: refers to level number that game will start at (1-5)
-    */
+    /**
+     * lets game know to start and what level to start at
+     *
+     * @param lvl: refers to level number that game will start at (1-5)
+     */
     void goToLevel(int lvl);
     
 public slots:
 
-    /*
-    resizes window to either large or small icons
-    @param sizeFactor: ranges from 1-2 and lets window know whether icons should be small(1) or large(2)
-    */
+    /**
+     * resizes window to either large or small icons
+     *
+     * @param sizeFactor: ranges from 1-2 and lets window know whether icons should be small(1) or large(2)
+     */
     void resizeWindow(int sizeFactor);
 private:
     QVBoxLayout* mainLayout = nullptr;
