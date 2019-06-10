@@ -309,6 +309,9 @@ private:
     
     //fontsize of the spacebar instruction, determined by the size of the gamewindow
     int spacebar_instructions_fontsize;
+    
+    //boolean that tells if the game is being played
+    bool game_active;
 };
 
 #endif // GAME_H

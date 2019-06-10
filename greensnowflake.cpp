@@ -36,15 +36,18 @@ void greenSnowflake::updateSnowflake()
         //Check if the collision was with a paddle
         if(typeid(*items_monster_hit[i])==typeid(paddle))
         {
-            emit green_snowflake_captured();
-            plusLifePic = new QPixmap(":/Game_Media/Pictures/plusLife.png");
-            setPixmap(*plusLifePic);
-            double scale = flake_size*3.5/boundingRect().width();
-            setScale(scale);
-            setPos(x(),scene()->height()-40-scale*boundingRect().height());
-            snowflakeTimer->stop();
-            QTimer::singleShot(2000, this, SLOT(snowflakeHit()));
-            return;
+            if(dynamic_cast<paddle*>(items_monster_hit[i])->ball_is_stuck()==false&&dynamic_cast<paddle*>(items_monster_hit[i])->get_lives()<3)
+            {
+                emit green_snowflake_captured();
+                plusLifePic = new QPixmap(":/Game_Media/Pictures/plusLife.png");
+                setPixmap(*plusLifePic);
+                double scale = flake_size*3.5/boundingRect().width();
+                setScale(scale);
+                setPos(x(),scene()->height()-40-scale*boundingRect().height());
+                snowflakeTimer->stop();
+                QTimer::singleShot(2000, this, SLOT(snowflakeHit()));
+                return;
+            }
         }
     }
     //otherwise keep moving

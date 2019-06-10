@@ -31,9 +31,12 @@ void snowflake::updateSnowflake()
         //Check if the collision was with a paddle
         if(typeid(*items_monster_hit[i])==typeid(paddle))
         {
-            emit snowflake_captured();
-            snowflakeHit();
-            return;
+            if(dynamic_cast<paddle*>(items_monster_hit[i])->ball_is_stuck()==false)
+            {
+                emit snowflake_captured();
+                snowflakeHit();
+                return;
+            }
         }
     }
     move();

@@ -117,3 +117,18 @@ void paddle::stick_ball_to_paddle()
 {
     stick_ball=true;
 }
+
+bool paddle::ball_is_stuck() const
+{
+    return stick_ball;
+}
+
+void paddle::set_lives(int life)
+{
+    lives = life;
+}
+
+int paddle::get_lives()
+{
+    return lives;
+}

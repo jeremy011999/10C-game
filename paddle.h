@@ -62,6 +62,27 @@ public:
     
     //sets the bool stick_ball to true
     void stick_ball_to_paddle();
+    
+    /**
+     * check if ball is stuck to paddle
+     *
+     * @return bool true if ball is stuck to paddle
+     */
+    bool ball_is_stuck() const;
+    
+    /**
+     * set lives of paddle
+     *
+     * @param lives in game
+     */
+    void set_lives(int life);
+    
+    /**
+     * gets lives of paddle
+     *
+     * @return lives in game
+     */
+    int get_lives();
 signals:
 
     //connect to game to know that game is over and to clean up paddle
@@ -73,11 +94,13 @@ public slots:
 
     //sets paddle back to regular size and is_powered_paddle to false
     void back_to_regular_paddle();
+    
 private:
     int paddle_width;
     int paddle_height;
     bool is_powered_paddle;
     bool stick_ball = false;
+    int lives;
 };
 
 #endif // PADDLE_H

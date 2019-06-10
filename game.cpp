@@ -134,11 +134,14 @@ game::game()
     difficulty(1);
 
     //set the fontsize of the "click spacebar" instructions
-    spacebar_instructions_fontsize = 20;
+    spacebar_instructions_fontsize = 14;
 }
 
 void game::run_game(int lvl)
 {
+    //the game is active
+    game_active = true;
+    
     //set the game level
     game_level=lvl;
 
@@ -162,6 +165,7 @@ void game::run_game(int lvl)
 
     //make paddle and add to scene
     mypaddle = new paddle(.2*gamescene->width());
+    mypaddle->set_lives(lives);
     gamescene->addItem(mypaddle);
 
     //connect paddle to killedByMonster() slot for when monster hits paddle
@@ -261,7 +265,7 @@ void game::update_score(int pnts)
 void game::update_meter_on_snowflake_capture()
 {
     //if a powerup isn't already active, update the powerup meter
-    if(!some_power_up_is_active())
+    if(!some_power_up_is_active()&&!mypaddle->ball_is_stuck())
     {
         snowflakeCaptureSound->play();
         snowflakeMeter->update_counter();
@@ -272,11 +276,12 @@ void game::update_meter_on_snowflake_capture()
 
 void game::update_lives_on_green_snowflake_capture()
 {
-    if(lives==3)
+    if(lives==3||mypaddle->ball_is_stuck())
         return;
     else {
         snowflakeCaptureSound->play();
         lives++;
+        mypaddle->set_lives(lives);
         lives_label->setText("Lives: " + QString::number(lives));
     }
 }
@@ -373,6 +378,7 @@ void game::a_ball_hit_ground()
   if(ballcount==0)
   {
     lives--;
+    mypaddle->set_lives(lives);
     lives_label->setText("Lives: " + QString::number(lives));
       
     //if no lives left, run no_more_lives()
@@ -421,14 +427,20 @@ void game::no_more_lives()
     }
     lifelost_notification->display_dead();
     gameOverSound->play();
-    QTimer::singleShot(3400,[this](){emit time_to_enter_results_screen(points);
-    reset_game();});
+    QTimer::singleShot(3400,[this](){
+        if(game_active){
+            emit time_to_enter_results_screen(points);
+            reset_game();
+            game_active=false;
+        }
+        });
 }
 
 
 void game::killedByMonster()
 {
     lives--;
+    mypaddle->set_lives(lives);
     lives_label->setText("Lives: " + QString::number(lives));
     if(lives == 0)
     {
@@ -445,6 +457,7 @@ void game::killedByMonster()
 void game::quitGame()
 {
     emit time_to_exit_game_screen();
+    game_active = false;
 }
 
 /*
@@ -853,7 +866,7 @@ void game::resizeGame(int size_factor)
         score_label->setMaximumSize(200,50);
         power_up_timer->setMinimumSize(200,100);
         power_up_timer->setMaximumSize(200,100);
-        spacebar_instructions_fontsize = 20;
+        spacebar_instructions_fontsize = 14;
     }
     else {
         view->setFixedSize(600,750);
@@ -868,7 +881,7 @@ void game::resizeGame(int size_factor)
         score_label->setMaximumSize(200*1.5,50*1.5);
         power_up_timer->setMinimumSize(200*1.5,100*1.5);
         power_up_timer->setMaximumSize(200*1.5,100*1.5);
-        spacebar_instructions_fontsize = 30;
+        spacebar_instructions_fontsize = 25;
     }
 }
 
