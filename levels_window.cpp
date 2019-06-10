@@ -109,6 +109,7 @@ slot to resize window based on optionswindow and connected in gui
 */
 void levels_window::resizeWindow(int sizeFactor)
 {
+    // Check if size factor of screen is 1 (small), and adjust accordingly
     if(sizeFactor==1)
     {
         QString buttonstyle = "QPushButton {font-family: Courier; font-size: 20px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,100); color: rgb(255, 255, 255);} \
@@ -137,6 +138,7 @@ void levels_window::resizeWindow(int sizeFactor)
         picture->setMaximumSize(400,500);
         picture->setMinimumSize(400,500);
     }
+    //Check if size factor of screen is 2 (large), and adjust accordingly
     if(sizeFactor==2)
     {
         QString buttonstyle = "QPushButton {font-family: Courier; font-size: 30px; border-style: outset; border-width: 3px;border-radius: 10px; border-color: white; background-color: rgba(50, 100, 150,100); color: rgb(255, 255, 255);} \
