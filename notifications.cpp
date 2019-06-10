@@ -38,8 +38,10 @@ void notifications::display_dead()
 void notifications::dying_animation()
 {
     deadcounter++;
+    //checks counter and sets opacity of animation
     if(deadcounter<32)
         setOpacity(.03+deadcounter*.03);
+    //else, ends timer
     else {
         dyingtimer->stop();
     }
