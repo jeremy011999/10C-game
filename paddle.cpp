@@ -10,6 +10,7 @@ paddle::paddle(double width):paddle_width(width),is_powered_paddle(false)
 
 void paddle::move_left()
 {
+    //checks positioning of paddle and moves left
     if (x()<=2)
         return;
     else
@@ -20,6 +21,7 @@ void paddle::move_left()
 
 void paddle::move_right()
 {
+    //checks positioning of paddle and moves right
     if(x()+paddle_width>=scene()->width()-2)
         return;
     else
